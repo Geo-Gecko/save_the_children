@@ -44,7 +44,7 @@ var cbounds;
 
 
     function refreshCounts() {
-        d3.select("#subCounty-count").text(global.subCountyCount);
+        d3.select("#subCounty-count").text(121);
         d3.select("#household-count").text(global.householdCount.toLocaleString());
 
         _selectedDataset = dataset1;
@@ -958,7 +958,7 @@ var cbounds;
             updateLeftPanel(subCountyList, dataset1);
 
             if (flag === "subCounty") {
-                d3.select("#subCounty-count").text(global.selectedsubCounty.length);
+                d3.select("#subCounty-count").text(121);
             } else {
                 // global.selectedsubCounty = subCountyList;
                 d3.select("#subCounty-count").text(subCountyList.length);
