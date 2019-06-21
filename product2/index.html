@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html wtx-context="E6268914-53E9-4648-8CB6-74A8C971885E">
+
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>Save the Children Product 2</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+  <script src='./js/jquery.min.js'></script>
+  <!-- <script src="./js/d3.v3.min.js"></script> -->
+  <script data-require="d3@3.5.3" data-semver="3.5.3" src="//cdnjs.cloudflare.com/ajax/libs/d3/3.5.3/d3.js"></script>
+  <!-- <script src="https://d3js.org/d3.v4.min.js"></script> -->
+
+
+  <link rel="stylesheet" href="./css/leaflet.css">
+  <link rel="stylesheet" href="./css/L.css">
+  <link href="./css/subcounties.css" rel="Stylesheet" type="text/css">
+  <link href="./css/nouislider.css" rel="Stylesheet" type="text/css">
+
+  <!--[if lte IE 8]><link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.2/leaflet.ie.css" /><![endif]-->
+
+  <style>
+    body {
+      padding: 0;
+      margin: 0;
+    }
+
+    html,
+    body,
+    #map {
+      height: 100%;
+    }
+
+    .lorem {
+      font-style: italic;
+      color: #AAA;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="overlay1" style="display:none;">
+    <span style="position:absolute;top:5%;left:90%"><i class="glyphicon glyphicon-remove"></i></span>
+    <img src="./data/Info_svg.svg" alt="DIP Info">
+  </div>
+
+  <rightbutton id="righthelpbutton" role="button" class="btn btn-primary">Filters <span
+      class="glyphicon glyphicon-chevron-right"></span><span class="glyphicon glyphicon-chevron-right"></span>
+  </rightbutton>
+
+  <leftbutton id="lefthelpbutton" role="button" class="btn btn-primary"><span
+      class="glyphicon glyphicon-chevron-left"></span><span class="glyphicon glyphicon-chevron-left"></span> Subcounties
+  </leftbutton>
+
+  <div id="map"></div>
+  <div id="sidebar-right">
+    <span>
+      <div>
+        <span class="custom-count-header" style="height:23.2px;">
+          <span>Schools </span>
+        </span>
+        <!--
+            <span class="custom-count-header" style="height:23.2px; font-size: 16px;">
+               <span>Population </span>
+            </span>         
+-->
+      </div>
+      <div style="width:100%;">
+        <div class="custom-count">
+          <span id="subCounty-count">0</span>
+        </div>
+        <!--
+            <div class="custom-count">
+                <span id="population-count">0</span>
+            </div>
+-->
+      </div>
+    </span>
+
+    <p class="custom-list-headero"><span style="border-radius: 10px;">
+        <i id="d3-map-refresh" style=""><img src="./css/images/Reset.svg"
+            style="border-radius: 50px;width:30px;height:30px; box-shadow: 0px 5px 5px grey;" title="Reset Filters"
+            id="reset"></i></span>
+      <span style="border-radius: 10px;"><i id="d3-map-info"><img src="./css/images/info.svg"
+            style="border-radius: 50px;width:30px;height:30px; box-shadow: 0px 5px 5px grey;" id="info"
+            title="DIP Info"></i></span>
+    </p>
+
+    <div class="col-md-12" style="overflow-y:auto;" id="filters">
+      <div>
+        <div class="col-md-12">
+          <p class="custom-list-header">KPIs<i class="count"></i><i class="glyphicon glyphicon-chevron-down"></i></p>
+          <div id="socio-economic-list" class="custom-list" style="overflow-y:auto;max-height: 500px;"></div>
+        </div>
+      </div>
+    </div>
+    <div id='logo' style="position: relative; bottom: 0px;">
+      <a href="https://www.geogecko.com/" target="_blank">
+        <img src="./data/Logo_full_no_text.svg" alt="Geo Gecko" style="width:10em; height:4em;">
+      </a>
+    </div>
+  </div>
+  <div id="sidebar-left">
+    <div>
+      <p id="districtHeader" class="custom-list-header-leftList">School KPI Statistics</p>
+    </div>
+    <div id="district-subcounty-list" class="custom-list-left">
+    </div>
+    <div id="chart"></div>
+
+  </div>
+
+  <script src="./js/leaflet.js"></script>
+  <script src="./js/L.js"></script>
+  <script src="./js/nouislider.js"></script>
+  <script src='./js/L.Control.Button.js'></script>
+
+  <script>
+    var map = new L.Map("map", {
+      center: [1.367, 32.105],
+      zoom: 8.5,
+      zoomSnap: 0.25,
+      zoomControl: false
+    });
+
+    // var OpenStreetMap_Mapnik = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    //   // maxZoom: 19,
+    //   attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    // }).addTo(map);
+
+    // var layerOSM = L.tileLayer('https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png', {
+    //   attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="http://cartodb.com/attributions">CartoDB</a>',
+    //   subdomains: 'abcd',
+    //   maxZoom: 19
+    // }).addTo(map);
+
+
+    //   var CartoDB_Positron = L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png', {
+    // attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
+    // subdomains: 'abcd'
+    // maxZoom: 19
+    // }).addTo(map);
+
+    map.scrollWheelZoom.disable();
+		map.doubleClickZoom.disable();
+		map.boxZoom.disable();
+		map.keyboard.disable();
+		map.touchZoom.disable();
+		map.dragging.disable();
+
+    var leftSidebar = L.control.sidebar('sidebar-left', {
+      position: 'left'
+    });
+    map.addControl(leftSidebar);
+
+    var rightSidebar = L.control.sidebar('sidebar-right', {
+      position: 'right'
+    });
+    map.addControl(rightSidebar);
+
+    leftSidebar.toggle();
+    rightSidebar.toggle();
+
+    $("#distStats").hide();
+    $.fn.center = function () {
+      this.css("position", "absolute");
+      this.css("top", Math.max(0, (
+          ($(window).height() - $(this).outerHeight()) / 2) +
+        $(window).scrollTop()) + "px");
+      this.css("left", Math.max(0, (
+          ($(window).width() - $(this).outerWidth()) / 2) +
+        $(window).scrollLeft()) + "px");
+      return this;
+    }
+    $("#overlay").show();
+    $("#overlay1").hide();
+    $("#overlay-content").show().center();
+
+    $("#play").on("click", function () {
+      $("#overlay").fadeOut();
+      $("#overlay-content").fadeOut();
+    });
+  </script>
+
+
+  <script src="./js/L.D3SvgOverlay.min.js"></script>
+  <script src="./js/topojson.v1.min.js"></script>
+  <script src="./js/queue.v1.min.js"></script>
+  <script src="./js/kpi_old.js"></script>
+
+
+</body>
+
+</html>
