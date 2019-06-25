@@ -1,0 +1,121 @@
+Organisation_Name,s_city_id,School,Is_the_Support_for_Primary_School_or_AEP_centre_hosted_by_the_school?,e_city_id,Pathway,Transition_Pathway,s_lat,s_lon,e_lat,e_lon
+Finn Church Aid,1,Abiriamajo Primary School,Primary School,1,Transition,,3.381913,31.29464,-0.003620813,31.70526083
+Plan International Uganda,2,Agomvusus Primary School,Primary School,2,Transition,,2.99755,31.40893,0.798625536,31.76057555
+APPCO,3,Alaba Primary School,Primary School,3,Transition,,3.526745,31.34907,-0.723041592,30.64679258
+Finn Church Aid,4,Ambia Primary School,Primary School,4,Transition,,3.364688,31.35212,-0.634752835,31.01652715
+AVSI + Luigi Institute of Higher Education,5,Apyeta Primary School,Primary School,5,Transition,,3.371038,32.4469,2.490624133,32.41623954
+ZOA + Palm Corps,6,Ariaze Primary School,Primary School,6,Transition,,3.130247,31.27149,-0.091785698,33.43277764
+ZOA + Palm Corps,7,Away Primary School,Primary School,7,Transition,,3.22384,31.28152,2.661517197,30.05134605
+AVSI + Luigi Institute of Higher Education,1,Abiriamajo Primary School,Primary School,8,Referral,,3.381913,31.29464,2.615629772,31.16970368
+APPCO,2,Agomvusus Primary School,Primary School,9,Referral,,2.99755,31.40893,0.890197387,29.68025452
+Norwegian Refugee Council,3,Alaba Primary School,AEP centre,10,Referral,,3.526745,31.34907,3.392265993,30.89230957
+AVSI + Luigi Institute of Higher Education,4,Ambia Primary School,Primary School,11,Referral,,3.364688,31.35212,-0.552864204,32.3103769
+War Child Canada,5,Apyeta Primary School,AEP centre,12,Referral,,3.371038,32.4469,2.057938654,32.11123236
+Save the Children International,6,Ariaze Primary School,AEP centre,13,Referral,Belle,3.130247,31.27149,2.607774543,32.33768974
+APPCO,7,Away Primary School,Primary School,14,Referral,,3.22384,31.28152,0.073897117,34.88191525
+Save the Children International,1,Abiriamajo Primary School,AEP centre,15,Referral,Bongilo,3.381913,31.29464,2.559696697,33.1129067
+Finn Church Aid,8,Bright Light Primary School,AEP centre,1,Transition,,3.484363,31.39079,-0.003620813,31.70526083
+War Child Canada,9,Budri Primary School,AEP centre,2,Transition,,3.149502,31.24843,0.798625536,31.76057555
+AVSI + Luigi Institute of Higher Education,10,Canaan Primary School,Primary School,3,Transition,,3.367746,32.44124,-0.723041592,30.64679258
+War Child Canada,11,Chinyi Primary School,AEP centre,4,Transition,,3.471714,31.62136,-0.634752835,31.01652715
+Finn Church Aid,12,Dradranga Primary School,Primary School,5,Transition,,3.362877,31.39265,2.490624133,32.41623954
+Norwegian Refugee Council,13,Eden Primary School,AEP centre,6,Transition,,3.412344,31.58498,-0.091785698,33.43277764
+ZOA + Palm Corps,14,Emmanuel Primary School,Primary School,7,Transition,,3.266808,31.27263,2.661517197,30.05134605
+Plan International Uganda,8,Bright Light Primary School,Primary School,8,Referral,,3.484363,31.39079,2.615629772,31.16970368
+ZOA + Palm Corps,9,Budri Primary School,Primary School,9,Referral,,3.149502,31.24843,0.890197387,29.68025452
+ZOA + Palm Corps,10,Canaan Primary School,Primary School,10,Referral,,3.367746,32.44124,3.392265993,30.89230957
+Plan International Uganda,11,Chinyi Primary School,Primary School,11,Referral,,3.471714,31.62136,-0.552864204,32.3103769
+APPCO,12,Dradranga Primary School,Primary School,12,Referral,,3.362877,31.39265,2.057938654,32.11123236
+Finn Church Aid,13,Eden Primary School,AEP centre,13,Referral,,3.412344,31.58498,2.607774543,32.33768974
+Finn Church Aid,14,Emmanuel Primary School,Primary School,14,Referral,,3.266808,31.27263,0.073897117,34.88191525
+Finn Church Aid,8,Bright Light Primary School,AEP centre,15,Referral,,3.484363,31.39079,2.559696697,33.1129067
+Finn Church Aid,15,HillTop Primary School,Primary School,1,Transition,,3.405797,31.41337,-0.003620813,31.70526083
+Finn Church Aid,16,Hope Primary School,Primary School,2,Transition,,3.40188,31.32689,0.798625536,31.76057555
+ZOA + Palm Corps,17,Hope Primary School,Primary School,3,Transition,,3.095877,31.27772,-0.723041592,30.64679258
+War Child Canada,18,Iboa Primary Schoool,AEP centre,4,Transition,,3.05074,31.31307,-0.634752835,31.01652715
+ZOA + Palm Corps,19,Imvepi Primary School,Primary School,5,Transition,,3.208187,31.27837,2.490624133,32.41623954
+ZOA + Palm Corps,20,Inyau Primary School,Primary School,6,Transition,,3.263688,31.25081,-0.091785698,33.43277764
+War Child Canada,21,Itula Primary School,AEP centre,7,Transition,,3.500916,31.67091,2.661517197,30.05134605
+Plan International Uganda,15,HillTop Primary School,Primary School,8,Referral,,3.405797,31.41337,2.615629772,31.16970368
+War Child Canada,16,Hope Primary School,AEP centre,9,Referral,,3.40188,31.32689,0.890197387,29.68025452
+War Child Canada,17,Hope Primary School,Primary School,10,Referral,,3.095877,31.27772,3.392265993,30.89230957
+War Child Canada,18,Iboa Primary Schoool,AEP centre,11,Referral,,3.05074,31.31307,-0.552864204,32.3103769
+Windle International Uganda,19,Imvepi Primary School,Primary School,12,Referral,,3.208187,31.27837,2.057938654,32.11123236
+Finn Church Aid,20,Inyau Primary School,AEP centre,13,Referral,,3.263688,31.25081,2.607774543,32.33768974
+Finn Church Aid,21,Itula Primary School,Primary School,14,Referral,,3.500916,31.67091,0.073897117,34.88191525
+War Child Canada,15,HillTop Primary School,AEP centre,15,Referral,,3.405797,31.41337,2.559696697,33.1129067
+War Child Canada,22,Kajaho Primary School,AEP centre,1,Transition,,-0.79948,30.81382,-0.003620813,31.70526083
+Windle International Uganda,23,Kakoni A Primary School,Primary School,2,Transition,,0.335505,31.08492,0.798625536,31.76057555
+Save the Children International,24,Kali Central Primary School,AEP centre,3,Transition,Kali Central,3.184237,31.1785,-0.723041592,30.64679258
+Windle International Uganda,25,Kasonga Primary School,Primary School,4,Transition,,1.177166,30.75062,-0.634752835,31.01652715
+ZOA + Palm Corps,26,Katiku Primary School,Primary School,5,Transition,,3.102667,31.29945,2.490624133,32.41623954
+War Child Canada,27,Kayenje II Primary School,AEP centre,6,Transition,,-0.83551,30.85725,-0.091785698,33.43277764
+Catholic Relief Services,28,Kena Valley Primary School,Primary School,7,Transition,,3.531718,31.36465,2.661517197,30.05134605
+Windle International Uganda,22,Kajaho Primary School,Primary School,8,Referral,,-0.79948,30.81382,2.615629772,31.16970368
+Windle International Uganda,23,Kakoni A Primary School,Primary School,9,Referral,,0.335505,31.08492,0.890197387,29.68025452
+Plan International Uganda,24,Kali Central Primary School,Primary School,10,Referral,,3.184237,31.1785,3.392265993,30.89230957
+Finn Church Aid,25,Kasonga Primary School,AEP centre,11,Referral,,1.177166,30.75062,-0.552864204,32.3103769
+Finn Church Aid,26,Katiku Primary School,Primary School,12,Referral,,3.102667,31.29945,2.057938654,32.11123236
+Finn Church Aid,27,Kayenje II Primary School,Primary School,13,Referral,,-0.83551,30.85725,2.607774543,32.33768974
+Finn Church Aid,28,Kena Valley Primary School,AEP centre,14,Referral,,3.531718,31.36465,0.073897117,34.88191525
+Catholic Relief Services,22,Kajaho Primary School,Primary School,15,Referral,,-0.79948,30.81382,2.559696697,33.1129067
+Save the Children International,29,Kyempango Primary School,AEP centre,1,Transition,,-0.99562,30.73266,-0.003620813,31.70526083
+ZOA + Palm Corps,30,Lanya Primary School,Primary School,2,Transition,,3.233338,31.25375,0.798625536,31.76057555
+APPCO,31,Layamo Agwata Primary School,Primary School,3,Transition,,3.342079,32.76101,-0.723041592,30.64679258
+Catholic Relief Services,32,Lokopio Primary School,Primary School,4,Transition,,3.528457,31.31937,-0.634752835,31.01652715
+ZOA + Palm Corps,33,Lugbari Primary School,Primary School,5,Transition,,3.273152,31.2207,2.490624133,32.41623954
+AVSI + Luigi Institute of Higher Education,34,Lugwar Primary School,Primary School,6,Transition,,3.436056,32.58093,-0.091785698,33.43277764
+War Child Canada,35,Luru Primary School,AEP centre,7,Transition,,3.187513,31.19721,2.661517197,30.05134605
+Finn Church Aid,29,Kyempango Primary School,AEP centre,8,Referral,,-0.99562,30.73266,2.615629772,31.16970368
+Finn Church Aid,30,Lanya Primary School,Primary School,9,Referral,,3.233338,31.25375,0.890197387,29.68025452
+Norwegian Refugee Council,31,Layamo Agwata Primary School,AEP centre,10,Referral,,3.342079,32.76101,3.392265993,30.89230957
+War Child Canada,32,Lokopio Primary School,AEP centre,11,Referral,,3.528457,31.31937,-0.552864204,32.3103769
+Save the Children International,33,Lugbari Primary School,AEP centre,12,Referral,,3.273152,31.2207,2.057938654,32.11123236
+Save the Children International,34,Lugwar Primary School,AEP centre,13,Referral,,3.436056,32.58093,2.607774543,32.33768974
+Windle International Uganda,35,Luru Primary School,Primary School,14,Referral,,3.187513,31.19721,0.073897117,34.88191525
+Windle International Uganda,29,Kyempango Primary School,Primary School,15,Referral,,-0.99562,30.73266,2.559696697,33.1129067
+Finn Church Aid,36,Mengo Primary School,Primary School,1,Transition,,3.388912,31.33012,-0.003620813,31.70526083
+War Child Canada,37,Moroni Primary School,AEP centre,2,Transition,,3.409092,31.58463,0.798625536,31.76057555
+Windle International Uganda,38,Ngurwe Primary School,Primary School,3,Transition,,1.175488,30.76068,-0.723041592,30.64679258
+Finn Church Aid,39,Nipata Primary School,AEP centre,4,Transition,,3.385635,31.30983,-0.634752835,31.01652715
+Finn Church Aid,40,Nipata Primary School,Primary School,5,Transition,,3.385635,31.30983,2.490624133,32.41623954
+Windle International Uganda,41,Nyamiganda Primary School,Primary School,6,Transition,,1.134543,30.74092,-0.091785698,33.43277764
+War Child Canada,42,Nyarugug Primary School,AEP centre,7,Transition,,0.348932983,30.52893141,2.661517197,30.05134605
+Norwegian Refugee Council,36,Mengo Primary School,AEP centre,8,Referral,,3.388912,31.33012,2.615629772,31.16970368
+APPCO,37,Moroni Primary School,Primary School,9,Referral,,3.409092,31.58463,0.890197387,29.68025452
+APPCO,38,Ngurwe Primary School,Primary School,10,Referral,,1.175488,30.76068,3.392265993,30.89230957
+APPCO,39,Nipata Primary School,Primary School,11,Referral,,3.385635,31.30983,-0.552864204,32.3103769
+Street Child + African Women and Youth Action Development (AWYAD),40,Nipata Primary School,Primary School,12,Referral,,3.385635,31.30983,2.057938654,32.11123236
+APPCO,41,Nyamiganda Primary School,Primary School,13,Referral,,1.134543,30.74092,2.607774543,32.33768974
+Save the Children International,42,Nyarugug Primary School,AEP centre,14,Referral,,0.348932983,30.52893141,0.073897117,34.88191525
+War Child Canada,36,Mengo Primary School,AEP centre,15,Referral,,3.388912,31.33012,2.559696697,33.1129067
+Finn Church Aid,43,Para Primary School,AEP centre,1,Transition,,3.405177,31.37442,-0.003620813,31.70526083
+Finn Church Aid,44,Para Primary School,Primary School,2,Transition,,1.18018,30.77316,0.798625536,31.76057555
+Save the Children International,45,Pasu Primary School,AEP centre,3,Transition,Pasu Primary,3.149483,31.24836,-0.723041592,30.64679258
+AVSI + Luigi Institute of Higher Education,46,Progressive Primary School,Primary School,4,Transition,,3.109412,32.5306,-0.634752835,31.01652715
+Finn Church Aid,47,Rock City Primary School,Primary School,5,Transition,,3.392468,31.33868,2.490624133,32.41623954
+Save the Children International,48,Romogi Primary School,AEP centre,6,Transition,Romogi Primary,3.165987,31.21375,-0.091785698,33.43277764
+Save the Children International,49,Rwamwanja Primary School,AEP centre,7,Transition,,-0.83551,30.85725,2.661517197,30.05134605
+Windle International Uganda,43,Para Primary School,Primary School,8,Referral,,3.405177,31.37442,2.615629772,31.16970368
+Finn Church Aid,44,Para Primary School,Primary School,9,Referral,,1.18018,30.77316,0.890197387,29.68025452
+Plan International Uganda,45,Pasu Primary School,Primary School,10,Referral,,3.149483,31.24836,3.392265993,30.89230957
+Finn Church Aid,46,Progressive Primary School,Primary School,11,Referral,,3.109412,32.5306,-0.552864204,32.3103769
+Finn Church Aid,47,Rock City Primary School,AEP centre,12,Referral,,3.392468,31.33868,2.057938654,32.11123236
+War Child Canada,48,Romogi Primary School,AEP centre,13,Referral,,3.165987,31.21375,2.607774543,32.33768974
+ZOA + Palm Corps,49,Rwamwanja Primary School,Primary School,14,Referral,,-0.83551,30.85725,0.073897117,34.88191525
+APPCO,43,Para Primary School,Primary School,15,Referral,,3.405177,31.37442,2.559696697,33.1129067
+Norwegian Refugee Council,50,Vurra Bileafe Primary School,AEP centre,1,Transition,,3.475668,31.62492,-0.003620813,31.70526083
+Save the Children International,51,Waka Primary School,AEP centre,2,Transition,,3.497401,31.67019,0.798625536,31.76057555
+Norwegian Refugee Council,52,Wanguru Primary School,AEP centre,3,Transition,,3.412344,31.58498,-0.723041592,30.64679258
+ZOA + Palm Corps,53,Wanguru Primary School,Primary School,4,Transition,,3.475668,31.62492,-0.634752835,31.01652715
+ZOA + Palm Corps,54,Wanguru Primary School,Primary School,5,Transition,,3.149483,31.24836,2.490624133,32.41623954
+Norwegian Refugee Council,55,Wanyange Primary School,AEP centre,6,Transition,,3.38742,31.56715,-0.091785698,33.43277764
+AVSI + Luigi Institute of Higher Education,56,World View Nursery and Primary School,Primary School,7,Transition,,3.367746,32.44124,2.661517197,30.05134605
+ZOA + Palm Corps,50,Vurra Bileafe Primary School,Primary School,8,Referral,,3.475668,31.62492,2.615629772,31.16970368
+APPCO,51,Waka Primary School,Primary School,9,Referral,,3.497401,31.67019,0.890197387,29.68025452
+ZOA + Palm Corps,52,Wanguru Primary School,Primary School,10,Referral,,3.412344,31.58498,3.392265993,30.89230957
+Finn Church Aid,53,Wanguru Primary School,AEP centre,11,Referral,,3.475668,31.62492,-0.552864204,32.3103769
+Finn Church Aid,54,Wanguru Primary School,Primary School,12,Referral,,3.149483,31.24836,2.057938654,32.11123236
+Finn Church Aid,55,Wanyange Primary School,Primary School,13,Referral,,3.38742,31.56715,2.607774543,32.33768974
+Norwegian Refugee Council,56,World View Nursery and Primary School,AEP centre,14,Referral,,3.367746,32.44124,0.073897117,34.88191525
+War Child Canada,50,Vurra Bileafe Primary School,AEP centre,15,Referral,,3.475668,31.62492,2.559696697,33.1129067
