@@ -35,9 +35,10 @@
        margin-right: 10px;
        margin-bottom: 25px;
        z-index: 1000;
-       max-width: 50%;
-       /* max-width: 350px; */
-       max-height: 515px;
+       /* max-width: 50%; */
+       max-width: 350px;
+       /* max-height: 515px; */
+       max-height: 90%;
        overflow-y: auto;
        border-top: 3px solid #33C3F0;
        border-bottom: 3px solid #33C3F0;
@@ -111,7 +112,7 @@
        </div> -->
        <div id="legend"></div>
        <p>
-         <strong>Highlight by organisation</strong>
+         <strong>Highlight by Responsible Agency</strong>
        </p>
        <div class="row">
          <div id='dropDownContainer' class="six columns">
@@ -122,13 +123,13 @@
          </div>
        </div>
 
+       <hr>
+
        <p>
-         Click on a point
+         Click on a point to show additional information below.
        </p>
 
-       <div id="sidebar-content">
-         Clicked feature
-       </div>
+       <div id="sidebar-content"></div>
 
 
      </div>
@@ -232,7 +233,7 @@
                animationDuration: 2000
              }).addTo(map)
              .on('click', function(point) {
-               $('#sidebar-content').text("The data is: " + point.propagatedFrom.feature.properties.School)
+               //  $('#sidebar-content').text("The data is: " + point.propagatedFrom.feature.properties.School)
              });
 
            function resetMap() {
@@ -241,7 +242,7 @@
                  var l = map['_layers'][key];
                  if (l['feature']['properties']['isOrigin'] && l['feature']['properties']['origin_city']['Is_the_Support_for_Primary_School_or_AEP_centre_hosted_by_the_school?'] === 'Primary School') {
                    l.setStyle({
-                     radius: 5,
+                     radius: 6,
                      fillColor: "#FFB400",
                      color: "#000",
                      weight: 1,
@@ -250,7 +251,7 @@
                    })
                  } else if (l['feature']['properties']['isOrigin'] && l['feature']['properties']['origin_city']['Is_the_Support_for_Primary_School_or_AEP_centre_hosted_by_the_school?'] === 'AEP centre') {
                    l.setStyle({
-                     radius: 5,
+                     radius: 6,
                      fillColor: "#f88379",
                      color: "#000",
                      weight: 1,
@@ -259,7 +260,7 @@
                    })
                  } else if (!l['feature']['properties']['isOrigin'] && l['feature']['properties']['origin_city']['Pathway'] === 'Referral') {
                    l.setStyle({
-                     radius: 5,
+                     radius: 6,
                      fillColor: "#76a646",
                      color: "#000",
                      weight: 1,
@@ -268,7 +269,7 @@
                    })
                  } else if (!l['feature']['properties']['isOrigin'] && l['feature']['properties']['origin_city']['Pathway'] === 'Transition') {
                    l.setStyle({
-                     radius: 5,
+                     radius: 6,
                      fillColor: "#AAB931",
                      color: "#000",
                      weight: 1,
@@ -288,72 +289,72 @@
 
            addLegend(array, arrayLabel, "Legend", "circle");
 
-          //  var primarySchools = 'off';
-          //  $('#primarySchools').on('click', function() {
-          //    $('#primarySchools').addClass('selected')
-          //    if (primarySchools === 'off') {
-          //      for (key in map['_layers']) {
-          //        if (typeof map['_layers'][key]['feature'] !== 'undefined') {
-          //          var l = map['_layers'][key];
-          //          if (l['feature']['properties']['origin_city']['Is_the_Support_for_Primary_School_or_AEP_centre_hosted_by_the_school?'] !== 'Primary School') {
-          //            l.setStyle({
-          //              opacity: 0,
-          //              fillOpacity: 0
-          //            })
-          //          }
-          //          primarySchools = 'on';
-          //        }
-          //      }
-          //    } else {
-          //      $('#primarySchools').removeClass('selected')
-          //      for (key in map['_layers']) {
-          //        if (typeof map['_layers'][key]['feature'] !== 'undefined') {
-          //          var l = map['_layers'][key];
-          //          l.setStyle({
-          //            opacity: 1,
-          //            fillOpacity: 0.7
-          //          })
-          //        }
-          //        primarySchools = 'off';
-          //      }
-          //    }
-          //  })
+           //  var primarySchools = 'off';
+           //  $('#primarySchools').on('click', function() {
+           //    $('#primarySchools').addClass('selected')
+           //    if (primarySchools === 'off') {
+           //      for (key in map['_layers']) {
+           //        if (typeof map['_layers'][key]['feature'] !== 'undefined') {
+           //          var l = map['_layers'][key];
+           //          if (l['feature']['properties']['origin_city']['Is_the_Support_for_Primary_School_or_AEP_centre_hosted_by_the_school?'] !== 'Primary School') {
+           //            l.setStyle({
+           //              opacity: 0,
+           //              fillOpacity: 0
+           //            })
+           //          }
+           //          primarySchools = 'on';
+           //        }
+           //      }
+           //    } else {
+           //      $('#primarySchools').removeClass('selected')
+           //      for (key in map['_layers']) {
+           //        if (typeof map['_layers'][key]['feature'] !== 'undefined') {
+           //          var l = map['_layers'][key];
+           //          l.setStyle({
+           //            opacity: 1,
+           //            fillOpacity: 0.7
+           //          })
+           //        }
+           //        primarySchools = 'off';
+           //      }
+           //    }
+           //  })
 
-          //  var aepCentres = 'off';
-          //  $('#aepCentres').on('click', function() {
-          //    $('#aepCentres').addClass('selected')
-          //    if (aepCentres === 'off') {
-          //      for (key in map['_layers']) {
-          //        if (typeof map['_layers'][key]['feature'] !== 'undefined') {
-          //          var l = map['_layers'][key];
-          //          if (l['feature']['properties']['origin_city']['Is_the_Support_for_Primary_School_or_AEP_centre_hosted_by_the_school?'] === 'AEP centre') {
-          //            l.setStyle({
-          //              radius: 7,
-          //              fillColor: 'rgb(255, 68, 62)'
-          //            })
-          //          }
-          //          aepCentres = 'on';
-          //        }
-          //      }
-          //    } else {
-          //      $('#aepCentres').removeClass('selected')
-          //      for (key in map['_layers']) {
-          //        if (typeof map['_layers'][key]['feature'] !== 'undefined') {
-          //          var l = map['_layers'][key];
-          //          if (l['feature']['properties']['origin_city']['Is_the_Support_for_Primary_School_or_AEP_centre_hosted_by_the_school?'] === 'AEP centre') {
-          //            l.setStyle({
-          //              radius: 5,
-          //              weight: 1,
-          //              color: 'rgb(195, 255, 62)',
-          //              fillColor: 'rgba(195, 255, 62, 0.6)',
-          //              fillOpacity: 0.6
-          //            })
-          //          }
-          //        }
-          //        aepCentres = 'off';
-          //      }
-          //    }
-          //  })
+           //  var aepCentres = 'off';
+           //  $('#aepCentres').on('click', function() {
+           //    $('#aepCentres').addClass('selected')
+           //    if (aepCentres === 'off') {
+           //      for (key in map['_layers']) {
+           //        if (typeof map['_layers'][key]['feature'] !== 'undefined') {
+           //          var l = map['_layers'][key];
+           //          if (l['feature']['properties']['origin_city']['Is_the_Support_for_Primary_School_or_AEP_centre_hosted_by_the_school?'] === 'AEP centre') {
+           //            l.setStyle({
+           //              radius: 7,
+           //              fillColor: 'rgb(255, 68, 62)'
+           //            })
+           //          }
+           //          aepCentres = 'on';
+           //        }
+           //      }
+           //    } else {
+           //      $('#aepCentres').removeClass('selected')
+           //      for (key in map['_layers']) {
+           //        if (typeof map['_layers'][key]['feature'] !== 'undefined') {
+           //          var l = map['_layers'][key];
+           //          if (l['feature']['properties']['origin_city']['Is_the_Support_for_Primary_School_or_AEP_centre_hosted_by_the_school?'] === 'AEP centre') {
+           //            l.setStyle({
+           //              radius: 6,
+           //              weight: 1,
+           //              color: 'rgb(195, 255, 62)',
+           //              fillColor: 'rgba(195, 255, 62, 0.6)',
+           //              fillOpacity: 0.6
+           //            })
+           //          }
+           //        }
+           //        aepCentres = 'off';
+           //      }
+           //    }
+           //  })
 
            // Updates the displayed map markers to reflect the crossfilter dimension passed in
            var updateMap = function(locs) {
@@ -400,8 +401,20 @@
            // and then call the "selectFeaturesForPathDisplay()" method to inform the layer
            // which Bezier paths need to be drawn
            oneToManyFlowmapLayer.on('click', function(e) {
-             console.log(e)
+            console.log(e)
              if (e.sharedOriginFeatures.length) {
+               $('#sidebar-content').html(
+                 "Type of facility: " + e.layer.feature.properties.origin_city["Is_the_Support_for_Primary_School_or_AEP_centre_hosted_by_the_school?"] + "<br>" +
+                 "Name of facility: " + e.layer.feature.properties.origin_city.School + "<br>" + 
+                 "Name of Referral Facility: " + e.sharedOriginFeatures[1].properties.origin_city["Name_of_pathway"]+ "<br>" +
+                 "Name of Transition Facility: " + e.sharedOriginFeatures[0].properties.origin_city["Name_of_pathway"] + "<br>"+
+                 "Total Students: " + e.layer.feature.properties.origin_city["Total Students"] + "<br>" +
+                 "Refugee Students: " + e.layer.feature.properties.origin_city["Refugee Students"] + "<br>" +
+                 "Total Teachers: " + e.layer.feature.properties.origin_city["Total Teachers"] + "<br>" +
+                 "Refugee Teachers: " + e.layer.feature.properties.origin_city["Refugee Teachers"] + "<br>" +
+                 "Organisation: " + e.layer.feature.properties.origin_city["Organisation_Name"] + "<br>" +
+                 "Date of Data Collection: " + e.layer.feature.properties.origin_city["Date of Data Collection"] + "<br>")
+
                oneToManyFlowmapLayer.selectFeaturesForPathDisplay(e.sharedOriginFeatures, 'SELECTION_NEW');
                var locations = [];
                e.sharedOriginFeatures.forEach(function(d, i) {
@@ -417,6 +430,23 @@
                updateMap(locations);
              }
              if (e.sharedDestinationFeatures.length) {
+               var totalStudents = 0, totalRefugeeStudents = 0, totalTeachers = 0, totalRefugeeTeachers = 0;
+              e.sharedDestinationFeatures.forEach(function(d, i) {
+                totalStudents = totalStudents + d.properties.origin_city["Total Students"];
+                totalRefugeeStudents = totalRefugeeStudents + d.properties.origin_city["Refugee Students"];
+                totalTeachers = totalTeachers + d.properties.origin_city["Total Teachers"];
+                totalRefugeeTeachers = totalRefugeeTeachers + d.properties.origin_city["Refugee Teachers"];
+               })
+
+               $('#sidebar-content').html(
+                //  "Type of facility: " + e.layer.feature.properties.origin_city["Is_the_Support_for_Primary_School_or_AEP_centre_hosted_by_the_school?"] + "<br>" +
+                 "Name of facility: " + e.layer.feature.properties.origin_city.Name_of_pathway + "<br>" +
+                 "Total Students: " + totalStudents + "<br>" +
+                 "Refugee Students: " + totalRefugeeStudents + "<br>" +
+                 "Total Teachers: " + totalTeachers + "<br>" +
+                 "Refugee Teachers: " + totalRefugeeTeachers + "<br>" +
+                 "Date of Data Collection: " + e.layer.feature.properties.origin_city["Date of Data Collection"] + "<br>")
+
                oneToManyFlowmapLayer.selectFeaturesForPathDisplay(e.sharedDestinationFeatures, 'SELECTION_NEW');
                var locations = [];
                e.sharedDestinationFeatures.forEach(function(d, i) {
@@ -435,7 +465,7 @@
 
            //  var inputdata = 123 || 456 || 789;
            //  var split = input.split('||');
-           var select = $('<select name="options" id="options"><option value="None">- None -</option></select>');
+           var select = $('<select name="options" id="options" style="max-width: 300px;"><option value="None">- None -</option></select>');
            $.each(filterList, function(index, value) {
              var option = $('<option></option>');
              option.attr('value', value.key);
@@ -448,32 +478,32 @@
              if ($(this).val() === "None") {
                resetMap();
              } else {
-              for (key in map['_layers']) {
-               if (typeof map['_layers'][key]['feature'] !== 'undefined') {
-                 var l = map['_layers'][key];
-                 if (l['feature']['properties']['origin_city']['Organisation_Name'] === $(this).val()) {
-                   l.setStyle({
-                     radius: 5,
-                     fillColor: "#c3ff3e",
-                     color: "#000",
-                     weight: 1,
-                     opacity: 1,
-                     fillOpacity: 0.8
-                   })
-                 } else {
-                   l.setStyle({
-                     radius: 5,
-                     fillColor: "#7d7d7d",
-                     color: "#000",
-                     weight: 1,
-                     opacity: 1,
-                     fillOpacity: 0.8
-                   })
+               for (key in map['_layers']) {
+                 if (typeof map['_layers'][key]['feature'] !== 'undefined') {
+                   var l = map['_layers'][key];
+                   if (l['feature']['properties']['origin_city']['Organisation_Name'] === $(this).val()) {
+                     l.setStyle({
+                       radius: 6,
+                       fillColor: "#c3ff3e",
+                       color: "#000",
+                       weight: 1,
+                       opacity: 1,
+                       fillOpacity: 0.8
+                     })
+                   } else {
+                     l.setStyle({
+                       radius: 6,
+                       fillColor: "#7d7d7d",
+                       color: "#000",
+                       weight: 1,
+                       opacity: 0.4,
+                       fillOpacity: 0.4
+                     })
+                   }
                  }
                }
              }
-             }
-             
+
            });
 
            // immediately select an origin point for Bezier path display,
@@ -481,7 +511,7 @@
            var min = 0;
            var max = 121;
            var random = Math.floor(Math.random() * (+max - +min)) + +min;
-          //  oneToManyFlowmapLayer.selectFeaturesForPathDisplayById('s_city_id', 15, true, 'SELECTION_NEW');
+           //  oneToManyFlowmapLayer.selectFeaturesForPathDisplayById('s_city_id', 15, true, 'SELECTION_NEW');
          }
        });
      </script>
