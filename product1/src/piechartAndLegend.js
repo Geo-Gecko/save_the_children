@@ -3,7 +3,7 @@ function addLegend(array, arrayLabel, legendLabel, circle) {
 				var legendSvg = d3.select('#legend')
 				.append('svg')
 				.attr('class', 'head')
-				.attr('width', 220)
+				.attr('width', "100%")
 				.attr('height', 100);
 
 

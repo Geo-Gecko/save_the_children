@@ -36,7 +36,7 @@
        margin-bottom: 25px;
        z-index: 1000;
        /* max-width: 50%; */
-       max-width: 350px;
+       max-width: 400px;
        /* max-height: 515px; */
        max-height: 90%;
        overflow-y: auto;
@@ -141,13 +141,13 @@
 
        <hr>
 
+
+       <a href="https://www.geogecko.com/"><img style="z-index: 10000; position: fixed; top: 2%; right: 0; border: 0; width: 4em;" src="css/images/Logo_pin.svg" alt="GeoGecko">></a>
+
        <div class="containerIMG" style="width: 930px; max-width: 100%;">
          <a style="max-width:30%; padding-right: 2rem;" href=""><img src="css/images/ECW-full-logo-and-tagline-orange-and-whitetagline-RGB.png" alt="ECW"></a>
-         <a style="max-width:30%; padding-right: 2rem;" href=""><img src="css/images/ECO.png" alt="ECO"></a>
-         <a style="max-width:30%; padding-right: 2rem; " href="https://www.geogecko.com/"><img src="css/images/Logo_pin.svg" alt="GeoGecko"></a>
-         <!-- <img src="https://cdn.vox-cdn.com/uploads/chorus_image/image/44336734/fujifilmx100t-1.0.0.jpg"> 
-        <img src="https://d3k7s9wfq6lao0.cloudfront.net/latest/37504/main/7.jpg"> 
-        <img src="https://upload.wikimedia.org/wikipedia/commons/3/33/Clapperboard%2C_O2_film%2C_September_2008.jpg"> -->
+         <a style="max-width:30%;float:right !important;" href=""><img src="css/images/ECO.png" alt="ECO"></a>
+         <!-- <a style="max-width:30%; padding-right: 2rem; " href="https://www.geogecko.com/"><img src="css/images/Logo_pin.svg" alt="GeoGecko"></a> -->
        </div>
 
        <div style="width: 100%;">
@@ -184,9 +184,9 @@
        });
        var geoJsonFeatureCollection;
        if (L.Browser.mobile) {
-         map.setView([1.291471, 32.482235], 7);
+         map.setView([1.291471, 32.482235], 7.5);
        } else {
-         map.setView([1.291471, 34.482235], 7);
+         map.setView([1.291471, 34.482235], 7.5);
        }
 
        var OpenStreetMap_Mapnik = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -259,6 +259,11 @@
              });
 
            function resetMap() {
+
+             var array = ['#FFB400', '#f88379', "#76a646", "#AAB931"];
+             var arrayLabel = ["Primary School Only", "Accelerated Education Programme Centre", "Referral Pathways", "Transition Pathways"];
+
+             addLegend(array, arrayLabel, "Legend", "circle");
              for (key in map['_layers']) {
                if (typeof map['_layers'][key]['feature'] !== 'undefined') {
                  var l = map['_layers'][key];
@@ -305,11 +310,6 @@
            }
 
            resetMap();
-
-           var array = ['#FFB400', '#f88379', "#76a646", "#AAB931"];
-           var arrayLabel = ["Primary School Only", "Accelerated Education Programme Centre", "Referral Pathways", "Transition Pathways"];
-
-           addLegend(array, arrayLabel, "Legend", "circle");
 
            // Updates the displayed map markers to reflect the crossfilter dimension passed in
            var updateMap = function(locs) {
@@ -363,9 +363,9 @@
            oneToManyFlowmapLayer.on('click', function(e) {
              resetMap();
 
-             
+             SelectElement("options", "None");
              $('#infoText').html('Information about selected point below.');
-             console.log(e)
+             //  console.log(e)
              if (e.sharedOriginFeatures.length) {
                $('#sidebar-content').html(
 
@@ -446,6 +446,11 @@
 
            $('#options').change(function() {
              reset();
+             $('#infoText').html('Click on a point to show additional information below.');
+             var array = ['#c3ff3e', '#7d7d7d'];
+             var arrayLabel = ["Selected agency facilities", "Other agency facilities"];
+
+             addLegend(array, arrayLabel, "Legend", "circle");
              if ($(this).val() === "None") {
                resetMap();
              } else {
@@ -489,9 +494,9 @@
              $('#sidebar-content').html("");
 
              if (L.Browser.mobile) {
-               map.setView([1.291471, 32.482235], 7);
+               map.setView([1.291471, 32.482235], 7.5);
              } else {
-               map.setView([1.291471, 34.482235], 7);
+               map.setView([1.291471, 34.482235], 7.5);
              }
            }
 
