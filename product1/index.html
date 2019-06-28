@@ -141,13 +141,13 @@
        <hr>
 
        <div class="containerIMG" style="width: 930px; max-width: 100%;">
-        <a style="max-width:30%; padding-right: 2rem;" href=""><img  src="css/images/ECW-full-logo-and-tagline-orange-and-whitetagline-RGB.png" alt="ECW"></a>
-        <a style="max-width:30%; padding-right: 2rem;" href=""><img src="css/images/ECO.png" alt="ECO"></a>
-        <a style="max-width:30%; padding-right: 2rem; " href="https://www.geogecko.com/"><img src="css/images/Logo_pin.svg" alt="GeoGecko"></a>
-        <!-- <img src="https://cdn.vox-cdn.com/uploads/chorus_image/image/44336734/fujifilmx100t-1.0.0.jpg"> 
+         <a style="max-width:30%; padding-right: 2rem;" href=""><img src="css/images/ECW-full-logo-and-tagline-orange-and-whitetagline-RGB.png" alt="ECW"></a>
+         <a style="max-width:30%; padding-right: 2rem;" href=""><img src="css/images/ECO.png" alt="ECO"></a>
+         <a style="max-width:30%; padding-right: 2rem; " href="https://www.geogecko.com/"><img src="css/images/Logo_pin.svg" alt="GeoGecko"></a>
+         <!-- <img src="https://cdn.vox-cdn.com/uploads/chorus_image/image/44336734/fujifilmx100t-1.0.0.jpg"> 
         <img src="https://d3k7s9wfq6lao0.cloudfront.net/latest/37504/main/7.jpg"> 
         <img src="https://upload.wikimedia.org/wikipedia/commons/3/33/Clapperboard%2C_O2_film%2C_September_2008.jpg"> -->
-        </div>
+       </div>
 
        <div style="width: 100%;">
        </div>
@@ -338,10 +338,15 @@
              });
 
              c1 = L.latLng(minlat, minlon);
-             c2 = L.latLng(maxlat, maxlon);
+             c2 = L.latLng(maxlat, maxlon + 2);
+             c3 = L.latLng(maxlat, maxlon);
 
              // fit bounds
-             map.fitBounds(L.latLngBounds(c1, c2));
+             if (L.Browser.mobile) {
+               map.fitBounds(L.latLngBounds(c1, c3));
+             } else {
+               map.fitBounds(L.latLngBounds(c1, c2));
+             }
 
              // correct zoom to fit markers
              setTimeout(function() {
