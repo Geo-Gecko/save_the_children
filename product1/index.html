@@ -120,6 +120,7 @@
        <div class="btn-group">
          <button type="button" id="reset" class="btn btn-secondary">Reset map</button>
        </div>
+       <hr>
 
        <div id="legend"></div>
        <hr>
@@ -142,7 +143,7 @@
        <hr>
 
 
-       <a href="https://www.geogecko.com/"><img style="z-index: 10000; position: fixed; top: 2%; right: 0; border: 0; width: 4em;" src="css/images/Logo_pin.svg" alt="GeoGecko">></a>
+       <a href="https://www.geogecko.com/"><img style="z-index: 10000; position: fixed; bottom: 2%; left: 0; border: 0; width: 4em;" src="css/images/Logo_pin.svg" alt="GeoGecko">></a>
 
        <div class="containerIMG" style="width: 930px; max-width: 100%;">
          <a style="max-width:30%; padding-right: 2rem;" href=""><img src="css/images/ECW-full-logo-and-tagline-orange-and-whitetagline-RGB.png" alt="ECW"></a>
@@ -184,9 +185,9 @@
        });
        var geoJsonFeatureCollection;
        if (L.Browser.mobile) {
-         map.setView([1.291471, 32.482235], 7.5);
+         map.setView([1.291471, 32.482235], 7);
        } else {
-         map.setView([1.291471, 34.482235], 7.5);
+         map.setView([1.291471, 34.482235], 7);
        }
 
        var OpenStreetMap_Mapnik = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -447,8 +448,8 @@
            $('#options').change(function() {
              reset();
              $('#infoText').html('Click on a point to show additional information below.');
-             var array = ['#c3ff3e', '#7d7d7d'];
-             var arrayLabel = ["Selected agency facilities", "Other agency facilities"];
+             var array = ["#f7f7f6", '#c3ff3e', '#7d7d7d'];
+             var arrayLabel = ["", "Selected agency facilities", "Other agency facilities"];
 
              addLegend(array, arrayLabel, "Legend", "circle");
              if ($(this).val() === "None") {
@@ -494,9 +495,9 @@
              $('#sidebar-content').html("");
 
              if (L.Browser.mobile) {
-               map.setView([1.291471, 32.482235], 7.5);
+               map.setView([1.291471, 32.482235], 7);
              } else {
-               map.setView([1.291471, 34.482235], 7.5);
+               map.setView([1.291471, 34.482235], 7);
              }
            }
 
