@@ -90,6 +90,20 @@
      .selected {
        background-color: #c3fd3d !important;
      }
+
+     .containerIMG {
+       display: flex;
+       flex-direction: row;
+       flex-wrap: nowrap;
+       align-items: center !important;
+     }
+
+     img {
+       flex: 1;
+       max-width: 100%;
+       height: auto;
+       max-height: 310px;
+     }
    </style>
 
  </head>
@@ -126,9 +140,17 @@
 
        <hr>
 
-       <a href=""><img style="z-index: 10000; width: 6em;" src="css/images/ECW-full-logo-and-tagline-orange-and-whitetagline-RGB.png" alt="ECW"></a>
-       <a href=""><img style="z-index: 10000; width: 6em;" src="css/images/ECO.png" alt="ECW"></a>
-       <a href=""><img style="z-index: 10000; width: 9em;" src="css/images/Logo_full.png" alt="ECW"></a>
+       <div class="containerIMG" style="width: 930px; max-width: 100%;">
+        <a style="max-width:30%; padding-right: 2rem;" href=""><img  src="css/images/ECW-full-logo-and-tagline-orange-and-whitetagline-RGB.png" alt="ECW"></a>
+        <a style="max-width:30%; padding-right: 2rem;" href=""><img src="css/images/ECO.png" alt="ECO"></a>
+        <a style="max-width:30%; padding-right: 2rem; " href="https://www.geogecko.com/"><img src="css/images/Logo_pin.svg" alt="GeoGecko"></a>
+        <!-- <img src="https://cdn.vox-cdn.com/uploads/chorus_image/image/44336734/fujifilmx100t-1.0.0.jpg"> 
+        <img src="https://d3k7s9wfq6lao0.cloudfront.net/latest/37504/main/7.jpg"> 
+        <img src="https://upload.wikimedia.org/wikipedia/commons/3/33/Clapperboard%2C_O2_film%2C_September_2008.jpg"> -->
+        </div>
+
+       <div style="width: 100%;">
+       </div>
 
 
      </div>
@@ -163,7 +185,7 @@
        if (L.Browser.mobile) {
          map.setView([1.291471, 32.482235], 7);
        } else {
-         map.setView([1.291471, 32.482235], 7);
+         map.setView([1.291471, 35.482235], 7);
        }
 
        var OpenStreetMap_Mapnik = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -445,7 +467,6 @@
 
            });
 
-           
            function SelectElement(id, valueToSelect) {
              var element = document.getElementById(id);
              element.value = valueToSelect;
@@ -460,13 +481,13 @@
              if (L.Browser.mobile) {
                map.setView([1.291471, 32.482235], 7);
              } else {
-               map.setView([1.291471, 32.482235], 7);
+               map.setView([1.291471, 35.482235], 7);
              }
            }
 
            $('#reset').on('click', function() {
              reset();
-             
+
              SelectElement("options", "None");
            })
 
