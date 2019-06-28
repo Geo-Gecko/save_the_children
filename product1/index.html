@@ -118,10 +118,11 @@
        <h5 style="text-align: left;">Primary School Referral Map</h5>
 
        <div class="btn-group">
-         <button type="button" id="reset" class="btn btn-primary">Reset map</button>
+         <button type="button" id="reset" class="btn btn-secondary">Reset map</button>
        </div>
 
        <div id="legend"></div>
+       <hr>
        <p>
          <strong>Highlight by responsible agency</strong>
        </p>
@@ -132,7 +133,7 @@
 
        <hr>
 
-       <p>
+       <p id="infoText">
          Click on a point to show additional information below.
        </p>
 
@@ -185,7 +186,7 @@
        if (L.Browser.mobile) {
          map.setView([1.291471, 32.482235], 7);
        } else {
-         map.setView([1.291471, 35.482235], 7);
+         map.setView([1.291471, 34.482235], 7);
        }
 
        var OpenStreetMap_Mapnik = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -306,7 +307,7 @@
            resetMap();
 
            var array = ['#FFB400', '#f88379', "#76a646", "#AAB931"];
-           var arrayLabel = ["Primary School Only", "Aep Centre", "Referral Pathways", "Transition Pathways"];
+           var arrayLabel = ["Primary School Only", "Accelerated Education Programme Centre", "Referral Pathways", "Transition Pathways"];
 
            addLegend(array, arrayLabel, "Legend", "circle");
 
@@ -360,6 +361,10 @@
            // and then call the "selectFeaturesForPathDisplay()" method to inform the layer
            // which Bezier paths need to be drawn
            oneToManyFlowmapLayer.on('click', function(e) {
+             resetMap();
+
+             
+             $('#infoText').html('Information about selected point below.');
              console.log(e)
              if (e.sharedOriginFeatures.length) {
                $('#sidebar-content').html(
@@ -486,12 +491,14 @@
              if (L.Browser.mobile) {
                map.setView([1.291471, 32.482235], 7);
              } else {
-               map.setView([1.291471, 35.482235], 7);
+               map.setView([1.291471, 34.482235], 7);
              }
            }
 
            $('#reset').on('click', function() {
              reset();
+
+             $('#infoText').html('Click on a point to show additional information below.');
 
              SelectElement("options", "None");
            })
