@@ -1,0 +1,121 @@
+ID,SUBCOUNTY,key,School,Is_the_Support_for_Primary_School_or_AEP_centre_hosted_by_the_school?,HOUSEHOLDS,s_lat,s_lon,"Percentage of beneficiaries reporting that humanitarian assistance is delivered in a safe, accessible, accountable and participatory manner.",Percentage of 'age-appropriate' learners that transition into the formal primary school system,Percentage of teachers who demonstrate improvement against relevant competencies within the national teacher competency framework,Percentage of Level 1 and Level 2 learners who meet the criteria for advancing from one level,Percentage of learners that sit for PLE (Primary Leaving Examination) pass the examination,"Percentage of learners that sit for PLE, pass, and transition to secondary/vocational opportunities","Percentage of AEP teachers who demonstrate an increased understanding and application of psychosocial support, positive discipline, child safeguarding and child protection following training",Percentage of the targeted children have an average increase on PSS well - being.,Percentage of AEP centres that have functional referral pathway mechanisms established.,Percentage of Accelerated Education Centre Management Committee (CMC) members demonstrating an improved understanding of their roles and responsibilities.,"Percentage of CMC members demonstrating active involvement in decision making processes, problem solving and planning for school events.",Percentage of relevant district authority staff demonstrating an improved understanding of the AEP approach and principles,Percentage of learners targeted under the ECW Programme with access to scholastic materials,Percentage of schools accessible to children with a mobility impairment.,Percentage of schools supervised at least once a term by the district education office/ DES/ MEOS,Percentage of AEP actors that are implementing AEP in line with the contextualized and harmonized AEP guidelines,Year,Term,Current Number of Students,Partner Organisation,Average Attendence
+1,ABAKO,ABAKO,Abiriamajo Primary School,Primary School,4922,3.381913,31.29464,20,39,18,32,77,27,5,38,39,15,80,65,49,70,95,85,2019,1,4868,Finn Church Aid,3872
+2,ABANGA,ABANGA,Agomvusus Primary School,Primary School,3650,2.99755,31.40893,14,15,33,17,67,22,54,0,3,71,35,82,97,13,91,30,2019,1,3980,Plan International Uganda,1475
+3,ABARILELA,ABARILELA,Alaba Primary School,Primary School,4176,3.526745,31.34907,6,48,67,45,28,49,36,59,78,41,35,99,70,29,32,70,2019,1,9150,APPCO,2067
+4,ABER,ABER,Abiriamajo Primary School,Primary School,4922,3.381913,31.29464,32,43,12,30,12,70,89,53,67,25,88,42,47,0,76,80,2019,2,2270,Finn Church Aid,491
+5,ABIA,ABIA,Agomvusus Primary School,Primary School,3650,2.99755,31.40893,55,63,27,79,34,89,17,44,39,86,46,96,50,70,67,2,2019,2,1299,AVSI + Luigi Institute of Higher Education,25
+6,ABIM TOWN COUNCIL,ABIM TOWN COUNCIL,Alaba Primary School,Primary School,4176,3.526745,31.34907,54,16,98,17,19,82,97,8,54,2,21,22,76,80,13,0,2019,2,7739,ZOA + Palm Corps,6034
+7,ABIM,ABIM,Abiriamajo Primary School,Primary School,4922,3.381913,31.29464,82,18,33,1,3,41,77,6,67,71,95,80,78,72,19,29,2019,3,2323,ZOA + Palm Corps,1540
+8,ABINDU DIVISION,ABINDU DIVISION,Agomvusus Primary School,Primary School,3650,2.99755,31.40893,22,74,85,16,77,20,91,63,85,11,5,86,76,62,39,39,2019,3,8881,AVSI + Luigi Institute of Higher Education,6903
+9,ABOKE,ABOKE,Alaba Primary School,Primary School,4176,3.526745,31.34907,82,94,71,48,12,37,51,23,71,6,25,48,9,87,76,43,2019,3,9135,APPCO,1948
+10,ABOK,ABOK,Ayilo II AEP Centre,AEP centre,3669,3.257749,31.92544,85,81,82,11,9,16,4,83,100,39,60,43,76,54,88,77,2019,1,5865,Norwegian Refugee Council,3534
+11,ABONGOMOLA,ABONGOMOLA,Aywee Primary School,Primary School,6391,3.362251,32.42956,22,53,95,6,55,48,94,79,90,23,73,65,55,100,48,60,2019,1,4500,AVSI + Luigi Institute of Higher Education,4312
+12,ABUKU,ABUKU,Belameling Primary School,AEP centre,1823,3.105932,31.15897,48,100,56,93,83,37,22,33,29,36,1,5,67,22,5,72,2019,1,4262,War Child Canada,943
+13,ACABA,ACABA,Ayilo II AEP Centre,AEP centre,3669,3.257749,31.92544,64,67,78,77,26,53,81,82,31,94,75,28,86,43,4,55,2019,2,4363,Save the Children International,1509
+14,ACHOLIBUR,ACHOLIBUR,Aywee Primary School,Primary School,6391,3.362251,32.42956,8,67,8,71,50,16,94,73,6,40,36,79,22,93,77,22,2019,2,7190,APPCO,2827
+15,ACOWA,ACOWA,Belameling Primary School,AEP centre,1823,3.105932,31.15897,80,23,42,90,25,93,88,33,89,50,93,44,53,100,67,35,2019,2,6475,Save the Children International,1158
+16,ADEKNINO,ADEKNINO,Ayilo II AEP Centre,AEP centre,3669,3.257749,31.92544,81,10,56,96,24,59,63,25,79,64,21,2,5,77,22,85,2019,3,6527,Finn Church Aid,5171
+17,ADEKOKWOK,ADEKOKWOK,Aywee Primary School,Primary School,6391,3.362251,32.42956,44,87,50,17,96,6,16,69,54,83,82,11,36,48,14,90,2019,3,5439,War Child Canada,1166
+18,ADILANG,ADILANG,Belameling Primary School,AEP centre,1823,3.105932,31.15897,73,77,35,76,60,17,49,59,2,58,44,39,55,20,0,73,2019,3,4999,AVSI + Luigi Institute of Higher Education,4236
+19,ADJUMANI TOWN COUNCIL,ADJUMANI TOWN COUNCIL,Chinyi Primary School,AEP centre,6025,3.471714,31.62136,83,75,66,65,55,32,62,48,79,46,83,51,58,80,22,46,2019,1,3747,War Child Canada,2030
+20,ADOK,ADOK,Dradranga Primary School,Primary School,3453,3.362877,31.39265,81,92,75,34,5,36,8,22,10,79,22,38,17,44,97,54,2019,1,2692,Finn Church Aid,335
+21,ADROPI,ADROPI,Eden Primary School,AEP centre,2268,3.412344,31.58498,13,49,63,76,32,94,81,9,41,24,92,99,14,26,13,30,2019,1,7896,Norwegian Refugee Council,1042
+22,ADUKU TOWN COUNCIL,ADUKU TOWN COUNCIL,Chinyi Primary School,AEP centre,6025,3.471714,31.62136,24,77,56,36,75,31,89,2,29,39,77,0,25,19,97,9,2019,2,1067,ZOA + Palm Corps,758
+23,ADUKU,ADUKU,Dradranga Primary School,Primary School,3453,3.362877,31.39265,65,50,45,3,69,51,9,38,30,57,97,7,82,61,37,100,2019,2,8164,Plan International Uganda,2003
+24,ADUMI,ADUMI,Eden Primary School,AEP centre,2268,3.412344,31.58498,53,91,12,42,69,87,14,20,69,29,23,2,79,87,5,70,2019,2,5389,ZOA + Palm Corps,4747
+25,ADWARI,ADWARI,Chinyi Primary School,AEP centre,6025,3.471714,31.62136,5,35,49,96,77,59,39,65,97,34,66,89,71,4,16,44,2019,3,9658,ZOA + Palm Corps,2027
+26,ADYEL DIVISION,ADYEL DIVISION,Dradranga Primary School,Primary School,3453,3.362877,31.39265,20,21,73,81,85,75,94,49,9,35,40,75,97,31,44,44,2019,3,3369,APPCO,3286
+27,AGAGO TOWN COUNCIL,AGAGO TOWN COUNCIL,Eden Primary School,AEP centre,2268,3.412344,31.58498,10,17,0,59,8,62,94,71,64,46,6,33,94,95,25,69,2019,3,1235,Plan International Uganda,1205
+28,AGALI,AGALI,Inyau Primary School,Primary School,5719,3.263688,31.25081,1,11,48,2,93,26,80,3,89,12,41,30,89,59,63,10,2019,1,4357,APPCO,535
+29,AGIKDAK,AGIKDAK,Itula Primary School,AEP centre,2524,3.500916,31.67091,74,79,95,63,82,64,68,20,25,80,26,80,59,67,3,23,2019,1,9981,Finn Church Aid,7153
+30,AGORO,AGORO,Iyete Primary School,Primary School,2400,3.44001,31.39445,91,43,39,6,62,51,89,7,37,38,44,91,47,30,1,74,2019,1,5084,Finn Church Aid,3623
+31,AGULE,AGULE,Inyau Primary School,Primary School,5719,3.263688,31.25081,70,56,3,17,71,90,14,44,63,58,82,47,95,58,27,90,2019,2,6813,Finn Church Aid,2037
+32,AGWATA,AGWATA,Itula Primary School,AEP centre,2524,3.500916,31.67091,11,48,15,85,12,56,48,61,80,2,86,72,21,47,27,84,2019,2,3201,Finn Church Aid,524
+33,AGWENG,AGWENG,Iyete Primary School,Primary School,2400,3.44001,31.39445,25,16,34,61,38,22,53,52,10,39,28,73,17,93,85,66,2019,2,7815,Finn Church Aid,4166
+34,AGWINGIRI,AGWINGIRI,Inyau Primary School,Primary School,5719,3.263688,31.25081,21,0,42,85,13,84,81,34,40,50,90,98,88,77,97,84,2019,3,4231,ZOA + Palm Corps,1659
+35,AII-VU,AII-VU,Itula Primary School,AEP centre,2524,3.500916,31.67091,79,1,98,95,23,95,69,20,67,19,92,92,84,91,60,68,2019,3,198,War Child Canada,19
+36,AJIA,AJIA,Iyete Primary School,Primary School,2400,3.44001,31.39445,26,75,19,51,75,23,66,43,77,17,22,22,26,79,47,59,2019,3,5264,ZOA + Palm Corps,2788
+37,AKALO,AKALO,Inyau Primary School,Primary School,5719,3.263688,31.25081,72,53,18,40,65,89,54,69,64,35,79,76,91,63,3,92,2019,1,602,ZOA + Palm Corps,203
+38,AKERIAU,AKERIAU,Itula Primary School,AEP centre,2524,3.500916,31.67091,17,5,12,19,33,97,3,63,4,85,13,39,47,57,72,92,2019,1,4278,War Child Canada,4264
+39,AKISIM,AKISIM,Iyete Primary School,Primary School,2400,3.44001,31.39445,4,89,11,67,87,71,61,98,34,55,72,20,51,75,31,46,2019,1,7033,Plan International Uganda,1269
+40,AKOKORO,AKOKORO,Juru Primary School,Primary School,3142,-0.84277,30.78977,38,87,15,43,14,40,36,27,0,41,18,70,59,71,63,51,2019,2,8090,War Child Canada,7676
+41,AKOROMIT,AKOROMIT,Kabazana Nursery and Primary School,AEP centre,4769,0.328273,30.65777,67,97,89,11,17,12,49,48,60,39,93,33,20,87,28,86,2019,2,1624,War Child Canada,1104
+42,AKURA,AKURA,Kaborogota Primary School,Primary School,1387,0.384407,31.09567,77,59,31,100,56,45,25,40,99,29,89,63,93,47,34,72,2019,2,1125,War Child Canada,886
+43,AKWON,AKWON,Juru Primary School,Primary School,3142,-0.84277,30.78977,38,100,84,19,6,74,10,3,55,25,80,2,85,1,1,46,2019,3,9691,Windle International Uganda,5674
+44,AKWORO,AKWORO,Kabazana Nursery and Primary School,AEP centre,4769,0.328273,30.65777,26,64,35,81,74,75,96,30,39,90,86,55,35,94,47,58,2019,3,4408,Finn Church Aid,3163
+45,ALANGO,ALANGO,Kaborogota Primary School,Primary School,1387,0.384407,31.09567,69,27,38,73,17,50,56,84,25,45,74,26,40,62,40,44,2019,3,4765,Finn Church Aid,4694
+46,ALEBTONG TOWN COUNCIL,ALEBTONG TOWN COUNCIL,Juru Primary School,Primary School,3142,-0.84277,30.78977,30,2,29,93,65,5,74,55,48,88,87,27,43,97,84,56,2019,1,6130,War Child Canada,6048
+47,ALEKA,ALEKA,Kabazana Nursery and Primary School,AEP centre,4769,0.328273,30.65777,42,10,99,91,13,23,69,20,38,31,84,16,56,62,16,60,2019,1,7181,War Child Canada,3871
+48,ALEREK,ALEREK,Kaborogota Primary School,Primary School,1387,0.384407,31.09567,87,4,29,91,7,90,6,42,57,78,94,45,6,47,7,80,2019,1,8298,Windle International Uganda,730
+49,ALERO,ALERO,Kali Central Primary School,AEP centre,7975,3.184237,31.1785,97,87,67,30,39,10,2,55,29,80,46,93,37,97,57,30,2019,2,690,Save the Children International,393
+50,ALIBA,ALIBA,Kasonga Primary School,Primary School,2431,1.177166,30.75062,48,73,51,81,0,41,22,35,60,61,17,67,72,46,93,97,2019,2,4659,Windle International Uganda,1893
+51,ALITO,ALITO,Katiku Primary School,Primary School,7912,3.102667,31.29945,62,9,65,55,79,22,68,72,8,44,60,75,30,6,62,83,2019,2,1154,ZOA + Palm Corps,681
+52,ALOI,ALOI,Kali Central Primary School,AEP centre,7975,3.184237,31.1785,77,32,47,55,30,64,33,92,100,20,29,75,64,87,30,59,2019,3,3550,War Child Canada,86
+53,ALWA,ALWA,Kasonga Primary School,Primary School,2431,1.177166,30.75062,64,48,54,82,19,20,23,14,85,51,22,84,27,87,75,0,2019,3,2475,Catholic Relief Services,592
+54,ALWI,ALWI,Katiku Primary School,Primary School,7912,3.102667,31.29945,33,45,40,51,71,93,99,90,49,44,17,89,10,50,60,99,2019,3,2586,Windle International Uganda,1805
+55,AMACH,AMACH,Kali Central Primary School,AEP centre,7975,3.184237,31.1785,37,75,3,92,9,18,89,91,74,85,28,92,65,9,7,3,2019,1,8670,Windle International Uganda,34
+56,AMOLATAR TOWN COUNCIL,AMOLATAR TOWN COUNCIL,Kasonga Primary School,Primary School,2431,1.177166,30.75062,52,11,93,0,71,92,60,96,66,6,76,54,59,51,6,67,2019,1,9075,Plan International Uganda,575
+57,AMUDAT TOWN COUNCIL,AMUDAT TOWN COUNCIL,Katiku Primary School,Primary School,7912,3.102667,31.29945,53,43,94,6,99,81,92,10,91,68,91,29,7,78,62,43,2019,1,9414,Finn Church Aid,6787
+58,AMUDAT,AMUDAT,Knowledge Land Primary School,Primary School,4261,3.288907,31.31067,7,48,1,21,94,53,46,16,34,96,57,25,8,63,26,96,2019,2,9079,Finn Church Aid,4217
+59,AMUGU,AMUGU,Komgbe Primary School,Primary School,5491,3.393153,31.40078,68,71,65,25,20,99,24,61,90,95,28,34,12,63,6,17,2019,2,7802,Finn Church Aid,5472
+60,AMUKOL,AMUKOL,Komoyo Primary School,AEP centre,788,3.475668,31.62492,92,20,33,73,88,100,23,2,87,10,84,45,41,30,74,69,2019,2,8400,Finn Church Aid,4573
+61,AMURIA TOWN COUNCIL,AMURIA TOWN COUNCIL,Knowledge Land Primary School,Primary School,4261,3.288907,31.31067,55,35,51,71,71,48,95,55,11,4,73,48,6,38,25,60,2019,3,2004,Catholic Relief Services,1724
+62,AMURU TOWN COUNCIL,AMURU TOWN COUNCIL,Komgbe Primary School,Primary School,5491,3.393153,31.40078,34,11,25,6,78,92,40,8,65,80,11,50,42,18,74,43,2019,3,39,Save the Children International,31
+63,AMURU,AMURU,Komoyo Primary School,AEP centre,788,3.475668,31.62492,92,89,46,34,76,72,76,74,65,22,8,30,97,67,55,35,2019,3,8045,ZOA + Palm Corps,1191
+64,AMWOMA,AMWOMA,Knowledge Land Primary School,Primary School,4261,3.288907,31.31067,88,64,31,80,15,98,38,97,37,23,54,37,89,29,40,20,2019,1,5590,APPCO,3515
+65,ANAKA PAYIRA,ANAKA PAYIRA,Komgbe Primary School,Primary School,5491,3.393153,31.40078,9,88,3,35,64,93,68,87,41,19,81,2,59,9,60,58,2019,1,4724,Catholic Relief Services,1498
+66,ANAKA TOWN COUNCIL,ANAKA TOWN COUNCIL,Komoyo Primary School,AEP centre,788,3.475668,31.62492,93,42,4,41,30,62,24,6,39,58,90,74,57,22,71,52,2019,1,1325,ZOA + Palm Corps,1034
+67,ANGAGURA,ANGAGURA,Lugwar Primary School,Primary School,1728,3.436056,32.58093,5,64,61,12,6,37,77,41,93,32,80,82,38,34,49,69,2019,2,3409,AVSI + Luigi Institute of Higher Education,2595
+68,ANYARA,ANYARA,Luru Primary School,AEP centre,4009,3.187513,31.19721,6,21,48,94,13,55,96,45,8,5,46,33,69,16,5,63,2019,2,4866,War Child Canada,4730
+69,ANYIRIBU,ANYIRIBU,Luzira Bright View Primary School,AEP centre,1591,3.394623,31.34663,37,45,50,27,52,67,31,79,64,7,89,80,77,93,59,83,2019,2,5474,Finn Church Aid,4775
+70,APAC TOWN COUNCIL,APAC TOWN COUNCIL,Lugwar Primary School,Primary School,1728,3.436056,32.58093,18,82,65,5,10,43,83,92,14,16,9,73,22,99,98,21,2019,3,9354,Finn Church Aid,2768
+71,APAC,APAC,Luru Primary School,AEP centre,4009,3.187513,31.19721,13,30,29,100,42,26,100,15,75,7,87,60,7,22,27,67,2019,3,2486,Norwegian Refugee Council,2156
+72,APALA,APALA,Luzira Bright View Primary School,AEP centre,1591,3.394623,31.34663,2,2,15,39,87,15,40,63,81,51,47,71,76,75,91,86,2019,3,7922,War Child Canada,2245
+73,APAPAI,APAPAI,Lugwar Primary School,Primary School,1728,3.436056,32.58093,40,94,30,91,58,33,0,91,24,2,38,28,20,74,81,35,2019,1,5115,Save the Children International,3410
+74,APEDURU,APEDURU,Luru Primary School,AEP centre,4009,3.187513,31.19721,90,81,46,12,29,60,57,57,18,36,50,0,1,93,72,69,2019,1,9573,Save the Children International,3355
+75,APERKIRA,APERKIRA,Luzira Bright View Primary School,AEP centre,1591,3.394623,31.34663,100,70,14,20,6,98,70,92,71,35,73,54,65,53,33,40,2019,1,6467,Windle International Uganda,677
+76,APOPONG,APOPONG,Maratatu Primary School,Primary School,4397,1.170087,30.77863,40,27,49,23,32,64,19,42,69,75,66,12,31,51,53,17,2019,2,4655,Windle International Uganda,3584
+77,APO,APO,Mengo Primary School,Primary School,5084,3.388912,31.33012,82,51,50,32,55,91,16,30,70,43,20,37,81,24,98,52,2019,2,4073,Finn Church Aid,768
+78,APUTI,APUTI,Moroni Primary School,AEP centre,2727,3.409092,31.58463,93,83,62,80,84,66,24,54,49,15,84,19,12,75,20,7,2019,2,7480,War Child Canada,7144
+79,ARAPAI,ARAPAI,Maratatu Primary School,Primary School,4397,1.170087,30.77863,35,54,98,55,70,71,46,76,77,65,39,3,91,39,37,9,2019,3,2620,Windle International Uganda,2143
+80,ARINYAPI,ARINYAPI,Mengo Primary School,Primary School,5084,3.388912,31.33012,97,96,87,46,99,19,28,3,17,26,27,21,51,80,2,59,2019,3,89,Finn Church Aid,30
+81,ARIVU,ARIVU,Moroni Primary School,AEP centre,2727,3.409092,31.58463,99,75,73,84,18,21,26,26,71,64,41,79,5,11,26,51,2019,3,267,Finn Church Aid,144
+82,ARIWA,ARIWA,Maratatu Primary School,Primary School,4397,1.170087,30.77863,67,42,66,17,55,72,78,44,54,83,89,87,40,81,33,75,2019,1,8314,Windle International Uganda,7154
+83,AROI,AROI,Mengo Primary School,Primary School,5084,3.388912,31.33012,89,47,39,64,59,18,88,55,89,17,19,49,87,17,65,76,2019,1,2149,War Child Canada,600
+84,AROMO,AROMO,Moroni Primary School,AEP centre,2727,3.409092,31.58463,52,12,30,93,66,92,81,48,64,80,29,79,87,8,97,68,2019,1,7738,Norwegian Refugee Council,1009
+85,ARUA HILL DIVISION,ARUA HILL DIVISION,Ofonze Primary School,Primary School,2957,3.453608,31.36683,3,68,80,28,99,46,74,8,79,5,73,0,43,65,35,94,2019,2,8178,APPCO,6127
+86,ARUM,ARUM,Ogili Hill Primary School,Primary School,2295,3.367746,32.44124,94,25,14,83,50,21,75,79,64,72,60,55,15,14,66,95,2019,2,6032,APPCO,1222
+87,ARWOTCEK,ARWOTCEK,Okubani Primary School,Primary School,3025,3.263688,31.25081,47,23,80,60,22,19,100,33,54,69,63,53,60,64,36,9,2019,2,4475,APPCO,565
+88,ASAMUK,ASAMUK,Ofonze Primary School,Primary School,2957,3.453608,31.36683,93,4,13,69,31,19,15,96,74,92,97,57,77,47,28,45,2019,3,834,Street Child + African Women and Youth Action Development (AWYAD),733
+89,ASURET,ASURET,Ogili Hill Primary School,Primary School,2295,3.367746,32.44124,6,36,86,90,20,48,25,26,13,54,44,41,32,14,90,78,2019,3,6883,APPCO,2177
+90,ATANGA,ATANGA,Okubani Primary School,Primary School,3025,3.263688,31.25081,82,62,83,36,12,1,21,30,79,53,83,96,35,50,54,31,2019,3,2978,Save the Children International,519
+91,ATEGO,ATEGO,Ofonze Primary School,Primary School,2957,3.453608,31.36683,65,46,67,60,53,56,81,87,52,88,89,2,29,97,80,78,2019,1,7478,War Child Canada,125
+92,ATIIRA,ATIIRA,Ogili Hill Primary School,Primary School,2295,3.367746,32.44124,84,37,41,65,52,33,100,35,31,4,8,15,8,38,41,77,2019,1,9614,Finn Church Aid,8088
+93,ATTIAK,ATTIAK,Okubani Primary School,Primary School,3025,3.263688,31.25081,67,18,82,92,15,89,29,2,71,22,98,43,47,82,56,17,2019,1,9497,Finn Church Aid,984
+94,ATUTUR,ATUTUR,Pasu Primary School,AEP centre,3585,3.149483,31.24836,94,69,20,11,98,59,46,20,72,3,73,53,96,100,71,74,2019,2,1327,Save the Children International,626
+95,ATYAK,ATYAK,Progressive Primary School,Primary School,4827,3.109412,32.5306,87,71,96,80,33,81,56,7,1,40,45,82,12,18,95,98,2019,2,9015,AVSI + Luigi Institute of Higher Education,1577
+96,AWACH,AWACH,Rock City Primary School,Primary School,3656,3.392468,31.33868,30,11,96,49,25,55,90,97,1,74,42,13,84,86,18,91,2019,2,8115,Finn Church Aid,4260
+97,AWEI,AWEI,Pasu Primary School,AEP centre,3585,3.149483,31.24836,99,2,78,29,43,52,75,84,96,29,64,23,2,14,28,24,2019,3,7337,Save the Children International,5916
+98,AWELO,AWELO,Progressive Primary School,Primary School,4827,3.109412,32.5306,15,12,40,65,12,29,19,28,20,71,59,95,36,55,83,67,2019,3,9826,Save the Children International,8937
+99,AWERE,AWERE,Rock City Primary School,Primary School,3656,3.392468,31.33868,17,5,44,48,18,83,70,80,25,35,73,80,12,33,100,92,2019,3,1586,Windle International Uganda,1298
+100,AYER,AYER,Pasu Primary School,AEP centre,3585,3.149483,31.24836,92,22,75,37,77,15,55,9,26,23,91,36,62,24,49,57,2019,1,3362,Finn Church Aid,2904
+101,AYIVUNI,AYIVUNI,Progressive Primary School,Primary School,4827,3.109412,32.5306,82,32,84,69,54,23,80,18,75,16,80,68,0,17,38,42,2019,1,4030,Plan International Uganda,1503
+102,BAGEZZA,BAGEZZA,Rock City Primary School,Primary School,3656,3.392468,31.33868,16,66,85,100,28,3,31,94,16,0,82,32,60,99,67,90,2019,1,5966,Finn Church Aid,807
+103,BAITAMBOGWE,BAITAMBOGWE,St. Mary's Ocia Primary School,AEP centre,7793,3.38742,31.56715,93,75,67,91,74,30,55,31,42,76,0,97,46,44,27,27,2019,2,1407,Finn Church Aid,208
+104,BALA,BALA,Tandala AEP Centre Pagirinya,AEP centre,9174,3.377168,31.93042,79,66,58,75,19,79,86,63,88,42,20,0,50,22,55,30,2019,2,2286,War Child Canada,1539
+105,BALAWOLI,BALAWOLI,Tika Primary School,Primary School,10099,3.103227,31.39923,81,8,97,46,30,99,27,90,36,23,58,11,54,24,93,41,2019,2,4978,ZOA + Palm Corps,4457
+106,BAMUNANIKA,BAMUNANIKA,St. Mary's Ocia Primary School,AEP centre,7793,3.38742,31.56715,0,21,66,99,75,34,69,38,62,98,71,13,18,78,18,80,2019,3,2758,APPCO,1926
+107,BANANYWA,BANANYWA,Tandala AEP Centre Pagirinya,AEP centre,9174,3.377168,31.93042,2,59,92,77,72,96,85,95,83,56,23,31,16,24,29,81,2019,3,1297,Norwegian Refugee Council,768
+108,BANDA,BANDA,Tika Primary School,Primary School,10099,3.103227,31.39923,85,0,6,75,13,21,37,70,11,9,71,12,44,35,33,88,2019,3,5916,Save the Children International,3930
+109,BAR DEGE DIVISION,BAR DEGE DIVISION,St. Mary's Ocia Primary School,AEP centre,7793,3.38742,31.56715,37,36,43,33,51,18,47,4,97,36,72,19,79,15,49,83,2019,1,8557,Norwegian Refugee Council,8186
+110,BARR,BARR,Tandala AEP Centre Pagirinya,AEP centre,9174,3.377168,31.93042,17,4,7,77,21,94,21,11,50,60,35,94,80,33,50,24,2019,1,7527,ZOA + Palm Corps,7020
+111,BATTA,BATTA,Tika Primary School,Primary School,10099,3.103227,31.39923,20,61,35,30,13,28,65,86,39,69,52,89,1,2,47,10,2019,1,5907,ZOA + Palm Corps,775
+112,BBAALE,BBAALE,Wanyange Primary School,AEP centre,3794,3.38742,31.56715,5,75,97,93,10,5,44,19,75,75,68,35,71,28,15,9,2019,2,9948,Norwegian Refugee Council,2846
+113,BBANDA,BBANDA,World View Nursery and Primary School,Primary School,3143,3.367746,32.44124,52,29,73,44,79,99,37,86,14,29,52,55,65,61,42,94,2019,2,6582,AVSI + Luigi Institute of Higher Education,1821
+114,BENET,BENET,Yacha Community Primary School,Primary School,1926,3.249317,31.19443,78,36,100,29,2,59,2,27,12,100,23,66,79,11,77,85,2019,2,4866,ZOA + Palm Corps,4571
+115,BIGASA,BIGASA,Wanyange Primary School,AEP centre,3794,3.38742,31.56715,34,22,51,95,89,41,32,19,16,15,52,91,38,76,32,27,2019,3,3555,APPCO,163
+116,BIGULI,BIGULI,World View Nursery and Primary School,Primary School,3143,3.367746,32.44124,86,76,46,98,12,46,90,93,46,43,76,73,50,46,34,35,2019,3,5630,ZOA + Palm Corps,4448
+117,BIHANGA,BIHANGA,Yacha Community Primary School,Primary School,1926,3.249317,31.19443,54,60,51,16,29,62,62,88,10,71,29,70,39,15,23,17,2019,3,4434,Finn Church Aid,3525
+118,BIHANGA,BIHANGA,Wanyange Primary School,AEP centre,3794,3.38742,31.56715,5,58,7,43,57,56,56,41,85,80,68,54,34,82,67,42,2019,1,6998,Finn Church Aid,5484
+119,BIHARWE DIVISION,BIHARWE DIVISION,World View Nursery and Primary School,Primary School,3143,3.367746,32.44124,2,45,88,9,16,29,53,83,23,79,35,8,69,34,60,61,2019,1,2157,Finn Church Aid,1602
+120,BIISO,BIISO,Yacha Community Primary School,Primary School,1926,3.249317,31.19443,83,4,87,19,10,28,32,71,24,58,89,76,95,43,58,51,2019,1,1371,Norwegian Refugee Council,348

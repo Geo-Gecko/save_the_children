@@ -1,0 +1,16 @@
+ID,FieldNames,Theme,Name
+1,HH_Subsistence_Farming_2014,Socio-Economic (% of households),Engaged in Subsistance farming
+2,HH_own_Radio_2014,Socio-Economic (% of households),Owns a Radio
+3,HH_own_two_sets_Clothing_2014,Socio-Economic (% of households),Owns two set of Clothing
+4,HH_at_least_two_Meals_a_Day_2014,Socio-Economic (% of households),Has at least 2 meals a day
+5,HH_Roof_temporary_2014,Socio-Economic (% of households),Roof Type - Temporary
+6,HH_Floor_temporary_2014,Socio-Economic (% of households),Floor Type - Temporary
+7,Not_attending_School_6_to_12yr_2014,Education (% of population),Not attending School (6 to 12 years old)
+8,Never_been_to_School_15plus_2014,Education (% of population),Never been to school (15+ years old)
+9,Not_Literate_18plus_2014,Education (% of population),Not Literate (18+ years old)
+10,HH_Unprotected_Drinking_Water_2014,WASH & Health (% of households),Unprotected Drinking Water
+11,HH_Unimproved_Toilet_2014,WASH & Health (% of households),Unimproved Toilet
+12,HH_No_Toilet_2014,WASH & Health (% of households),No Toilet
+13,HH_Lighting_Electricity_2014,Energy (% of households),Lighting (Electricity)
+14,HH_Lighting_Paraffin_Tadooba_2014,Energy (% of households),Lighting (Paraffin - Tadooba)
+15,HH_Lighting_Other_2014,Energy (% of households),Lighting (Other)
