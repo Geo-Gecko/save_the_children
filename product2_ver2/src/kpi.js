@@ -25,7 +25,7 @@ function filters(filterList) {
       .data(filterList.data);
     _dataList.enter().append("p")
       .text(function(d) {
-        return d.Name;
+        return d["Short Name"];
       })
     // _dataList
     //     .attr("class", function (d) {
@@ -67,6 +67,7 @@ function filters(filterList) {
     });
 
     var activeFilters = [];
+    var toBeFiltered = [];
     sliders[i].noUiSlider.on('slide', addValues);
 
     function addValues() {
@@ -92,7 +93,6 @@ function filters(filterList) {
 
       var filterValues = [];
 
-      var filtered = [];
 
       for (var i = 0; i < sliderData[0].length; i++) {
         if (sliderData[1][i][0] !== "0" || sliderData[1][i][1] !== "100") {
@@ -103,73 +103,52 @@ function filters(filterList) {
 
       var activeSliders = [activeFilters].concat([filterValues]);
 
-      // console.log(activeSliders);
+
+      var dataset = geoJsonFeatureCollection.features;
+
+      for (var i = 0; i < activeFilters.length; i++) {
+        if (i === 0) {
+          toBeFiltered = dataset.filter(dataset => dataset.properties.original_data[activeFilters[i]] > activeSliders[1][i][0] && dataset.properties.original_data[activeFilters[i]] < activeSliders[1][i][1])
+        } else {
+          toBeFiltered = toBeFiltered.filter(toBeFiltered => toBeFiltered.properties.original_data[activeFilters[i]] > activeSliders[1][i][0] && toBeFiltered.properties.original_data[activeFilters[i]] < activeSliders[1][i][1])
+        }
+      }
 
       for (key in map['_layers']) {
         if (typeof map['_layers'][key]['feature'] !== 'undefined') {
           var l = map['_layers'][key];
-          for (var i = 0; i < activeFilters.length; i++) {
-            // console.log(l['feature']['properties']['original_data'][sliderData[0][i]] > sliderData[1][i][0]);
-            if (l['feature']['properties']['original_data'][activeFilters[i]] > activeSliders[1][i][0] && l['feature']['properties']['original_data'][activeFilters[i]] < activeSliders[1][i][1]) {
-              filtered.push(l['feature']['properties']['original_data'].School)
-            }
-          }
+          l.setStyle({
+            radius: 6,
+            fillColor: "#7d7d7d",
+            color: "#000",
+            weight: 1,
+            opacity: 0.4,
+            fillOpacity: 0.4
+          })
         }
       }
 
-      var filteredOut = filtered.filter(function(item, pos) {
-        return filtered.indexOf(item) === pos;
-      });
-
-      // console.log(geoJsonFeatureCollection)
-
-      // geoJsonFeatureCollection.eachLayer(function(layer) {
-      //   // console.log(layer)
-
-      // })
-
-				// for (var k = 0; k < filteredsubCountys.length; k++) {
-				// 	if (d.properties.Concat === filteredsubCountys[k]) {
-				// 		return "none";
-				// 	}
-				// }
-				// return "#e3784a";
-
-
-      // for (key in map['_layers']) {
-      //   if (typeof map['_layers'][key]['feature'] !== 'undefined') {
-      //     var l = map['_layers'][key];
-      //     l.setStyle({
-      //       radius: 6,
-      //       fillColor: "#7d7d7d",
-      //       color: "#000",
-      //       weight: 1,
-      //       opacity: 0.4,
-      //       fillOpacity: 0.4
-      //     })
-      //   }
-      // }
-
-      // for (key in map['_layers']) {
-      //   if (typeof map['_layers'][key]['feature'] !== 'undefined') {
-      //     var l = map['_layers'][key];
-      //     $.each(filteredOut, function(index, value) {
-      //       if (l['feature']['properties']['original_data']["School"] === value) {
-      //         l.setStyle({
-      //           radius: 6,
-      //           fillColor: "#c3ff3e",
-      //           color: "#000",
-      //           weight: 1,
-      //           opacity: 1,
-      //           fillOpacity: 0.8
-      //         })
-      //       }
-      //     })
-      //   }
-      // }
-
+      for (key in map['_layers']) {
+        if (typeof map['_layers'][key]['feature'] !== 'undefined') {
+          var l = map['_layers'][key];
+          $.each(toBeFiltered, function(index, value) {
+            // console.log(value)
+            if (l['feature']['properties']['original_data']["School"] === value.properties.original_data.School) {
+              l.setStyle({
+                radius: 6,
+                fillColor: "#c3ff3e",
+                color: "#000",
+                weight: 1,
+                opacity: 1,
+                fillOpacity: 0.8
+              })
+            } else {
+              
+            }
+          })
+        }
+      }
     }
-
   }
 
   var select = $('<select name="options" id="options" style="max-width: 300px;"></select>');
@@ -181,59 +160,5 @@ function filters(filterList) {
 
   });
   $('#kpiDropDownContainer').empty().append(select);
-
-  // $('#options').change(function() {
-  //   var whichSlider = $(this).val();
-
-  //   var select = $('<div name="options" id="sliders"></div>');
-  //   $.each(filterList.data, function(index, value) {
-  //     var number = $('<p></p>');
-  //     number.attr('class', "slider" + index);
-  //     select.append(number);
-
-  //     // if (whichSlider === value.Name) {
-
-  //     //   noUiSlider.create(handlesSlider, {
-  //     //     start: [parseFloat(value.Min), parseFloat(value.Max)],
-  //     //     behaviour: "drag",
-  //     //     margin: 5,
-  //     //     connect: true,
-  //     //     orientation: "horizontal",
-  //     //     range: {
-  //     //       'min': parseFloat(value.Min),
-  //     //       'max': parseFloat(value.Max)
-  //     //     },
-  //     //     tooltips: true,
-  //     //     // format: {
-  //     //     //   to: function(value) {
-  //     //     //     // console.log(value);
-  //     //     //     return value.toFixed(0);
-  //     //     //   },
-  //     //     //   from: function(value) {
-  //     //     //     return value.replace('%', '');
-  //     //     //   }
-  //     //     // }
-  //     //   });
-
-  //     // }
-  //   });
-
-  //   $('#sliders').empty().append(select);
-  //   if ($(this).val() === "None") {
-  //     resetMap();
-  //   } else {
-  //     var activeFilters = [];
-  //     handlesSlider.noUiSlider.on('slide', addValues);
-  //   }
-  // })
-
-  //  // When the button is changed, run the updateChart function
-  //  d3.select("#options").on("change", function(d) {
-  //   // recover the option that has been chosen
-  //   var selectedOption = d3.select(this).property("value")
-  //   console.log(selectedOption)
-  //   // run the updateChart function with this selected option
-  //   update(selectedOption)
-  // })
 
 };

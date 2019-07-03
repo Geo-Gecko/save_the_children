@@ -40,7 +40,7 @@
    z-index: 1;
    top: 0;
    left: 0;
-   height: 100%;
+   height: 50%;
    width: 100%;
    -webkit-transform-origin: 0 0;
    transform-origin: 0 0;
@@ -108,7 +108,7 @@
    border-radius: 3px;
  }
  .noUi-connect {
-   background: #e3784a;
+   background: #33C3F0;
  }
  /* Handles and cursors;
   */
