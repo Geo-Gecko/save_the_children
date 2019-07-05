@@ -132,21 +132,22 @@
      <a href="https://www.geogecko.com/"><img style="z-index: 10000; position: fixed; bottom: 2%; left: 0; border: 0; width: 4em;" src="css/images/Logo_pin.svg" alt="GeoGecko"></a>
 
      <!-- filter panel -->
-     <div id="Filters" style="width: 80%; overflow-y: auto; margin: auto;" class="filterclass">
+     <div id="Filters" style="overflow-y: auto; height:80%; margin: auto;" class="filterclass">
 
-       <div class="w3-bar w3-black" style="width: 80% !important; margin: auto !important;">
-         <br>
-         <left>
-           <span class="filter-count-header" style="height:23.2px; font-size: 18px;">
-             <span>Filters (% within school)</span>
-             <button class="w3-bar-item w3-button" id="resetSliders">Reset Filters</button>
-           </span>
-         </left>
-       </div>
+       <div class="w3-bar w3-black" style="width: 80% !important; height: 75%; margin: auto !important;">
+         <div class="w3-bar w3-black" style="width: 80% !important; margin: auto !important;">
+           <br>
+           <left>
+             <span class="filter-count-header" style="height:23.2px; font-size: 18px;">
+               <span>Filters (% within school)</span>
+               <button class="w3-bar-item w3-button" style="font-size: 6px" id="resetSliders">Reset Filters</button>
+             </span>
+           </left>
+         </div>
 
-       <!-- numbers -->
-       <center>
-         <!-- <div>
+         <!-- numbers -->
+         <center>
+           <!-- <div>
            <span class="filter-count-header" style="height:23.2px; font-size: 12px;">
              <span>Districts</span>
            </span>
@@ -168,13 +169,12 @@
              <span id="district-count">0</span>
            </span>
          </div> -->
-       </center>
+         </center>
 
 
-       <!--List of filters:  -->
-       <div id='selectYear'></div>
-       <div id='selectTerm'></div>
-       <div class="w3-bar w3-black" style="width: 80% !important; height: 75%; margin: auto !important;">
+         <!--List of filters:  -->
+         <div id='selectYear'></div>
+         <div id='selectTerm'></div>
          <div id='sliderContainer'></div>
        </div>
 
@@ -364,7 +364,7 @@
                }
              }
 
-             SelectElement("options", "Percentage of beneficiaries reporting that humanitarian assistance is delivered in a safe, accessible, accountable and participatory manner.")
+             SelectElement("options", "Beneficiaries reporting that humanitarian assistance is delivered in a safe, accessible, accountable and participatory manner.")
 
              openPanel("Statistics");
 
@@ -438,7 +438,7 @@
 
              xAxis._groups[0][4].remove();
 
-             xAxis.append("text")
+             svg.append("g")
                .text("Terms")
 
              yAxis.append("text")
@@ -458,7 +458,7 @@
                  })
                  .y(function(d) {
                    //  console.log(d);
-                   return y(+d["Percentage of beneficiaries reporting that humanitarian assistance is delivered in a safe, accessible, accountable and participatory manner."])
+                   return y(+d["Beneficiaries reporting that humanitarian assistance is delivered in a safe, accessible, accountable and participatory manner."])
                  })
                )
                .attr("stroke", function(d) {
