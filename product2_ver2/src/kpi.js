@@ -38,6 +38,8 @@ function filters(filterList) {
   }
 
   d3.select("#sliderContainer").selectAll("p").append("div").attr("class", "sliders");
+  
+  d3.select("#sliderContainer").selectAll("p").append("hr");
 
   var sliders = document.getElementsByClassName('sliders');
   var fieldName = [];
@@ -114,6 +116,12 @@ function filters(filterList) {
         }
       }
 
+      console.log(activeFilters.length)
+
+      if(activeFilters.length === 0 ) {
+        resetMap();
+      }
+
       for (key in map['_layers']) {
         if (typeof map['_layers'][key]['feature'] !== 'undefined') {
           var l = map['_layers'][key];
@@ -142,9 +150,7 @@ function filters(filterList) {
                 opacity: 1,
                 fillOpacity: 0.8
               })
-            } else {
-              
-            }
+            } 
           })
         }
       }
@@ -160,5 +166,31 @@ function filters(filterList) {
 
   });
   $('#kpiDropDownContainer').empty().append(select);
+
+  $('#resetSliders').click(function(d) {
+    $.each(sliders, function(index, value) {
+      // console.log(value)
+      value.noUiSlider.reset();
+    })
+    resetMap();
+  })
+
+  function resetMap() {
+    
+    for (key in map['_layers']) {
+      if (typeof map['_layers'][key]['feature'] !== 'undefined') {
+        var l = map['_layers'][key];
+        l.setStyle({
+          radius: 6,
+          fillColor: "#c3ff3e",
+          color: "#000",
+          weight: 1,
+          opacity: 1,
+          fillOpacity: 0.8
+        })
+      }
+    }
+
+  }
 
 };
