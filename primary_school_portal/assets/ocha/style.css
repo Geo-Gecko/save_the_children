@@ -1,0 +1,117 @@
+@font-face {
+  font-family: 'ocha-icons';
+  src:  url('fonts/ocha-icons.eot?oe6tfz');
+  src:  url('fonts/ocha-icons.eot?oe6tfz#iefix') format('embedded-opentype'),
+    url('fonts/ocha-icons.ttf?oe6tfz') format('truetype'),
+    url('fonts/ocha-icons.woff?oe6tfz') format('woff'),
+    url('fonts/ocha-icons.svg?oe6tfz#ocha-icons') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+i {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: 'ocha-icons' !important;
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-cccm-inverse:before {
+  content: "\e900";
+  color: #046bb5;
+}
+.icon-cccm:before {
+  content: "\e901";
+  color: #046bb5;
+}
+.icon-earlyrecovery-inverse:before {
+  content: "\e902";
+  color: #046bb5;
+}
+.icon-earlyrecovery:before {
+  content: "\e903";
+  color: #046bb5;
+}
+.icon-education-inverse:before {
+  content: "\e904";
+  color: #046bb5;
+}
+.icon-education:before {
+  content: "\e905";
+  color: #FFB400;
+/*  color: #046bb5;*/
+}
+.icon-emergencytelecommunications-inverse:before {
+  content: "\e906";
+  color: #046bb5;
+}
+.icon-emergencytelecommunications:before {
+  content: "\e907";
+  color: #046bb5;
+}
+.icon-fsc-inverse:before {
+  content: "\e908";
+  color: #046bb5;
+}
+.icon-fsc:before {
+  content: "\e909";
+  color: #046bb5;
+}
+.icon-health-inverse:before {
+  content: "\e90a";
+  color: #046bb5;
+}
+.icon-health:before {
+  content: "\e90b";
+  color: #FC3100;
+/*  color: #046bb5;*/
+}
+.icon-logistics-inverse:before {
+  content: "\e90c";
+  color: #046bb5;
+}
+.icon-logistics:before {
+  content: "\e90d";
+  color: #046bb5;
+}
+.icon-nutrition-inverse:before {
+  content: "\e90e";
+  color: #046bb5;
+}
+.icon-nutrition:before {
+  content: "\e90f";
+  color: #046bb5;
+}
+.icon-protection-inverse:before {
+  content: "\e910";
+  color: #046bb5;
+}
+.icon-protection:before {
+  content: "\e911";
+  color: #3B5323;
+/*  color: #046bb5;*/
+}
+.icon-shelter-inverse:before {
+  content: "\e912";
+  color: #046bb5;
+}
+.icon-shelter:before {
+  content: "\e913";
+  color: #046bb5;
+}
+.icon-wash-inverse:before {
+  content: "\e914";
+  color: #046bb5;
+}
+.icon-wash:before {
+  content: "\e915";
+  color: #046bb5;
+}
