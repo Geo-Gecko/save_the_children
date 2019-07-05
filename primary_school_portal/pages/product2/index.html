@@ -12,7 +12,9 @@
    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway:400,300,600" />
    <link rel="stylesheet" href="css/normalize.css" />
    <link rel="stylesheet" href="css/skeleton.css" />
+   <link rel="stylesheet" href="css/skeleton-tabs.css" />
    <script src="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/11.1.0/nouislider.min.js"></script>
+   <script src="src/skeleton-tabs.js"></script>
    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/11.1.0/nouislider.min.css" /> -->
    <link rel="stylesheet" href="css/nouislider.css" />
    <script src="https://d3js.org/d3.v4.min.js" charset="utf-8"></script>
@@ -45,7 +47,7 @@
        width: 500px;
        /* max-height: 515px; */
        height: 93%;
-       overflow-y: auto;
+       /* overflow-y: auto; */
        border-top: 3px solid #33C3F0;
        border-bottom: 3px solid #33C3F0;
        background-color: #f8f8f8;
@@ -111,105 +113,129 @@
        height: auto;
        max-height: 310px;
      }
+
+     #student-count,
+     #school-count {
+       padding-left: 5%;
+     }
    </style>
 
  </head>
 
  <body>
 
+
+   <a href="https://www.geogecko.com/" target="_blank"><img style="z-index: 10000; position: fixed; bottom: 2%; left: 0; border: 0; width: 4em;" src="css/images/Logo_pin.svg" alt="GeoGecko"></a>
+
    <div id="map"></div>
    <div id="controlPanel" class="control-panel">
 
 
-     <div class="w3-bar w3-black" style="width: 80% !important; margin: auto !important;">
-       <left>
-         <br>
-         <button class="w3-bar-item w3-button" id="filterButton" onclick="openPanel('Filters')">Filters</button>
-         <button class="w3-bar-item w3-button" onclick="openPanel('Statistics')">School statistics</button>
-       </left>
-     </div>
+     <br>
+     <br>
 
-     <a href="https://www.geogecko.com/"><img style="z-index: 10000; position: fixed; bottom: 2%; left: 0; border: 0; width: 4em;" src="css/images/Logo_pin.svg" alt="GeoGecko"></a>
+     <ul class="tab-nav">
+       <li>
+         <a class="button active" href="#Filters">Filters</a>
+       </li>
+       <li>
+         <a class="button" id="statsButton" href="#Statistics">School Statistics</a>
+       </li>
+     </ul>
 
-     <!-- filter panel -->
-     <div id="Filters" style="overflow-y: auto; height:80%; margin: auto;" class="filterclass">
+     <div class="tab-content" style="overflow-y: hidden; height:80%; margin: auto;" class="filterclass">
+       <div class="tab-pane active" id="Filters">
 
-       <div class="w3-bar w3-black" style="width: 80% !important; height: 75%; margin: auto !important;">
-         <div class="w3-bar w3-black" style="width: 80% !important; margin: auto !important;">
+         <div style="position: relative">
+           <!-- numbers -->
+           <div class="w3-bar w3-black" style="width: 80% !important; margin: auto !important;">
+             <left>
+               <div style="width: 80%;padding-left: 10%;">
+                 <table style="float:left;">
+                   <tbody>
+                     <tr>
+                       <td>Schools</td>
+                       <td id="school-count">0</td>
+                     </tr>
+                     <tr></tr>
+                     <tr>
+                       <td>Students</td>
+                       <td id="student-count">0</td>
+                     </tr>
+                   </tbody>
+                 </table>
+
+                 <button class="w3-bar-item w3-button" style="font-size: 10px; float: right !important;" id="resetSliders">Reset</button>
+               </div>
+             </left>
+           </div>
+
            <br>
-           <left>
-             <span class="filter-count-header" style="height:23.2px; font-size: 18px;">
-               <span>Filters (% within school)</span>
-               <button class="w3-bar-item w3-button" style="font-size: 6px" id="resetSliders">Reset Filters</button>
+           <br>
+
+           <div class="w3-bar w3-black" style="width: 80% !important; margin: auto !important;">
+
+             <span style="float:left;width: 80%;padding-left: 10%;">
+               <strong>Filters (% within school)</strong>
              </span>
-           </left>
+             <br>
+           </div>
+
+         </div>
+         <br>
+         <hr>
+
+         <div class="w3-bar w3-black" style="clear: left;width: 80% !important; height: 75%; margin: auto !important;">
+           <!--List of filters:  -->
+           <div id='selectYear'></div>
+           <div id='selectTerm'></div>
+           <div id='sliderContainer' style="float:unset; overflow-y: auto; max-height: -webkit-fill-available;"></div>
+           
+           <div id='padding'></div>
+           
          </div>
 
+       </div>
+
+
+       <div class="tab-pane" class="filterclass" id="Statistics" style="overflow-x: hidden;width: 80% !important; margin: auto;">
          <!-- numbers -->
-         <center>
-           <!-- <div>
-           <span class="filter-count-header" style="height:23.2px; font-size: 12px;">
-             <span>Districts</span>
-           </span>
-           <span class="filter-count-header" style="height:23.2px; font-size: 12px;">
-             <span>Schools</span>
-           </span>
-           <span class="filter-count-header" style="height:23.2px; font-size: 12px;">
-             <span>Settlements</span>
-           </span>
-         </div>
-         <div>
-           <span class="filter-count-numbers" style="height:23.2px; font-size: 12px;">
-             <span id="district-count">0</span>
-           </span>
-           <span class="filter-count-numbers" style="height:23.2px; font-size: 12px;">
-             <span id="district-count">0</span>
-           </span>
-           <span class="filter-count-numbers" style="height:23.2px; font-size: 12px;">
-             <span id="district-count">0</span>
-           </span>
-         </div> -->
-         </center>
+         <strong>Summary</strong>
+         <left>
+           <div id="sidebar-content"></div>
+         </left>
 
 
          <!--List of filters:  -->
-         <div id='selectYear'></div>
-         <div id='selectTerm'></div>
-         <div id='sliderContainer'></div>
-       </div>
+         <hr>
+         <strong>Statistics</strong>
+         <p>
+           <strong>KPI Selection</strong>
+           <h7>(Click on a school on the map)</h7>
+         </p>
+         <h7 style="font-size: 0.8em;">Percentage within a school of</h7>
+         <div class="row">
+           <div id="kpiDropDownContainer" style="font-size: small;" class="six columns"></div>
+           <div id="yearDropDownContainer" class="six columns"></div>
+         </div>
 
+         <!-- Create a div where the graph will take place -->
+         <div id="my_dataviz"></div>
+       </div>
      </div>
+
+     <!-- filter panel -->
+     <!-- <div id="Filters" style="overflow-y: auto; height:80%; margin: auto;" class="filterclass">
+
+       
+
+     </div> -->
 
      <!-- Statistic panel -->
-     <div id="Statistics" class="filterclass" style="width: 80%; margin: auto; display:none">
-
-       <!-- numbers -->
-       <left>
-         <div id="sidebar-content"></div>
-       </left>
+     <!-- <div id="Statistics" class="filterclass" style="width: 80%; margin: auto; display:none">
 
 
-       <!--List of filters:  -->
-       <hr>
-       <left>
-         <span class="filter-count-header" style="height:23.2px; font-size: 18px;">
-           <span>Statistics</span>
-         </span>
-       </left>
-       <p>
-         <strong>Select the KPI the percentage within each school to chart</strong>
-         <h7>(Click on a point to generate chart)</h7>
-       </p>
-
-       <div class="row">
-         <div id="kpiDropDownContainer" style="font-size: small;" class="six columns"></div>
-         <div id="yearDropDownContainer" class="six columns"></div>
-       </div>
-
-       <!-- Create a div where the graph will take place -->
-       <div id="my_dataviz"></div>
-
-     </div>
+     </div> -->
 
      <div class="containerIMG" style="width: 930px; max-width: 100%;">
        <a style="max-width:30%;margin: auto;" href=""><img src="css/images/ECW-full-logo-and-tagline-orange-and-whitetagline-RGB.png" alt="ECW"></a>
@@ -220,6 +246,16 @@
    </div>
 
    <script>
+     function eventFire(el, etype) {
+       if (el.fireEvent) {
+         el.fireEvent('on' + etype);
+       } else {
+         var evObj = document.createEvent('Events');
+         evObj.initEvent(etype, true, false);
+         el.dispatchEvent(evObj);
+       }
+     }
+
      function openPanel(PanelName) {
        var i;
        var x = document.getElementsByClassName("filterclass");
@@ -306,6 +342,16 @@
            }
          });
 
+         d3.select("#school-count").text(summary1.length);
+
+         var studentCount = d3.sum(summary1, function(d) {
+           //  console.log(d);
+           return parseInt(d["Number of Students"])
+
+         })
+         d3.select("#student-count").text(studentCount);
+         // d3.select("#household-count").text(global.householdCount.toLocaleString());
+
          //  should switch to this
 
          geoJsonFeatureCollection = {
@@ -366,7 +412,7 @@
 
              SelectElement("options", "Beneficiaries reporting that humanitarian assistance is delivered in a safe, accessible, accountable and participatory manner.")
 
-             openPanel("Statistics");
+             eventFire(document.getElementById('statsButton'), 'click');
 
              $('#sidebar-content').html(
                "<table>" +
@@ -397,7 +443,7 @@
                  left: 30
                },
                width = 460 - margin.left - margin.right,
-               height = 400 - margin.top - margin.bottom;
+               height = 350 - margin.top - margin.bottom;
 
              // append the svg object to the body of the page
              var svg = d3.select("#my_dataviz")

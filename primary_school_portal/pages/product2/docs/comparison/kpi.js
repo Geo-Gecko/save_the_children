@@ -44,9 +44,6 @@ var cbounds;
 
 
 	function refreshCounts() {
-		// d3.select("#subCounty-count").text(global.subCountyCount);
-		// d3.select("#household-count").text(global.householdCount.toLocaleString());
-
 		_selectedDataset = dataset1;
 	}
 

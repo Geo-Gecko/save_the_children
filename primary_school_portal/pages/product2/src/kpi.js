@@ -117,6 +117,14 @@ function filters(filterList) {
         }
       }
 
+      d3.select("#school-count").text(toBeFiltered.length);
+
+         var studentCount = d3.sum(toBeFiltered, function(d){
+           return parseInt(d.properties.original_data["Number of Students"])
+
+         })
+         d3.select("#student-count").text(studentCount);
+
       if(activeFilters.length === 0 ) {
         resetMap();
       }
@@ -183,6 +191,16 @@ function filters(filterList) {
   })
 
   function resetMap() {
+    
+
+    d3.select("#school-count").text(geoJsonFeatureCollection.features.length);
+
+    var studentCount = d3.sum(geoJsonFeatureCollection.features, function(d){
+      return parseInt(d.properties.original_data["Number of Students"])
+
+    })
+    d3.select("#student-count").text(studentCount);
+
     for (key in map['_layers']) {
       if (typeof map['_layers'][key]['feature'] !== 'undefined') {
         var l = map['_layers'][key];
