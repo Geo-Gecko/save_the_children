@@ -2,7 +2,7 @@
 ul.tab-nav {
     list-style: none;
     border-bottom: 1px solid #bbb;
-    /* padding-left: 10%; */
+    padding-left: 5%;
 }
 
 ul.tab-nav li {

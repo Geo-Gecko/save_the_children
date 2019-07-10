@@ -178,7 +178,7 @@
        width: 50%;
        height: 40px;
        box-sizing: border-box;
-       text-align: center;
+       text-align: left;
        vertical-align: middle;
      }
 
@@ -258,14 +258,14 @@
 
      <ul class="tab-nav">
        <li>
-         <a class="button active" id="mapLegendButton" href="#mapLegend">Map Legend</a>
+         <a class="button active" id="mapLegendButton" href="#mapLegend" style="width: 45%;">Map Legend</a>
        </li>
        <li>
-         <a class="button" id="priorityApproachesButton" href="#priorityApproaches">Priority Approaches</a>
+         <a class="button" id="priorityApproachesButton" href="#priorityApproaches" style="width: 45%;">Priority Approaches</a>
        </li>
      </ul>
 
-     <div class="tab-content" style="overflow-y: auto; height:80%; width: 90%; margin: auto;" class="filterclass">
+     <div class="tab-content" style="overflow-y: auto; height:75%; width: 90%; margin: auto;" class="filterclass">
        <div class="tab-pane active" id="mapLegend">
 
          <div class="container" style="width: 100%; padding: 5px 10px; text-align: left;">
@@ -304,11 +304,11 @@
 
        </div>
 
-       <div class="tab-pane" class="filterclass" id="priorityApproaches" style="overflow-x: hidden;width: 80% !important; margin: auto;">
+       <div class="tab-pane" class="filterclass" id="priorityApproaches" style="overflow-x: hidden;width: 90% !important;">
          <div id="app-cover">
            <div class="row">
              <div class="toggle-buttons-cover">
-               <p style="text-align: right;">Can't wait to Learn </p>
+               <p style="text-align: left;">Can't wait to Learn </p>
              </div>
              <div class="toggle-buttons-cover">
                <div class="buttons-cover">
@@ -323,7 +323,7 @@
            </div>
            <div class="row">
              <div class="toggle-buttons-cover">
-               <p style="text-align: right;">Early Grade Reading</p>
+               <p style="text-align: left;">Early Grade Reading</p>
              </div>
              <div class="toggle-buttons-cover">
                <div class="buttons-cover">
@@ -337,7 +337,7 @@
            </div>
            <div class="row">
              <div class="toggle-buttons-cover">
-               <p style="text-align: right;">TeamUp</p>
+               <p style="text-align: left;">TeamUp</p>
              </div>
              <div class="toggle-buttons-cover">
                <div class="buttons-cover">
@@ -351,7 +351,7 @@
            </div>
            <div class="row">
              <div class="toggle-buttons-cover">
-               <p style="text-align: right;">Double Shifting</p>
+               <p style="text-align: left;">Double Shifting</p>
              </div>
              <div class="toggle-buttons-cover">
                <div class="buttons-cover">
@@ -767,6 +767,8 @@
          })
          $('#priorityApproachesButton').on('click', function() {
            priorityApproaches();
+           
+           map.fitBounds(bounds);
          })
 
          function arrayRemove(arr, value) {

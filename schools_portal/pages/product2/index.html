@@ -115,7 +115,7 @@
 
      #student-count,
      #school-count {
-       padding-left: 5%;
+       padding-left: 10%;
      }
 
      .groupTitle {
@@ -142,21 +142,21 @@
 
      <ul class="tab-nav">
        <li>
-         <a class="button active" href="#Filters">Filters</a>
+         <a class="button active" href="#Filters" style="width: 45%;">Filters</a>
        </li>
        <li>
-         <a class="button" id="statsButton" href="#Statistics">School Statistics</a>
+         <a class="button" id="statsButton" href="#Statistics" style="width: 45%;">School Statistics</a>
        </li>
      </ul>
 
-     <div class="tab-content" style="overflow-y: auto; height:80%; margin: auto;" class="filterclass">
+     <div class="tab-content" style="overflow-y: auto; height:75%; margin: auto;" class="filterclass">
        <div class="tab-pane active" id="Filters">
 
          <div style="position: relative">
            <!-- numbers -->
            <div class="w3-bar w3-black" style="width: 90% !important; margin: auto !important;">
              <left>
-               <div style="width: 90%;padding-left: 10%;">
+               <div style="width: 90%;padding-left: 0%;">
                  <table style="float:left;">
                    <tbody>
                      <tr>
@@ -183,13 +183,13 @@
 
              <span style="float:left;width: 90%;padding-left: 0%;">
                <strong>Filters</strong>
-               
-             <select name="options" style="max-width: 300px;">
-                <option disabled value="">- Select Year -</option>
-                <option value="2019">2019</option>
-              </select>
+
+               <select name="options" style="max-width: 300px;">
+                 <option disabled value="">- Select Year -</option>
+                 <option value="2019">2019</option>
+               </select>
              </span>
-             
+
              <br>
            </div>
 
@@ -235,7 +235,6 @@
            <strong>KPI Selection</strong>
            <h7>(Click on a school on the map)</h7>
          </p>
-         <h7 style="font-size: 0.8em;">Percentage within a school of</h7>
          <div class="row">
            <div id="kpiDropDownContainer" style="font-size: small;" class="six columns"></div>
            <div id="yearDropDownContainer" class="six columns"></div>
@@ -308,6 +307,10 @@
 
 
    <script>
+     function numberWithCommas(x) {
+       return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+     }
+
      function SelectElement(id, valueToSelect) {
        var element = document.getElementById(id);
        element.value = valueToSelect;
@@ -392,14 +395,14 @@
            }
          });
 
-         d3.select("#school-count").text(summary1.length);
+         d3.select("#school-count").text(numberWithCommas(summary1.length));
 
          var studentCount = d3.sum(summary1, function(d) {
            //  console.log(d);
            return parseInt(d["Number of Students"])
 
          })
-         d3.select("#student-count").text(studentCount);
+         d3.select("#student-count").text(numberWithCommas(studentCount));
          // d3.select("#household-count").text(global.householdCount.toLocaleString());
 
          //  should switch to this
@@ -466,13 +469,13 @@
 
              $('#sidebar-content').html(
                "<table>" +
-               "<tr><td>Type of facility</td><td>" + d.layer.feature.properties.original_data["Is_the_Support_for_Primary_School_or_AEP_centre_hosted_by_the_school?"] + "</td><tr>" +
-               "<tr><td>Name of facility</td><td>" + d.layer.feature.properties.original_data.School + "</td><tr>" +
+               "<tr><td>Type of facility</td><td style='padding-left: 10%;'>" + d.layer.feature.properties.original_data["Is_the_Support_for_Primary_School_or_AEP_centre_hosted_by_the_school?"] + "</td><tr>" +
+               "<tr><td>Name of facility</td><td style='padding-left: 10%;'>" + d.layer.feature.properties.original_data.School + "</td><tr>" +
                //  "<tr><td>Name of Referral Facility</td><td>" + e.sharedOriginFeatures[1].properties.original_data["Name_of_pathway"] + "</td><tr>" +
                //  "<tr><td>Name of Transition Facility</td><td>" + e.sharedOriginFeatures[0].properties.original_data["Name_of_pathway"] + "</td><tr>" +
-               "<tr><td>Current Number of Students</td><td>" + d.layer.feature.properties.original_data["Current Number of Students"] + "</td><tr>" +
-               "<tr><td>Average Attendence</td><td>" + d.layer.feature.properties.original_data["Average Attendence"] + "</td><tr>" +
-               "<tr><td>Partner Organisation</td><td>" + d.layer.feature.properties.original_data["Partner Organisation"] + "</td><tr>" + "</table>")
+               "<tr><td>Current Number of Students</td><td style='padding-left: 10%;'>" + d.layer.feature.properties.original_data["Current Number of Students"] + "</td><tr>" +
+               "<tr><td>Average Attendence</td><td style='padding-left: 10%;'>" + d.layer.feature.properties.original_data["Average Attendence"] + "</td><tr>" +
+               "<tr><td>Partner Organisation</td><td style='padding-left: 10%;'>" + d.layer.feature.properties.original_data["Partner Organisation"] + "</td><tr>" + "</table>")
 
              // d3.select("#my_dataviz").remove();
              $('#my_dataviz').empty()
