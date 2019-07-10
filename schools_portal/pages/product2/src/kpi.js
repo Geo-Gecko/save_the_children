@@ -161,7 +161,7 @@ function filters(filterList) {
       }
 
       for (key in map['_layers']) {
-        if (typeof map['_layers'][key]['feature'] !== 'undefined') {
+        if (typeof map['_layers'][key]['feature'] !== 'undefined' && map['_layers'][key]['feature']['geometry']['type'] !== 'MultiPolygon') {
           var l = map['_layers'][key];
           l.setStyle({
             radius: 6,
@@ -175,7 +175,7 @@ function filters(filterList) {
       }
 
       for (key in map['_layers']) {
-        if (typeof map['_layers'][key]['feature'] !== 'undefined') {
+        if (typeof map['_layers'][key]['feature'] !== 'undefined' && map['_layers'][key]['feature']['geometry']['type'] !== 'MultiPolygon') {
           var l = map['_layers'][key];
           $.each(toBeFiltered, function(index, value) {
             // console.log(value)
@@ -255,7 +255,7 @@ function filters(filterList) {
     d3.select("#student-count").text(studentCount);
 
     for (key in map['_layers']) {
-      if (typeof map['_layers'][key]['feature'] !== 'undefined') {
+      if (typeof map['_layers'][key]['feature'] !== 'undefined' && map['_layers'][key]['feature']['geometry']['type'] !== 'MultiPolygon') {
         var l = map['_layers'][key];
         l.setStyle({
           radius: 6,
