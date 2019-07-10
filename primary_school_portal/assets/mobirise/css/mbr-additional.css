@@ -2944,3 +2944,59 @@ p {
 .cid-r9ntxkREPm H2 {
   color: #ffffff;
 }
+
+
+ /*
+  *  STYLE 1
+  */
+ 
+  ::-webkit-scrollbar-track
+  {
+      -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+      border-radius: 10px;
+      background-color: #174e69;;
+  }
+  
+  ::-webkit-scrollbar
+  {
+      width: 12px;
+      background-color: #174e69;
+  }
+  
+  ::-webkit-scrollbar-thumb
+  {
+      border-radius: 10px;
+      -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+      background-color: #555;
+  }
+  
+  .leaflet-bottom
+   {
+    z-index:0 !important;
+   }
+  
+  .noUi-horizontal
+    {
+     height:10px !important;
+    } 
+  
+  .noUi-connects
+    {
+     margin-top:11px !important;
+     top: -6px      
+    } 
+  
+  .noUi-target
+    {
+     border:none !important;
+    }
+  
+  .noUi-handle-lower
+    {
+     top:-15px !important;
+    }  
+  
+  .noUi-handle-upper
+    {
+     top:-15px !important;
+    } 

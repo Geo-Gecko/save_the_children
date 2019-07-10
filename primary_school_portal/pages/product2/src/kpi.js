@@ -20,25 +20,58 @@
 
 function filters(filterList) {
 
-  if (filterList.data) {
-    var _dataList = d3.select("#sliderContainer").selectAll("p")
-      .data(filterList.data);
+  var schoolLevel = filterList.data.filter(function(d) {
+    if (d.Type === "School-Level") {
+      return d;
+    }
+  });
+
+  var educationCannotWait = filterList.data.filter(function(d) {
+    if (d.Type === "Education Cannot Wait") {
+      return d;
+    }
+  });
+
+  var echoInclude = filterList.data.filter(function(d) {
+    if (d.Type === "ECHO INCLUDE") {
+      return d;
+    }
+  });
+
+  if (schoolLevel) {
+    var _dataList = d3.select("#school-level-list").selectAll("p")
+      .data(schoolLevel);
     _dataList.enter().append("p")
       .html(function(d) {
-        return "<div style='padding-left: 10%;'><span>" + d["Short Name"] + "</span></div>";
+        return "<div style='padding-left: 10%;'><span>" + d["Name"] + "</span></div>";
       })
-    // _dataList
-    //     .attr("class", function (d) {
-    //         return "kpi-list-" + d.Name;
-    //     })
-    //     .text(function (d) {
-    //         return d.key;
-    //     });
     _dataList.exit().remove();
   }
 
-  d3.select("#sliderContainer").selectAll("p").append("div").attr("class", "sliders");
-  
+  if (educationCannotWait) {
+    var _dataList = d3.select("#education-cannot-wait-list").selectAll("p")
+      .data(educationCannotWait);
+    _dataList.enter().append("p")
+      .html(function(d) {
+        return "<div style='padding-left: 10%;'><span>" + d["Name"] + "</span></div>";
+      })
+    _dataList.exit().remove();
+  }
+
+  if (echoInclude) {
+    var _dataList = d3.select("#echo-include-list").selectAll("p")
+      .data(echoInclude);
+    _dataList.enter().append("p")
+      .html(function(d) {
+        return "<div style='padding-left: 10%;'><span>" + d["Name"] + "</span></div>";
+      })
+    _dataList.exit().remove();
+  }
+
+  d3.select("#school-level-list").selectAll("p").append("div").attr("class", "sliders");
+  d3.select("#education-cannot-wait-list").selectAll("p").append("div").attr("class", "sliders");
+  d3.select("#echo-include-list").selectAll("p").append("div").attr("class", "sliders");
+
   d3.select("#sliderContainer").selectAll("p").append("hr");
 
   var sliders = document.getElementsByClassName('sliders');
@@ -96,7 +129,6 @@ function filters(filterList) {
 
       var active = d3.selectAll(".no")
 
-
       for (var i = 0; i < sliderData[0].length; i++) {
         if (sliderData[1][i][0] !== "0" || sliderData[1][i][1] !== "100") {
           activeFilters.push(sliderData[0][i][0]);
@@ -105,7 +137,6 @@ function filters(filterList) {
       }
 
       var activeSliders = [activeFilters].concat([filterValues]);
-
 
       var dataset = geoJsonFeatureCollection.features;
 
@@ -119,13 +150,13 @@ function filters(filterList) {
 
       d3.select("#school-count").text(toBeFiltered.length);
 
-         var studentCount = d3.sum(toBeFiltered, function(d){
-           return parseInt(d.properties.original_data["Number of Students"])
+      var studentCount = d3.sum(toBeFiltered, function(d) {
+        return parseInt(d.properties.original_data["Number of Students"])
 
-         })
-         d3.select("#student-count").text(studentCount);
+      })
+      d3.select("#student-count").text(studentCount);
 
-      if(activeFilters.length === 0 ) {
+      if (activeFilters.length === 0) {
         resetMap();
       }
 
@@ -157,7 +188,7 @@ function filters(filterList) {
                 opacity: 1,
                 fillOpacity: 0.8
               })
-            } 
+            }
           })
         }
       }
@@ -165,7 +196,28 @@ function filters(filterList) {
   }
 
   var select = $('<select name="options" id="options" style="max-width: 400px;"></select>');
-  $.each(filterList.data, function(index, value) {
+  
+  var title = $('<option class="groupTitle" disabled selected value=""><span  style="font-size: larger; text-decoration: underline;">School-Level</span></option>');
+  select.append(title);
+  $.each(schoolLevel, function(index, value) {
+    var option = $('<option></option>');
+    option.attr('value', value.Name);
+    option.text(value.Name);
+    select.append(option);
+
+  });
+  var title = $('<option class="groupTitle" disabled selected value=""><span  style="font-size: larger; text-decoration: underline;">Education Cannot Wait</span></option>');
+  select.append(title);
+  $.each(educationCannotWait, function(index, value) {
+    var option = $('<option></option>');
+    option.attr('value', value.Name);
+    option.text(value.Name);
+    select.append(option);
+
+  });
+  var title = $('<option class="groupTitle" disabled selected value=""><span  style="font-size: larger; text-decoration: underline;">ECHO INCLUDE</span></option>');
+  select.append(title);
+  $.each(echoInclude, function(index, value) {
     var option = $('<option></option>');
     option.attr('value', value.Name);
     option.text(value.Name);
@@ -174,9 +226,11 @@ function filters(filterList) {
   });
   $('#kpiDropDownContainer').empty().append(select);
 
+  
+  SelectElement("options", "Number of Teachers");
+
   $('#resetSliders').click(function(d) {
     $.each(sliders, function(index, value) {
-      // console.log(value)
       value.noUiSlider.reset();
     })
     resetMap();
@@ -191,11 +245,10 @@ function filters(filterList) {
   })
 
   function resetMap() {
-    
 
     d3.select("#school-count").text(geoJsonFeatureCollection.features.length);
 
-    var studentCount = d3.sum(geoJsonFeatureCollection.features, function(d){
+    var studentCount = d3.sum(geoJsonFeatureCollection.features, function(d) {
       return parseInt(d.properties.original_data["Number of Students"])
 
     })

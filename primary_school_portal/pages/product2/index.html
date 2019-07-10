@@ -37,7 +37,7 @@
 
      .control-panel {
        position: absolute;
-       bottom: 0;
+       bottom: 10%;
        right: 0;
        opacity: 0.85;
        margin-right: 10px;
@@ -46,7 +46,7 @@
        /*max-width: 50%; */
        width: 500px;
        /* max-height: 515px; */
-       height: 93%;
+       height: 80%;
        /* overflow-y: auto; */
        border-top: 3px solid #33C3F0;
        border-bottom: 3px solid #33C3F0;
@@ -104,7 +104,6 @@
        display: flex;
        flex-direction: row;
        flex-wrap: nowrap;
-       align-items: center !important;
      }
 
      img {
@@ -118,6 +117,13 @@
      #school-count {
        padding-left: 5%;
      }
+
+     .groupTitle {
+       font-size: larger;
+       text-decoration: underline;
+       color: black !important;
+       font-weight: bolder;
+     }
    </style>
 
  </head>
@@ -125,7 +131,7 @@
  <body>
 
 
-   <a href="https://www.geogecko.com/" target="_blank"><img style="z-index: 10000; position: fixed; bottom: 2%; left: 0; border: 0; width: 4em;" src="css/images/Logo_pin.svg" alt="GeoGecko"></a>
+   <a href="https://www.geogecko.com/" target="_blank"><img style="z-index: 10000; position: fixed; bottom: 2%; left: 0; border: 0; width: 4em;" src="../../assets/images/Logo_pin.svg"></a>
 
    <div id="map"></div>
    <div id="controlPanel" class="control-panel">
@@ -143,14 +149,14 @@
        </li>
      </ul>
 
-     <div class="tab-content" style="overflow-y: hidden; height:80%; margin: auto;" class="filterclass">
+     <div class="tab-content" style="overflow-y: auto; height:80%; margin: auto;" class="filterclass">
        <div class="tab-pane active" id="Filters">
 
          <div style="position: relative">
            <!-- numbers -->
-           <div class="w3-bar w3-black" style="width: 80% !important; margin: auto !important;">
+           <div class="w3-bar w3-black" style="width: 90% !important; margin: auto !important;">
              <left>
-               <div style="width: 80%;padding-left: 10%;">
+               <div style="width: 90%;padding-left: 10%;">
                  <table style="float:left;">
                    <tbody>
                      <tr>
@@ -173,32 +179,48 @@
            <br>
            <br>
 
-           <div class="w3-bar w3-black" style="width: 80% !important; margin: auto !important;">
+           <div class="w3-bar w3-black" style="width: 90% !important; margin: auto !important;">
 
-             <span style="float:left;width: 80%;padding-left: 10%;">
-               <strong>Filters (% within school)</strong>
+             <span style="float:left;width: 90%;padding-left: 0%;">
+               <strong>Filters</strong>
+               
+             <select name="options" style="max-width: 300px;">
+                <option disabled value="">- Select Year -</option>
+                <option value="2019">2019</option>
+              </select>
              </span>
+             
              <br>
            </div>
 
          </div>
          <br>
-         <hr>
 
-         <div class="w3-bar w3-black" style="clear: left;width: 80% !important; height: 75%; margin: auto !important;">
+         <div class="w3-bar w3-black" style="clear: left;width: 90% !important; height: 5%; margin: auto !important;">
            <!--List of filters:  -->
-           <div id='selectYear'></div>
-           <div id='selectTerm'></div>
-           <div id='sliderContainer' style="float:unset; overflow-y: auto; max-height: -webkit-fill-available;"></div>
-           
-           <div id='padding'></div>
-           
+           <div id='sliderContainer' style="float:unset; overflow-y: auto; max-height: 100%;">
+             <div>
+               <div class="col-md-12">
+                 <p class="custom-list-header"><strong>School Level</strong><i class="glyphicon glyphicon-chevron-down"></i></p>
+                 <div id="school-level-list" class="custom-list"></div>
+               </div>
+               <div class="col-md-12">
+                 <p class="custom-list-header"><strong>Education Cannot Wait</strong> <i class="glyphicon glyphicon-chevron-down"></i></p>
+                 <div id="education-cannot-wait-list" class="custom-list"></div>
+               </div>
+               <div class="col-md-12">
+                 <p class="custom-list-header"><strong>ECHO INCLUDE</strong> <i class="glyphicon glyphicon-chevron-down"></i></p>
+                 <div id="echo-include-list" class="custom-list"></div>
+               </div>
+             </div>
+           </div>
+
          </div>
 
        </div>
 
 
-       <div class="tab-pane" class="filterclass" id="Statistics" style="overflow-x: hidden;width: 80% !important; margin: auto;">
+       <div class="tab-pane" class="filterclass" id="Statistics" style="overflow-x: hidden;width: 90% !important; margin: auto;">
          <!-- numbers -->
          <strong>Summary</strong>
          <left>
@@ -237,10 +259,10 @@
 
      </div> -->
 
-     <div class="containerIMG" style="width: 930px; max-width: 100%;">
-       <a style="max-width:30%;margin: auto;" href=""><img src="css/images/ECW-full-logo-and-tagline-orange-and-whitetagline-RGB.png" alt="ECW"></a>
-       <a style="max-width:30%;margin: auto;" href=""><img src="css/images/ECO.png" alt="ECO"></a>
-       <!-- <a style="max-width:30%; padding-right: 2rem; " href="https://www.geogecko.com/"><img src="css/images/Logo_pin.svg" alt="GeoGecko"></a> -->
+
+     <div class="containerIMG" style="z-index: 10000; position: fixed; bottom: 2%; right: 0; border: 0; height: 8%; width: 500px;">
+       <a style="max-width:30%; margin: auto;" href=""><img src="../../assets/images/ECW-full-logo-and-tagline-orange-and-whitetagline-RGB.png" alt="ECW"></a>
+       <a style="max-width: 18%;margin: auto;" href=""><img src="../../assets/images/echo.png" alt="ECO"></a>
      </div>
 
    </div>
@@ -290,13 +312,40 @@
        var element = document.getElementById(id);
        element.value = valueToSelect;
      }
-     var map = L.map('map');
+     var map = L.map('map', {
+       zoomSnap: 0.01
+     });
      var geoJsonFeatureCollection;
+     var forMax;
      if (L.Browser.mobile) {
        map.setView([1.291471, 32.482235], 7);
      } else {
        map.setView([1.291471, 34.482235], 7);
      }
+
+     var southWest = new L.LatLng(-1.606559295542773, 28.026294838895254),
+       northEast = new L.LatLng(4.301960929158914, 39.744435655056094),
+       bounds = new L.LatLngBounds(southWest, northEast);
+
+     map.fitBounds(bounds);
+
+     //  map.on('moveend', function(d) {
+     //    console.log(map.getBounds());
+     //  })
+
+     // loading GeoJSON file - UgandaNeighbouringCountries
+     $.getJSON("../../assets/geojsons/UgandaNeighbours.geojson", function(data) {
+       // L.geoJson function is used to parse geojson file and load on to map
+       L.geoJson(data, {
+         style: {
+           fillColor: "#7d7d7d",
+           color: "#000",
+           weight: 1,
+           opacity: 0.4,
+           fillOpacity: 0.6
+         }
+       }).addTo(map);
+     });
 
      var OpenStreetMap_Mapnik = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
        maxZoom: 19,
@@ -316,6 +365,7 @@
            dynamicTyping: true,
            skipEmptyLines: true,
            complete: function(results) {
+             forMax = results.data;
              filters(results);
            }
          });
@@ -386,7 +436,7 @@
            .on('click', function(d) {
 
              for (key in map['_layers']) {
-               if (typeof map['_layers'][key]['feature'] !== 'undefined') {
+               if (typeof map['_layers'][key]['feature'] !== 'undefined' && map['_layers'][key]['feature']['geometry']['type'] !== 'MultiPolygon') {
                  var l = map['_layers'][key];
                  if (l['feature']['properties']['original_data']["School"] === d.layer.feature.properties.original_data.School) {
                    l.setStyle({
@@ -410,7 +460,7 @@
                }
              }
 
-             SelectElement("options", "Beneficiaries reporting that humanitarian assistance is delivered in a safe, accessible, accountable and participatory manner.")
+             SelectElement("options", "Number of Teachers");
 
              eventFire(document.getElementById('statsButton'), 'click');
 
@@ -470,7 +520,7 @@
 
              // Add Y axis
              var y = d3.scaleLinear()
-               .domain([0, 100])
+               .domain([0, 1500])
                .range([height, 0]);
              svg.append("g")
                .attr("id", "yAxis")
@@ -483,12 +533,6 @@
              xAxis._groups[0][0].remove();
 
              xAxis._groups[0][4].remove();
-
-             svg.append("g")
-               .text("Terms")
-
-             yAxis.append("text")
-               .text("%")
 
              //  yAxis.remove();
 
@@ -503,8 +547,8 @@
                    return x(+d.Term)
                  })
                  .y(function(d) {
-                   //  console.log(d);
-                   return y(+d["Beneficiaries reporting that humanitarian assistance is delivered in a safe, accessible, accountable and participatory manner."])
+                   // console.log(d);
+                   return y(+d["Number of Teachers"])
                  })
                )
                .attr("stroke", function(d) {
@@ -515,6 +559,11 @@
 
              // A function that update the chart
              function update(selectedGroup) {
+               var max = forMax.filter(function(k) {
+                 if (k.Name === selectedGroup) {
+                   return k.Max;
+                 }
+               });
 
                // Create new data with the selection?
                var dataFilter = chartData.map(function(d) {
@@ -523,6 +572,18 @@
                    value: d[selectedGroup]
                  }
                })
+
+               //New Y axis
+               var yAxis = d3.select("#yAxis").remove();
+
+               var y = d3.scaleLinear()
+                 .domain([0, max[0].Max])
+                 .range([height, 0]);
+               svg.append("g")
+                 .attr("id", "yAxis")
+                 .call(d3.axisLeft(y));
+
+               var yAxis = d3.select("#yAxis").selectAll("g:nth-child(odd)").remove();
 
                // Give these new data to update line
                line
