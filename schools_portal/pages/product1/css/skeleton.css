@@ -65,7 +65,7 @@
   .three.columns                  { width: 22%;            }
   .four.columns                   { width: 30.6666666667%; }
   .five.columns                   { width: 39.3333333333%; }
-  .six.columns                    { width: 48%;            }
+  .six.columns                    { width: 75%;            }
   .seven.columns                  { width: 56.6666666667%; }
   .eight.columns                  { width: 65.3333333333%; }
   .nine.columns                   { width: 74.0%;          }
@@ -375,7 +375,7 @@ form {
 –––––––––––––––––––––––––––––––––––––––––––––––––– */
 hr {
   margin-top: 1rem;
-  margin-bottom: 1.5rem;
+  margin-bottom: 0.5rem;
   border-width: 0;
   border-top: 1px solid #E1E1E1; }
 

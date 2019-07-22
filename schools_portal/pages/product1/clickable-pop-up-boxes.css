@@ -1,0 +1,203 @@
+
+button {
+	border: none;
+	outline: 0;
+}
+
+.popover-body {
+	text-align: center;
+}
+@media (min-width: 992px) {
+	.spaces {
+		display: flex;
+		flex-direction: row;
+	}
+}
+
+
+
+@media (max-width: 479px) {
+	.spaces .box-text-space {
+		text-align: center;
+	}
+}
+
+@media (min-width: 992px) {
+	.spaces .box-space-photo .small-box-space-photo {
+		width: 100%;
+	}
+}
+
+.spaces .box-space-photo .small-box-space-photo .mini-box-space-photo {
+	position: relative;
+}
+
+@media (min-width: 1200px) {
+	.spaces .box-space-photo .small-box-space-photo .mini-box-space-photo {
+		margin-left: -15px;
+	}
+}
+
+.spaces > button {
+	height: 60px;
+	width: 60px;
+	border-radius: 100%;
+	background-color: #f4ba41;
+	position: absolute;
+	text-align: center;
+	line-height: 15px;
+	opacity:1 !important;
+}
+
+.spaces > button.button1 {
+	top: 10%;
+	right: 10%;
+	opacity:1 !important;
+}
+.spaces > button.button2 {
+	top: 10%;
+	left: 50%;
+	opacity:1 !important;
+}
+.spaces > button.button3 {
+	top: 10%;
+	left: 10%;
+	opacity:1 !important;
+}
+
+
+
+.spaces > button:hover {
+	background-color: #fcda92;
+}
+
+.spaces > button > span {
+	display: inline-block;
+	width: 40px;
+	height: 40px;
+	border-radius: 100px;
+	border: 2px solid #fff;
+	font-family: normal;
+	font-size: 39px;
+	font-size: 39px;
+	line-height: 35px;
+	color: #fff;
+	text-align: center;
+}
+
+.big-box-spaces {
+	z-index: 3000;
+	width: 100%;
+	float: left;
+	position: relative;
+}
+
+
+.popover {
+	z-index: 3000;
+	width: 350px;
+	height: 350px;
+	border-radius: 100%;
+	border: 13px solid #ccc;
+	max-width: 100%;
+	background-color: #fff;
+	bottom: -39px !important;
+}
+
+@media (max-width: 479px) {
+	.popover {
+		width: 260px;
+		height: 260px;
+	}
+}
+
+.popover .arrow {
+	display: none;
+}
+
+.popover .popover-header {
+	text-align: center;
+	overflow: hidden;
+	background-color: transparent;
+	position: relative;
+	overflow: visible;
+	font-size: 30px;
+}
+.popover .popover-header:before {
+	z-index: 3;
+	content: "X";
+	display: block;
+	margin: 0 auto;
+	position: absolute;
+	top: -60px;
+	left: 0;
+	text-align: center;
+	width: 100%;
+	color: #000;
+	padding-bottom: 20px;
+	cursor: pointer;
+	font-size: 35px;
+	font-weight: normal;
+	font-family: Helvetica;
+	text-align: center;
+}
+.popover .popover-header .close {
+	font-family: normal;
+	font-size: 25px;
+	color: #000;
+	display: inline-block;
+	opacity: 1;
+	width: 35px;
+	height: 35px;
+	position: absolute;
+	top: 40px;
+	left: 50%;
+	margin-left: -17.5px;
+	background: url(http://ada2.solodev.net/core/fileparse.php/8/urlt/_resources/images/content/cross.png) no-repeat center center;
+	text-indent: -10000px;
+}
+
+@media (max-width: 479px) {
+	.popover .popover-header .close {
+		top: 15px;
+	}
+}
+
+.popover .popover-header {
+	z-index: 3000;
+	display: block;
+	background-color: transparent;
+	border: none;
+	margin-top: 100px;
+	font-family: Arial, Verdana;
+	font-weight: 700;
+	color: #0479c3;
+	text-transform: uppercase;
+}
+
+
+.popover .popover-content {
+	z-index: 3000;
+	padding: 0 54px;
+	font-family: "Helvetica", Arial, Verdana;
+	font-size: 30px;
+	font-weight: 400;
+	color: #090a0e;
+	text-align: center;
+}
+.popover-body {
+	font-size: 20px;
+}
+@media (max-width: 479px) {
+	.popover .popover-content {
+		padding: 0 37px;
+		font-size: 16px;
+	}
+	.popover-header {
+		margin-top: 80px !important;
+		font-size: 20px !important;
+	}
+	.popover-body {
+		font-size: 14px;
+	}
+}

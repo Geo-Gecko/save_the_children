@@ -1,857 +1,457 @@
- <!DOCTYPE html>
- <html>
-
- <head>
-   <meta charset="utf-8" />
-   <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no" />
-   <meta name="description" content="Save the Children Product1." />
-
-   <title>Save the children Product1</title>
-
-   <link rel="stylesheet" href="../../assets/css/leaflet.css" />
-   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway:400,300,600" />
-   <link rel="stylesheet" href="css/normalize.css" />
-   <link rel="stylesheet" href="css/skeleton.css" />
-   <link rel="stylesheet" href="css/skeleton-tabs.css" />
-   <script src="src/skeleton-tabs.js"></script>
-
-   <style>
-     body {
-       margin: 0;
-       padding: 0;
-     }
-
-     #map {
-       position: absolute;
-       top: 0;
-       bottom: 0;
-       right: 0;
-       left: 0;
-     }
-
-     .control-panel {
-       position: absolute;
-       bottom: 10%;
-       right: 0;
-       opacity: 0.85;
-       margin-right: 10px;
-       margin-bottom: 25px;
-       z-index: 1000;
-       /*max-width: 50%; */
-       width: 500px;
-       /* max-height: 515px; */
-       height: 80%;
-       /* overflow-y: auto; */
-       border-top: 3px solid #33C3F0;
-       border-bottom: 3px solid #33C3F0;
-       background-color: #f8f8f8;
-     }
-
-     .control-panel h4 {
-       text-align: center;
-       margin-bottom: 1rem;
-     }
-
-     .control-panel p {
-       margin-bottom: .5rem;
-     }
-
-     .control-panel input[type=number] {
-       width: 48%;
-     }
-
-     .control-panel label {
-       font-weight: inherit;
-       margin-bottom: 1rem;
-     }
-
-     .control-panel select {
-       margin-bottom: 1rem;
-     }
-
-     @media (max-width: 550px),
-     (max-height: 550px) {
-       .control-panel {
-         max-height: 200px;
-         margin-right: 0;
-         margin-bottom: 16px;
-       }
-
-       .control-panel h4 {
-         font-size: 2.4rem !important;
-       }
-     }
-
-     @media (max-width: 550px) {
-       .control-panel {
-         max-width: 100%;
-         width: 100%;
-       }
-     }
-
-     .selected {
-       background-color: #c3fd3d !important;
-     }
-
-     .containerIMG {
-       display: flex;
-       flex-direction: row;
-       flex-wrap: nowrap;
-     }
-
-     img {
-       flex: 1;
-       max-width: 100%;
-       height: auto;
-       max-height: 310px;
-     }
-
-     /* buttons 3 */
-     .buttons .knobs:before {
-       content: 'ON';
-       position: absolute;
-       top: 4px;
-       left: 4px;
-       width: 20px;
-       height: 10px;
-       color: #fff;
-       font-size: 10px;
-       font-weight: bold;
-       text-align: center;
-       line-height: 1;
-       padding: 9px 4px;
-       background-color: #03A9F4;
-       border-radius: 50%;
-       transition: 0.3s ease all, left 0.3s cubic-bezier(0.18, 0.89, 0.35, 1.15);
-     }
-
-     .buttons .checkbox:active+.knobs:before {
-       width: 46px;
-       border-radius: 100px;
-     }
-
-     .buttons .checkbox:checked:active+.knobs:before {
-       margin-left: -26px;
-     }
-
-     .buttons .checkbox:checked+.knobs:before {
-       content: 'OFF';
-       left: 42px;
-       background-color: #F44336;
-     }
-
-     .buttons .checkbox:checked~.layer {
-       background-color: #fcebeb;
-     }
-
-     /* CSS rules are kept repetitive so that you can get CSS rules for each button easily :) */
-
-     * {
-       user-select: none;
-       -webkit-tap-highlight-color: transparent;
-     }
-
-     *:focus {
-       outline: none;
-     }
-
-     /* body {
-       font-family: Arial, Helvetica, sans-serif;
-       margin: 0;
-       background-color: #f1f9f9;
-     } */
-
-     #app-cover {
-       display: table;
-       width: 100%;
-       margin: auto;
-       counter-reset: buttons-counter;
-     }
-
-     .row {
-       display: table-row;
-     }
-
-     .toggle-buttons-cover {
-       display: table-cell;
-       position: relative;
-       width: 50%;
-       height: 40px;
-       box-sizing: border-box;
-       text-align: left;
-       vertical-align: middle;
-     }
-
-     .buttons-cover:before {
-       counter-increment: buttons-counter;
-       content: counter(buttons-counter);
-       position: absolute;
-       right: 0;
-       bottom: 0;
-       color: #d7e3e3;
-       font-size: 12px;
-       line-height: 1;
-       padding: 5px;
-     }
-
-     .buttons-cover,
-     .knobs,
-     .layer {
-       position: absolute;
-       top: 0;
-       right: 0;
-       bottom: 0;
-       left: 0;
-     }
-
-     .buttons {
-       position: relative;
-       top: 50%;
-       width: 74px;
-       height: 36px;
-       margin: -20px auto 0 auto;
-       overflow: hidden;
-     }
-
-     .buttons.r,
-     .buttons.r .layer {
-       border-radius: 100px;
-       color: #333;
-       border-color: #888;
-       outline: 0;
-     }
-
-     .buttons.b2 {
-       border-radius: 2px;
-     }
-
-     .checkbox {
-       position: relative;
-       width: 100%;
-       height: 100%;
-       padding: 0;
-       margin: 0;
-       opacity: 0;
-       cursor: pointer;
-       z-index: 3;
-     }
-
-     .knobs {
-       z-index: 2;
-     }
-
-     .layer {
-       width: 100%;
-       background-color: #ebf7fc;
-       transition: 0.3s ease all;
-       z-index: 1;
-     }
-
-     /*
-  *  STYLE 1
-  */
-
-     ::-webkit-scrollbar-track {
-       -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
-       border-radius: 10px;
-       background-color: #F5F5F5;
-     }
-
-     ::-webkit-scrollbar {
-       width: 12px;
-       background-color: #F5F5F5;
-     }
-
-     ::-webkit-scrollbar-thumb {
-       border-radius: 10px;
-       -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, .3);
-       background-color: #555;
-     }
-   </style>
-
- </head>
-
- <body>
-
-   <div id="map"></div>
-   <div id="controlPanel" class="control-panel">
-     <br>
-
-     <ul class="tab-nav">
-       <li>
-         <a class="button active" id="mapLegendButton" href="#mapLegend" style="width: 45%;">Map Legend</a>
-       </li>
-       <li>
-         <a class="button" id="priorityApproachesButton" href="#priorityApproaches" style="width: 45%;">Priority Approaches</a>
-       </li>
-     </ul>
-
-     <div class="tab-content" style="overflow-y: auto; height:75%; width: 90%; margin: auto;" class="filterclass">
-       <div class="tab-pane active" id="mapLegend">
-
-         <div class="container" style="width: 100%; padding: 5px 10px; text-align: left;">
-
-           <h5 style="text-align: left;">Primary School Referral Map</h5>
-
-           <div class="btn-group">
-             <button type="button" id="reset" class="btn btn-secondary">Reset map</button>
-           </div>
-           <hr>
-
-           <div id="legend"></div>
-           <hr>
-           <p>
-             <strong>Highlight by responsible agency</strong>
-           </p>
-           <div class="row">
-             <div id='dropDownContainer' class="six columns">
-             </div>
-           </div>
-
-           <hr>
-
-           <p id="infoText">
-             Click on a point to show additional information below.
-           </p>
-
-           <div id="sidebar-content"></div>
-
-           <hr>
-
-
-           <a href="https://www.geogecko.com/" target="_blank"><img style="z-index: 10000; position: fixed; bottom: 2%; left: 0; border: 0; width: 4em;" src="../../assets/images/Logo_pin.svg" alt="GeoGecko"></a>
-
-         </div>
-
-       </div>
-
-       <div class="tab-pane" class="filterclass" id="priorityApproaches" style="overflow-x: hidden;width: 90% !important;">
-         <div id="app-cover">
-           <div class="row">
-             <div class="toggle-buttons-cover">
-               <p style="text-align: left;">Can't wait to Learn </p>
-             </div>
-             <div class="toggle-buttons-cover">
-               <div class="buttons-cover">
-                 <div class="button buttons r" id="button-1">
-                   <input type="checkbox" class="checkbox">
-                   <div class="knobs"></div>
-                   <div class="layer"></div>
-                 </div>
-               </div>
-             </div>
-
-           </div>
-           <div class="row">
-             <div class="toggle-buttons-cover">
-               <p style="text-align: left;">Early Grade Reading</p>
-             </div>
-             <div class="toggle-buttons-cover">
-               <div class="buttons-cover">
-                 <div class="button buttons r" id="button-2">
-                   <input type="checkbox" class="checkbox">
-                   <div class="knobs"></div>
-                   <div class="layer"></div>
-                 </div>
-               </div>
-             </div>
-           </div>
-           <div class="row">
-             <div class="toggle-buttons-cover">
-               <p style="text-align: left;">TeamUp</p>
-             </div>
-             <div class="toggle-buttons-cover">
-               <div class="buttons-cover">
-                 <div class="button buttons r" id="button-3">
-                   <input type="checkbox" class="checkbox">
-                   <div class="knobs"></div>
-                   <div class="layer"></div>
-                 </div>
-               </div>
-             </div>
-           </div>
-           <div class="row">
-             <div class="toggle-buttons-cover">
-               <p style="text-align: left;">Double Shifting</p>
-             </div>
-             <div class="toggle-buttons-cover">
-               <div class="buttons-cover">
-                 <div class="button buttons r" id="button-4">
-                   <input type="checkbox" class="checkbox">
-                   <div class="knobs"></div>
-                   <div class="layer"></div>
-                 </div>
-               </div>
-             </div>
-           </div>
-         </div>
-
-       </div>
-     </div>
-
-     <div class="containerIMG" style="z-index: 10000; position: fixed; bottom: 2%; right: 0; border: 0; height: 8%; width: 500px;">
-       <a style="max-width:30%; margin: auto;" href=""><img src="../../assets/images/ECW-full-logo-and-tagline-orange-and-whitetagline-RGB.png" alt="ECW"></a>
-       <a style="max-width: 18%;margin: auto;" href=""><img src="../../assets/images/echo.png" alt="ECO"></a>
-     </div>
-
-   </div>
-
-
-   <!-- first load LeafletJS -->
-   <script src="../../assets/src/leaflet.js"></script>
-
-   <!-- load Esri Leaflet because we want to use an Esri basemap -->
-   <!-- <script src="https://unpkg.com/esri-leaflet@2.1/dist/esri-leaflet.js"></script> -->
-
-   <!-- load animation tweening lib requirement for CanvasFlowMapLayer -->
-   <script src="../../assets/src/Tween.min.js"></script>
-
-   <!-- then load CanvasFlowMapLayer -->
-   <script src="../../assets/src/CanvasFlowmapLayer.js"></script>
-
-   <!-- also load 3rd-party CSV parsing libary just for this demo  -->
-   <script src="../../assets/src/papaparse.min.js"></script>
-
-   <script src="../../assets/src/jquery.min.js"></script>
-
-   <script src="../../assets/src/d3.v5.min.js"></script>
-   <script src="./src/piechartAndLegend.js"></script>
-
-
-   <script>
-     var map = L.map('map', {
-       zoomSnap: 0.25,
-       attributionControl: false
-     });
-     var geoJsonFeatureCollection;
-     if (L.Browser.mobile) {
-       map.setView([1.291471, 32.482235], 7);
-     } else {
-       map.setView([1.291471, 34.482235], 7);
-     }
-
-     L.control.attribution({
-       position: 'bottomleft'
-     }).addTo(map)
-
-     var southWest = new L.LatLng(-1.606559295542773, 28.026294838895254),
-       northEast = new L.LatLng(4.301960929158914, 39.744435655056094),
-       bounds = new L.LatLngBounds(southWest, northEast);
-
-     map.fitBounds(bounds);
-
-     //  map.on('moveend', function(d) {
-     //    console.log(map.getBounds());
-     //  })
-
-     // loading GeoJSON file - UgandaNeighbouringCountries
-     $.getJSON("../../assets/geojsons/UgandaNeighbours.geojson", function(data) {
-       // L.geoJson function is used to parse geojson file and load on to map
-       L.geoJson(data, {
-         style: {
-           fillColor: "#7d7d7d",
-           color: "#000",
-           weight: 1,
-           opacity: 0.4,
-           fillOpacity: 0.6
-         }
-       }).addTo(map);
-     });
-
-     var OpenStreetMap_Mapnik = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-       maxZoom: 19,
-       attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-     }).addTo(map);
-
-     //  L.esri.basemapLayer('DarkGray').addTo(map);
-
-     Papa.parse('./docs/csv-data/data.csv', {
-       download: true,
-       header: true,
-       dynamicTyping: true,
-       skipEmptyLines: true,
-       complete: function(results) {
-
-         // console.log(results)
-         var filterList = d3.nest().key(function(d) {
-           return d.Organisation_Name;
-         }).sortKeys(d3.ascending).entries(results.data);
-
-         geoJsonFeatureCollection = {
-           type: 'FeatureCollection',
-           features: results.data.map(function(datum) {
-             return {
-               type: 'Feature',
-               geometry: {
-                 type: 'Point',
-                 coordinates: [datum.s_lon, datum.s_lat]
-               },
-               properties: {
-
-                 "origin_city": datum,
-                 "Organisation_Name": datum.Organisation_Name,
-                 "s_city_id": datum.s_city_id,
-                 "School": datum.School,
-                 "e_city_id": datum.e_city_id,
-                 "Referral_Pathway": datum.Referral_Pathway,
-                 "Transition_Pathway": datum.Transition_Pathway,
-                 "s_lat": datum.s_lat,
-                 "s_lon": datum.s_lon,
-                 "e_lat": datum.e_lat,
-                 "e_lon": datum.e_lon
-               }
-             }
-           })
-         };
-
-         var oneToManyFlowmapLayer = L.canvasFlowmapLayer(geoJsonFeatureCollection, {
-             originAndDestinationFieldIds: {
-               originUniqueIdField: 's_city_id',
-               originGeometry: {
-                 x: 's_lon',
-                 y: 's_lat'
-               },
-               destinationUniqueIdField: 'e_city_id',
-               destinationGeometry: {
-                 x: 'e_lon',
-                 y: 'e_lat'
-               }
-             },
-             pathDisplayMode: 'selection',
-             animationStarted: true,
-             animationEasingFamily: 'Cubic',
-             animationEasingType: 'In',
-             animationDuration: 2000
-           }).addTo(map)
-           .on('click', function(point) {
-             //  $('#sidebar-content').text("The data is: " + point.propagatedFrom.feature.properties.School)
-           });
-
-         function resetMap() {
-
-           var array = ['#e41a1c', '#377eb8', "#4daf4a", "#984ea3"];
-           var arrayLabel = ["Primary School Only", "Accelerated Education Programme Centre", "Referral Pathways", "Transition Pathways"];
-
-           addLegend(array, arrayLabel, "Legend", "circle");
-           for (key in map['_layers']) {
-             if (typeof map['_layers'][key]['feature'] !== 'undefined' && map['_layers'][key]['feature']['geometry']['type'] !== 'MultiPolygon') {
-               var l = map['_layers'][key];
-               if (l['feature']['properties']['isOrigin'] && l['feature']['properties']['origin_city']['Is_the_Support_for_Primary_School_or_AEP_centre_hosted_by_the_school?'] === 'Primary School') {
-                 l.setStyle({
-                   radius: 6,
-                   fillColor: "#e41a1c",
-                   color: "#000",
-                   weight: 1,
-                   opacity: 1,
-                   fillOpacity: 0.8
-                 })
-               } else if (l['feature']['properties']['isOrigin'] && l['feature']['properties']['origin_city']['Is_the_Support_for_Primary_School_or_AEP_centre_hosted_by_the_school?'] === 'AEP centre') {
-                 l.setStyle({
-                   radius: 6,
-                   fillColor: "#377eb8",
-                   color: "#000",
-                   weight: 1,
-                   opacity: 1,
-                   fillOpacity: 0.8
-                 })
-               } else if (!l['feature']['properties']['isOrigin'] && l['feature']['properties']['origin_city']['Pathway'] === 'Referral') {
-                 l.setStyle({
-                   radius: 6,
-                   fillColor: "#4daf4a",
-                   color: "#000",
-                   weight: 1,
-                   opacity: 1,
-                   fillOpacity: 0.8
-                 })
-               } else if (!l['feature']['properties']['isOrigin'] && l['feature']['properties']['origin_city']['Pathway'] === 'Transition') {
-                 l.setStyle({
-                   radius: 6,
-                   fillColor: "#984ea3",
-                   color: "#000",
-                   weight: 1,
-                   opacity: 1,
-                   fillOpacity: 0.8
-                 })
-               }
-             }
-           }
-
-         }
-
-         resetMap();
-
-         // Updates the displayed map markers to reflect the crossfilter dimension passed in
-         var updateMap = function(locs) {
-           // clear the existing markers from the map
-           //markersLayer.clearLayers();
-           //clusterLayer.clearLayers();
-
-           var minlat = 200,
-             minlon = 200,
-             maxlat = -200,
-             maxlon = -200;
-
-           locs.forEach(function(d, i) {
-
-             if (d.latitude != null && d.latitude != undefined) {
-               // add a Leaflet marker for the lat lng and insert the application's stated purpose in popup\
-               //var mark = L.marker([d.latitude, d.longitude]);
-               //markersLayer.addLayer(mark);
-               //clusterLayer.addLayer(mark);
-
-               // find corners
-               if (minlat > d.latitude) minlat = d.latitude;
-               if (minlon > d.longitude) minlon = d.longitude;
-               if (maxlat < d.latitude) maxlat = d.latitude;
-               if (maxlon < d.longitude) maxlon = d.longitude;
-             }
-           });
-
-           c1 = L.latLng(minlat, minlon);
-           c2 = L.latLng(maxlat, maxlon + 2);
-           c3 = L.latLng(maxlat, maxlon);
-
-           // fit bounds
-           if (L.Browser.mobile) {
-             map.fitBounds(L.latLngBounds(c1, c3));
-           } else {
-             map.fitBounds(L.latLngBounds(c1, c2));
-           }
-
-           // correct zoom to fit markers
-           setTimeout(function() {
-             map.setZoom(map.getZoom() - 0.25);
-           }, 500);
-
-         };
-
-         // since this demo is using the optional "pathDisplayMode" as "selection",
-         // it is up to the developer to wire up a click or mouseover listener
-         // and then call the "selectFeaturesForPathDisplay()" method to inform the layer
-         // which Bezier paths need to be drawn
-         oneToManyFlowmapLayer.on('click', function(e) {
-           resetMap();
-
-           SelectElement("options", "None");
-           $('#infoText').html('Information about selected point below.');
-           //  console.log(e)
-           if (e.sharedOriginFeatures.length) {
-             $('#sidebar-content').html(
-
-               "<table>" +
-               "<tr><td>Nature of facility</td><td>" + e.layer.feature.properties.origin_city["Is_the_Support_for_Primary_School_or_AEP_centre_hosted_by_the_school?"] + "</td><tr>" +
-               "<tr><td>Type of Facility</td><td>" + e.layer.feature.properties.origin_city["Type of Facility"] + "</td><tr>" +
-               "<tr><td>Name of facility</td><td>" + e.layer.feature.properties.origin_city.School + "</td><tr>" +
-               "<tr><td>ILETS Score</td><td>" + e.layer.feature.properties.origin_city.IELTS + "</td><tr>" +
-               "<tr><td>Funding Modality</td><td>" + e.layer.feature.properties.origin_city["Funding Modality"] + "</td><tr>" +
-               "<tr><td>Name of Referral Facility</td><td>" + e.sharedOriginFeatures[1].properties.origin_city["Name_of_pathway"] + "</td><tr>" +
-               "<tr><td>Name of Transition Facility</td><td>" + e.sharedOriginFeatures[0].properties.origin_city["Name_of_pathway"] + "</td><tr>" +
-               "<tr><td>Total Students</td><td>" + e.layer.feature.properties.origin_city["Total Students"] + "</td><tr>" +
-               "<tr><td>Refugee Students</td><td>" + e.layer.feature.properties.origin_city["Refugee Students"] + "</td><tr>" +
-               "<tr><td>Total Teachers</td><td>" + e.layer.feature.properties.origin_city["Total Teachers"] + "</td><tr>" +
-               "<tr><td>Refugee Teachers</td><td>" + e.layer.feature.properties.origin_city["Refugee Teachers"] + "</td><tr>" +
-               "<tr><td>Organisation</td><td>" + e.layer.feature.properties.origin_city["Organisation_Name"] + "</td><tr>" +
-               "<tr><td>Number of Latrines</td><td>" + e.layer.feature.properties.origin_city["Number of Latrines"] + "</td><tr>" +
-               "<tr><td>Date of Data Collection</td><td>" + e.layer.feature.properties.origin_city["Date of Data Collection"] + "</table>")
-
-             oneToManyFlowmapLayer.selectFeaturesForPathDisplay(e.sharedOriginFeatures, 'SELECTION_NEW');
-             var locations = [];
-             e.sharedOriginFeatures.forEach(function(d, i) {
-               locations.push({
-                 latitude: d.properties.e_lat,
-                 longitude: d.properties.e_lon
-               });
-               locations.push({
-                 latitude: d.properties.s_lat,
-                 longitude: d.properties.s_lon
-               });
-             })
-             updateMap(locations);
-           }
-           if (e.sharedDestinationFeatures.length) {
-             var totalStudents = 0,
-               totalRefugeeStudents = 0,
-               totalTeachers = 0,
-               totalRefugeeTeachers = 0;
-             e.sharedDestinationFeatures.forEach(function(d, i) {
-               totalStudents = totalStudents + d.properties.origin_city["Total Students"];
-               totalRefugeeStudents = totalRefugeeStudents + d.properties.origin_city["Refugee Students"];
-               totalTeachers = totalTeachers + d.properties.origin_city["Total Teachers"];
-               totalRefugeeTeachers = totalRefugeeTeachers + d.properties.origin_city["Refugee Teachers"];
-             })
-
-             $('#sidebar-content').html(
-               "<table>" +
-               //  "Type of facility: " + e.layer.feature.properties.origin_city["Is_the_Support_for_Primary_School_or_AEP_centre_hosted_by_the_school?"] + "<br>" +
-               "<tr><td>Name of facility</td><td>" + e.layer.feature.properties.origin_city.Name_of_pathway + "</td><tr>" +
-               "<tr><td>Total Students</td><td>" + totalStudents + "</td><tr>" +
-               "<tr><td>Refugee Students</td><td>" + totalRefugeeStudents + "</td><tr>" +
-               "<tr><td>Total Teachers</td><td>" + totalTeachers + "</td><tr>" +
-               "<tr><td>Refugee Teachers</td><td>" + totalRefugeeTeachers + "</td><tr>" +
-               "<tr><td>Date of Data Collection</td><td>" + e.layer.feature.properties.origin_city["Date of Data Collection"] + "</table>")
-
-             oneToManyFlowmapLayer.selectFeaturesForPathDisplay(e.sharedDestinationFeatures, 'SELECTION_NEW');
-             var locations = [];
-             e.sharedDestinationFeatures.forEach(function(d, i) {
-               locations.push({
-                 latitude: d.properties.e_lat,
-                 longitude: d.properties.e_lon
-               });
-               locations.push({
-                 latitude: d.properties.s_lat,
-                 longitude: d.properties.s_lon
-               });
-             })
-             updateMap(locations);
-           }
-         });
-
-         //  var inputdata = 123 || 456 || 789;
-         //  var split = input.split('||');
-         var select = $('<select name="options" id="options" style="max-width: 300px;"><option value="None">- None -</option></select>');
-         $.each(filterList, function(index, value) {
-           var option = $('<option></option>');
-           option.attr('value', value.key);
-           option.text(value.key);
-           select.append(option);
-         });
-         $('#dropDownContainer').empty().append(select);
-
-         $('#options').change(function() {
-           reset();
-           $('#infoText').html('Click on a point to show additional information below.');
-           var array = ["#f7f7f6", '#c3ff3e', '#7d7d7d'];
-           var arrayLabel = ["", "Selected agency facilities", "Other agency facilities"];
-
-           addLegend(array, arrayLabel, "Legend", "circle");
-           if ($(this).val() === "None") {
-             resetMap();
-           } else {
-             for (key in map['_layers']) {
-               if (typeof map['_layers'][key]['feature'] !== 'undefined' && map['_layers'][key]['feature']['geometry']['type'] !== 'MultiPolygon') {
-                 var l = map['_layers'][key];
-                 if (l['feature']['properties']['origin_city']['Organisation_Name'] === $(this).val()) {
-                   l.setStyle({
-                     radius: 6,
-                     fillColor: "#c3ff3e",
-                     color: "#000",
-                     weight: 1,
-                     opacity: 1,
-                     fillOpacity: 0.8
-                   })
-                 } else {
-                   l.setStyle({
-                     radius: 6,
-                     fillColor: "#7d7d7d",
-                     color: "#000",
-                     weight: 1,
-                     opacity: 0.4,
-                     fillOpacity: 0.4
-                   })
-                 }
-               }
-             }
-           }
-
-         });
-
-         function SelectElement(id, valueToSelect) {
-           var element = document.getElementById(id);
-           element.value = valueToSelect;
-         }
-
-         function reset() {
-           resetMap();
-           oneToManyFlowmapLayer.clearAllPathSelections();
-
-           $('#sidebar-content').html("");
-
-           //  if (L.Browser.mobile) {
-           //    map.setView([1.291471, 32.482235], 7);
-           //  } else {
-           //    map.setView([1.291471, 34.482235], 7);
-           //  }
-
-           map.fitBounds(bounds);
-         }
-
-         $('#reset').on('click', function() {
-           reset();
-
-           $('#infoText').html('Click on a point to show additional information below.');
-
-           SelectElement("options", "None");
-         })
-
-         $('#mapLegendButton').on('click', function() {
-           reset();
-         })
-         $('#priorityApproachesButton').on('click', function() {
-           priorityApproaches();
-
-           map.fitBounds(bounds);
-         })
-
-         function arrayRemove(arr, value) {
-
-           return arr.filter(function(ele) {
-             return ele != value;
-           });
-
-         }
-
-         function priorityApproaches() {
-           var arr = ["Can't wait to Learn", "Early Grade Reading", "TeamUp", "Double Shifting"]
-
-           var toggledOn = $('input[type=checkbox]:checked');
-           $.each(toggledOn, function(index, value) {
-             if (value.parentNode.id === "button-1") {
-               arr = arrayRemove(arr, "Can't wait to Learn")
-             } else if (value.parentNode.id === "button-2") {
-               arr = arrayRemove(arr, "Early Grade Reading")
-             } else if (value.parentNode.id === "button-3") {
-               arr = arrayRemove(arr, "TeamUp")
-             } else if (value.parentNode.id === "button-4") {
-               arr = arrayRemove(arr, "Double Shifting")
-             }
-           });
-
-           for (key in map['_layers']) {
-             if (typeof map['_layers'][key]['feature'] !== 'undefined' && map['_layers'][key]['feature']['geometry']['type'] !== 'MultiPolygon') {
-               var l = map['_layers'][key];
-               const found = l['feature']['properties']['origin_city']["Priority Approaches"].split(",").some(r => arr.includes(r))
-               if (found) {
-                 l.setStyle({
-                   radius: 6,
-                   fillColor: "#c3ff3e",
-                   color: "#000",
-                   weight: 1,
-                   opacity: 1,
-                   fillOpacity: 0.8
-                 })
-               } else {
-                 l.setStyle({
-                   radius: 6,
-                   fillColor: "#7d7d7d",
-                   color: "#000",
-                   weight: 1,
-                   opacity: 0.4,
-                   fillOpacity: 0.4
-                 })
-               }
-             }
-           }
-         }
-
-         var toggles = d3.selectAll('.buttons.r').on('change', function(d) {
-           //  console.log('somethingHasChanged')
-           priorityApproaches();
-         });
-
-       }
-     });
-   </script>
-
- </body>
-
- </html>
+<!DOCTYPE html>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, user-scalable=yes">
+
+<html>
+
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no" />
+  <meta name="description" content="Save the Children Product1." />
+
+  <title>Referral Map</title>
+
+  <link rel="stylesheet" href="../../assets/css/leaflet.css" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway:400,300,600" />
+  <link rel="stylesheet" href="css/normalize.css" />
+  <link rel="stylesheet" href="css/skeleton.css" />
+  <link rel="stylesheet" href="css/skeleton-tabs.css" />
+
+  <!-- Custom style sheet -->
+  <link rel="stylesheet" type="text/css" href="style.css">
+
+
+
+  <script src="scripts/skeleton-tabs.js"></script>
+
+  <!-- Tabletop -->
+  <script src="scripts/tabletop.js"></script>
+
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+    }
+
+    #map {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      right: 0;
+      left: 0;
+    }
+
+    .control-panel {
+      display: none;
+      position: absolute;
+      bottom: 10%;
+      right: 0;
+      opacity: 0.85;
+      margin-right: 10px;
+      margin-bottom: 25px;
+      z-index: 1000;
+      /*max-width: 50%; */
+      width: 500px;
+      /* max-height: 515px; */
+      height: 80%;
+      /* overflow-y: auto; */
+      border-top: 3px solid #33C3F0;
+      border-bottom: 3px solid #33C3F0;
+      background-color: #f8f8f8;
+    }
+
+    .control-panel h4 {
+      text-align: center;
+      margin-bottom: 1rem;
+    }
+
+    .control-panel p {
+      margin-bottom: .5rem;
+    }
+
+    .control-panel input[type=number] {
+      width: 48%;
+    }
+
+    .control-panel label {
+      font-weight: inherit;
+      margin-bottom: 1rem;
+    }
+
+    .control-panel select {
+      margin-bottom: 1rem;
+    }
+
+    @media (max-width: 550px),
+    (max-height: 550px) {
+      .control-panel {
+        max-height: 200px;
+        margin-right: 0;
+        margin-bottom: 16px;
+      }
+
+      .control-panel h4 {
+        font-size: 2.4rem !important;
+      }
+    }
+
+    @media (max-width: 550px) {
+      .control-panel {
+        max-width: 100%;
+        width: 100%;
+      }
+    }
+
+    .selected {
+      background-color: #c3fd3d !important;
+    }
+
+    .containerIMG {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: nowrap;
+    }
+
+    img {
+      flex: 1;
+      max-width: 100%;
+      height: auto;
+      max-height: 310px;
+    }
+
+    /* buttons 3 */
+    .buttons .knobs:before {
+      content: 'ON';
+      position: absolute;
+      top: 4px;
+      left: 4px;
+      width: 20px;
+      height: 10px;
+      color: #fff;
+      font-size: 10px;
+      font-weight: bold;
+      text-align: center;
+      line-height: 1;
+      padding: 9px 4px;
+      background-color: #03A9F4;
+      border-radius: 50%;
+      transition: 0.3s ease all, left 0.3s cubic-bezier(0.18, 0.89, 0.35, 1.15);
+    }
+
+    .buttons .checkbox:active+.knobs:before {
+      width: 46px;
+      border-radius: 100px;
+    }
+
+    .buttons .checkbox:checked:active+.knobs:before {
+      margin-left: -26px;
+    }
+
+    .buttons .checkbox:checked+.knobs:before {
+      content: 'OFF';
+      left: 42px;
+      background-color: #F44336;
+    }
+
+    .buttons .checkbox:checked~.layer {
+      background-color: #fcebeb;
+    }
+
+    /* CSS rules are kept repetitive so that you can get CSS rules for each button easily :) */
+
+    * {
+      user-select: none;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    *:focus {
+      outline: none;
+    }
+
+    body {
+        /* font-family: Arial, Helvetica, sans-serif; */
+        margin: 0;
+        background-color: #174e69;
+      }
+
+    #app-cover {
+      display: table;
+      width: 100%;
+      margin: auto;
+      counter-reset: buttons-counter;
+    }
+
+    .row {
+      display: table-row;
+    }
+
+    .toggle-buttons-cover {
+      display: table-cell;
+      position: relative;
+      width: 50%;
+      height: 40px;
+      box-sizing: border-box;
+      text-align: left;
+      vertical-align: middle;
+    }
+
+    .buttons-cover:before {
+      counter-increment: buttons-counter;
+      content: counter(buttons-counter);
+      position: absolute;
+      right: 0;
+      bottom: 0;
+      color: #d7e3e3;
+      font-size: 12px;
+      line-height: 1;
+      padding: 5px;
+    }
+
+    .buttons-cover,
+    .knobs,
+    .layer {
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+    }
+
+    .buttons {
+      position: relative;
+      top: 50%;
+      width: 74px;
+      height: 36px;
+      margin: -20px auto 0 auto;
+      overflow: hidden;
+    }
+
+    .buttons.r,
+    .buttons.r .layer {
+      border-radius: 100px;
+      color: #333;
+      border-color: #888;
+      outline: 0;
+    }
+
+    .buttons.b2 {
+      border-radius: 2px;
+    }
+
+    .checkbox {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      padding: 0;
+      margin: 0;
+      opacity: 0;
+      cursor: pointer;
+      z-index: 3;
+    }
+
+    .knobs {
+      z-index: 2;
+    }
+
+    .layer {
+      width: 100%;
+      background-color: #ebf7fc;
+      transition: 0.3s ease all;
+      z-index: 1;
+    }
+
+    /*
+   *  STYLE 1
+   */
+
+    ::-webkit-scrollbar-track {
+      -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+      border-radius: 10px;
+      background-color: #F5F5F5;
+    }
+
+    ::-webkit-scrollbar {
+      width: 12px;
+      background-color: #F5F5F5;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      border-radius: 10px;
+      -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, .3);
+      background-color: #555;
+    }
+  </style>
+
+</head>
+
+<body>
+
+
+  <div class="loader">Loading...</div>
+
+  <div id="map"></div>
+
+  <a href="https://www.geogecko.com/" target="_blank"><img
+    style="z-index: 10000; position: fixed; bottom: 2%; left: 0; border: 0; width: 4em;"
+    src="../../assets/images/Logo_pin.svg"></a>
+
+<div class="containerIMG"
+  style="z-index: 10000; position: fixed; bottom: 2%; right: 0; border: 0; height: 8%; width: 500px;">
+  <a style="max-width:30%; margin: auto;" href=""><img
+      src="../../assets/images/ECW-full-logo-and-tagline-orange-and-whitetagline-RGB.png" alt="ECW"></a>
+  <a style="max-width: 18%;margin: auto;" href=""><img src="../../assets/images/echo.png" alt="ECO"></a>
+</div>
+
+
+  <div id="controlPanel" class="control-panel">
+    <br>
+
+    <ul class="tab-nav">
+      <li>
+        <a class="button active" id="mapLegendButton" href="#mapLegend" style="width: 45%;">Map Legend</a>
+      </li>
+      <li>
+        <a class="button" id="priorityApproachesButton" href="#priorityApproaches" style="width: 45%;">Priority
+          Approaches</a>
+      </li>
+    </ul>
+
+    <div class="tab-content" style="overflow-y: auto; height:75%; width: 90%; margin: auto;" class="filterclass">
+      <div class="tab-pane active" id="mapLegend">
+
+        <div class="container" style="width: 100%; padding: 5px 10px; text-align: left;">
+
+          <h5 style="text-align: left;">Primary School Referral Map</h5>
+
+          <div class="btn-group">
+            <button type="button" id="reset" class="btn btn-secondary">Reset map</button>
+          </div>
+          <hr>
+
+          <div id="legend"></div>
+          <hr>
+          <p>
+            <strong>Highlight by responsible agency</strong>
+          </p>
+          <div class="row">
+            <div id='dropDownContainer' class="six columns">
+            </div>
+          </div>
+
+          <hr>
+
+          <p id="infoText">
+            Click on a point to show additional information below.
+          </p>
+
+          <div id="sidebar-content"></div>
+
+          <hr>
+
+        </div>
+
+      </div>
+
+      <div class="tab-pane" class="filterclass" id="priorityApproaches"
+        style="overflow-x: hidden;width: 90% !important;">
+        <div id="app-cover">
+          <div class="row">
+            <div class="toggle-buttons-cover">
+              <p style="text-align: left;">Can't wait to Learn </p>
+            </div>
+            <div class="toggle-buttons-cover">
+              <div class="buttons-cover">
+                <div class="button buttons r" id="button-1">
+                  <input type="checkbox" class="checkbox">
+                  <div class="knobs"></div>
+                  <div class="layer"></div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+          <div class="row">
+            <div class="toggle-buttons-cover">
+              <p style="text-align: left;">Early Grade Reading</p>
+            </div>
+            <div class="toggle-buttons-cover">
+              <div class="buttons-cover">
+                <div class="button buttons r" id="button-2">
+                  <input type="checkbox" class="checkbox">
+                  <div class="knobs"></div>
+                  <div class="layer"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="toggle-buttons-cover">
+              <p style="text-align: left;">TeamUp</p>
+            </div>
+            <div class="toggle-buttons-cover">
+              <div class="buttons-cover">
+                <div class="button buttons r" id="button-3">
+                  <input type="checkbox" class="checkbox">
+                  <div class="knobs"></div>
+                  <div class="layer"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="toggle-buttons-cover">
+              <p style="text-align: left;">Double Shifting</p>
+            </div>
+            <div class="toggle-buttons-cover">
+              <div class="buttons-cover">
+                <div class="button buttons r" id="button-4">
+                  <input type="checkbox" class="checkbox">
+                  <div class="knobs"></div>
+                  <div class="layer"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+
+
+  <!-- first load LeafletJS -->
+  <script src="https://unpkg.com/leaflet@1.3/dist/leaflet.js"></script>
+
+  <!-- load Esri Leaflet because we want to use an Esri basemap -->
+  <script src="https://unpkg.com/esri-leaflet@2.1/dist/esri-leaflet.js"></script>
+
+  <!-- load animation tweening lib requirement for CanvasFlowMapLayer -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/tween.js/17.2.0/Tween.min.js"></script>
+
+  <!-- then load CanvasFlowMapLayer -->
+  <script src="https://jwasilgeo.github.io/Leaflet.Canvas-Flowmap-Layer/src/CanvasFlowmapLayer.js"></script>
+
+  <!-- also load 3rd-party CSV parsing libary just for this demo  -->
+  <script src="https://unpkg.com/papaparse@4.3/papaparse.min.js"></script>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
+  <script src="../../assets/src/d3.v5.min.js"></script>
+
+  <script src="scripts/queue.v1.min.js"></script>
+  <script type="text/javascript" src="google-doc-url.js"></script>
+  <script type="text/javascript" src="scripts/constants.js"></script>
+  <script type="text/javascript" src="scripts/palette.js"></script>
+  <script type="text/javascript" src="scripts/polylabel.js"></script>
+  <script type="text/javascript" src="scripts/procsv.js"></script>
+  <script type="text/javascript" src="scripts/piechartAndLegend.js"></script>
+  <script type="text/javascript" src="scripts/referral.js"></script>
+  <!--		<script src="clickable-pop-up-boxes.js"></script>-->
+
+
+
+</body>
+
+</html>

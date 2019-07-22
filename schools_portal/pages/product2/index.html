@@ -1,625 +1,311 @@
- <!DOCTYPE html>
- <html>
-
- <head>
-   <meta charset="utf-8" />
-   <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no" />
-   <meta name="description" content="Canvas Flowmap Layer with LeafletJS." />
-
-   <title>Save the children Product2</title>
-
-   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.3/dist/leaflet.css" />
-   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway:400,300,600" />
-   <link rel="stylesheet" href="css/normalize.css" />
-   <link rel="stylesheet" href="css/skeleton.css" />
-   <link rel="stylesheet" href="css/skeleton-tabs.css" />
-   <script src="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/11.1.0/nouislider.min.js"></script>
-   <script src="src/skeleton-tabs.js"></script>
-   <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/11.1.0/nouislider.min.css" /> -->
-   <link rel="stylesheet" href="css/nouislider.css" />
-   <script src="https://d3js.org/d3.v4.min.js" charset="utf-8"></script>
-   <!-- Color Scale -->
-   <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
-
-   <style>
-     body {
-       margin: 0;
-       padding: 0;
-     }
-
-     #map {
-       position: absolute;
-       top: 0;
-       bottom: 0;
-       right: 0;
-       left: 0;
-     }
-
-     .control-panel {
-       position: absolute;
-       bottom: 10%;
-       right: 0;
-       opacity: 0.85;
-       margin-right: 10px;
-       margin-bottom: 25px;
-       z-index: 1000;
-       /*max-width: 50%; */
-       width: 500px;
-       /* max-height: 515px; */
-       height: 80%;
-       /* overflow-y: auto; */
-       border-top: 3px solid #33C3F0;
-       border-bottom: 3px solid #33C3F0;
-       background-color: #f8f8f8;
-     }
-
-     .control-panel h4 {
-       text-align: center;
-       margin-bottom: 1rem;
-     }
-
-     .control-panel p {
-       margin-bottom: .5rem;
-     }
-
-     .control-panel input[type=number] {
-       width: 48%;
-     }
-
-     .control-panel label {
-       font-weight: inherit;
-       margin-bottom: 1rem;
-     }
-
-     .control-panel select {
-       margin-bottom: 1rem;
-     }
-
-     @media (max-width: 550px),
-     (max-height: 550px) {
-       .control-panel {
-         max-height: 40%;
-         margin-right: 0;
-         margin-bottom: 16px;
-       }
-
-       .control-panel h4 {
-         font-size: 2.4rem !important;
-       }
-     }
-
-     @media (max-width: 550px) {
-       .control-panel {
-         max-width: 100%;
-         width: 100%;
-       }
-     }
-
-     .sliders {
-       margin: auto;
-       width: 85%;
-     }
-
-     .containerIMG {
-       display: flex;
-       flex-direction: row;
-       flex-wrap: nowrap;
-     }
-
-     img {
-       flex: 1;
-       max-width: 100%;
-       height: auto;
-       max-height: 310px;
-     }
-
-     #student-count,
-     #school-count {
-       padding-left: 10%;
-     }
-
-     .groupTitle {
-       font-size: larger;
-       text-decoration: underline;
-       color: black !important;
-       font-weight: bolder;
-     }
-   </style>
-
- </head>
-
- <body>
-
-
-   <a href="https://www.geogecko.com/" target="_blank"><img style="z-index: 10000; position: fixed; bottom: 2%; left: 0; border: 0; width: 4em;" src="../../assets/images/Logo_pin.svg"></a>
-
-   <div id="map"></div>
-   <div id="controlPanel" class="control-panel">
-
-
-     <br>
-     <br>
-
-     <ul class="tab-nav">
-       <li>
-         <a class="button active" href="#Filters" style="width: 45%;">Filters</a>
-       </li>
-       <li>
-         <a class="button" id="statsButton" href="#Statistics" style="width: 45%;">School Statistics</a>
-       </li>
-     </ul>
-
-     <div class="tab-content" style="overflow-y: auto; height:75%; margin: auto;" class="filterclass">
-       <div class="tab-pane active" id="Filters">
-
-         <div style="position: relative">
-           <!-- numbers -->
-           <div class="w3-bar w3-black" style="width: 90% !important; margin: auto !important;">
-             <left>
-               <div style="width: 90%;padding-left: 0%;">
-                 <table style="float:left;">
-                   <tbody>
-                     <tr>
-                       <td>Schools</td>
-                       <td id="school-count">0</td>
-                     </tr>
-                     <tr></tr>
-                     <tr>
-                       <td>Students</td>
-                       <td id="student-count">0</td>
-                     </tr>
-                   </tbody>
-                 </table>
-
-                 <button class="w3-bar-item w3-button" style="font-size: 10px; float: right !important;" id="resetSliders">Reset</button>
-               </div>
-             </left>
-           </div>
-
-           <br>
-           <br>
-
-           <div class="w3-bar w3-black" style="width: 90% !important; margin: auto !important;">
-
-             <span style="float:left;width: 90%;padding-left: 0%;">
-               <strong>Filters</strong>
-
-               <select name="options" style="max-width: 300px;">
-                 <option disabled value="">- Select Year -</option>
-                 <option value="2019">2019</option>
-               </select>
-             </span>
-
-             <br>
-           </div>
-
-         </div>
-         <br>
-
-         <div class="w3-bar w3-black" style="clear: left;width: 90% !important; height: 5%; margin: auto !important;">
-           <!--List of filters:  -->
-           <div id='sliderContainer' style="float:unset; overflow-y: auto; max-height: 100%;">
-             <div>
-               <div class="col-md-12">
-                 <p class="custom-list-header"><strong>School Level</strong><i class="glyphicon glyphicon-chevron-down"></i></p>
-                 <div id="school-level-list" class="custom-list"></div>
-               </div>
-               <div class="col-md-12">
-                 <p class="custom-list-header"><strong>Education Cannot Wait</strong> <i class="glyphicon glyphicon-chevron-down"></i></p>
-                 <div id="education-cannot-wait-list" class="custom-list"></div>
-               </div>
-               <div class="col-md-12">
-                 <p class="custom-list-header"><strong>ECHO INCLUDE</strong> <i class="glyphicon glyphicon-chevron-down"></i></p>
-                 <div id="echo-include-list" class="custom-list"></div>
-               </div>
-             </div>
-           </div>
-
-         </div>
-
-       </div>
-
-
-       <div class="tab-pane" class="filterclass" id="Statistics" style="overflow-x: hidden;width: 90% !important; margin: auto;">
-         <!-- numbers -->
-         <strong>Summary</strong>
-         <left>
-           <div id="sidebar-content"></div>
-         </left>
-
-
-         <!--List of filters:  -->
-         <hr>
-         <strong>Statistics</strong>
-         <p>
-           <strong>KPI Selection</strong>
-           <h7>(Click on a school on the map)</h7>
-         </p>
-         <div class="row">
-           <div id="kpiDropDownContainer" style="font-size: small;" class="six columns"></div>
-           <div id="yearDropDownContainer" class="six columns"></div>
-         </div>
-
-         <!-- Create a div where the graph will take place -->
-         <div id="my_dataviz"></div>
-       </div>
-     </div>
-
-     <!-- filter panel -->
-     <!-- <div id="Filters" style="overflow-y: auto; height:80%; margin: auto;" class="filterclass">
-
-       
-
-     </div> -->
-
-     <!-- Statistic panel -->
-     <!-- <div id="Statistics" class="filterclass" style="width: 80%; margin: auto; display:none">
-
-
-     </div> -->
-
-
-     <div class="containerIMG" style="z-index: 10000; position: fixed; bottom: 2%; right: 0; border: 0; height: 8%; width: 500px;">
-       <a style="max-width:30%; margin: auto;" href=""><img src="../../assets/images/ECW-full-logo-and-tagline-orange-and-whitetagline-RGB.png" alt="ECW"></a>
-       <a style="max-width: 18%;margin: auto;" href=""><img src="../../assets/images/echo.png" alt="ECO"></a>
-     </div>
-
-   </div>
-
-   <script>
-     function eventFire(el, etype) {
-       if (el.fireEvent) {
-         el.fireEvent('on' + etype);
-       } else {
-         var evObj = document.createEvent('Events');
-         evObj.initEvent(etype, true, false);
-         el.dispatchEvent(evObj);
-       }
-     }
-
-     function openPanel(PanelName) {
-       var i;
-       var x = document.getElementsByClassName("filterclass");
-       for (i = 0; i < x.length; i++) {
-         x[i].style.display = "none";
-       }
-       document.getElementById(PanelName).style.display = "block";
-     }
-   </script>
-
-
-   <!-- first load LeafletJS -->
-   <script src="https://unpkg.com/leaflet@1.3/dist/leaflet.js"></script>
-
-   <!-- load Esri Leaflet because we want to use an Esri basemap -->
-   <script src="https://unpkg.com/esri-leaflet@2.1/dist/esri-leaflet.js"></script>
-
-   <!-- load animation tweening lib requirement for CanvasFlowMapLayer -->
-   <script src="https://cdnjs.cloudflare.com/ajax/libs/tween.js/17.2.0/Tween.min.js"></script>
-
-   <!-- then load CanvasFlowMapLayer -->
-   <script src="https://jwasilgeo.github.io/Leaflet.Canvas-Flowmap-Layer/src/CanvasFlowmapLayer.js"></script>
-
-   <!-- also load 3rd-party CSV parsing libary just for this demo  -->
-   <script src="https://unpkg.com/papaparse@4.3/papaparse.min.js"></script>
-
-   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-
-
-   <script>
-     function numberWithCommas(x) {
-       return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-     }
-
-     function SelectElement(id, valueToSelect) {
-       var element = document.getElementById(id);
-       element.value = valueToSelect;
-     }
-     var map = L.map('map', {
-       zoomSnap: 0.01
-     });
-     var geoJsonFeatureCollection;
-     var forMax;
-     if (L.Browser.mobile) {
-       map.setView([1.291471, 32.482235], 7);
-     } else {
-       map.setView([1.291471, 34.482235], 7);
-     }
-
-     var southWest = new L.LatLng(-1.606559295542773, 28.026294838895254),
-       northEast = new L.LatLng(4.301960929158914, 39.744435655056094),
-       bounds = new L.LatLngBounds(southWest, northEast);
-
-     map.fitBounds(bounds);
-
-     //  map.on('moveend', function(d) {
-     //    console.log(map.getBounds());
-     //  })
-
-     // loading GeoJSON file - UgandaNeighbouringCountries
-     $.getJSON("../../assets/geojsons/UgandaNeighbours.geojson", function(data) {
-       // L.geoJson function is used to parse geojson file and load on to map
-       L.geoJson(data, {
-         style: {
-           fillColor: "#7d7d7d",
-           color: "#000",
-           weight: 1,
-           opacity: 0.4,
-           fillOpacity: 0.6
-         }
-       }).addTo(map);
-     });
-
-     var OpenStreetMap_Mapnik = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-       maxZoom: 19,
-       attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-     }).addTo(map);
-
-     Papa.parse('docs/csv-data/kpi_data.csv', {
-       download: true,
-       header: true,
-       dynamicTyping: true,
-       skipEmptyLines: true,
-       complete: function(results) {
-
-         Papa.parse('docs/csv-data/kpiList1.csv', {
-           download: true,
-           header: true,
-           dynamicTyping: true,
-           skipEmptyLines: true,
-           complete: function(results) {
-             forMax = results.data;
-             filters(results);
-           }
-         });
-
-         //  var select1 = $('<select name="options" id="optionsYear" style="max-width: 300px;"></select>');
-         //  var years = d3.nest().key(function(d) {
-         //    return d.Year;
-         //  }).sortKeys(d3.ascending).entries(results.data);
-         //  $.each(years, function(index, value) {
-         //    var option = $('<option></option>');
-         //    option.attr('value', value.key);
-         //    option.text(value.key);
-         //    select1.append(option);
-         //  });
-         //  $('#yearDropDownContainer').empty().append(select1);
-
-         var summary = d3.nest().key(function(d) {
-           return d.School;
-         }).sortKeys(d3.ascending).entries(results.data);
-
-         var summary1 = results.data.filter(function(k) {
-           if (k.Year === 2019 && k.Term === 3) {
-             return k; //return d.Actor_Type["UN"];
-           }
-         });
-
-         d3.select("#school-count").text(numberWithCommas(summary1.length));
-
-         var studentCount = d3.sum(summary1, function(d) {
-           //  console.log(d);
-           return parseInt(d["Number of Students"])
-
-         })
-         d3.select("#student-count").text(numberWithCommas(studentCount));
-         // d3.select("#household-count").text(global.householdCount.toLocaleString());
-
-         //  should switch to this
-
-         geoJsonFeatureCollection = {
-           type: 'FeatureCollection',
-           features: summary1.map(function(datum) {
-             return {
-               type: 'Feature',
-               geometry: {
-                 type: 'Point',
-                 coordinates: [datum.s_lon, datum.s_lat]
-               },
-               properties: {
-                 "original_data": datum
-               }
-             }
-           })
-         };
-
-         var geojsonMarkerOptions = {
-           radius: 6,
-           fillColor: "#c3ff3e",
-           color: "#000",
-           weight: 1,
-           opacity: 1,
-           fillOpacity: 0.8
-         };
-         L.geoJson(geoJsonFeatureCollection, {
-             pointToLayer: function(feature, latlng) {
-               return L.circleMarker(latlng, geojsonMarkerOptions);
-             }
-           }).addTo(map)
-           .on('click', function(d) {
-
-             for (key in map['_layers']) {
-               if (typeof map['_layers'][key]['feature'] !== 'undefined' && map['_layers'][key]['feature']['geometry']['type'] !== 'MultiPolygon') {
-                 var l = map['_layers'][key];
-                 if (l['feature']['properties']['original_data']["School"] === d.layer.feature.properties.original_data.School) {
-                   l.setStyle({
-                     radius: 6,
-                     fillColor: "#c3ff3e",
-                     color: "#000",
-                     weight: 1,
-                     opacity: 1,
-                     fillOpacity: 0.8
-                   })
-                 } else {
-                   l.setStyle({
-                     radius: 6,
-                     fillColor: "#7d7d7d",
-                     color: "#000",
-                     weight: 1,
-                     opacity: 0.4,
-                     fillOpacity: 0.4
-                   })
-                 }
-               }
-             }
-
-             SelectElement("options", "Number of Teachers");
-
-             eventFire(document.getElementById('statsButton'), 'click');
-
-             $('#sidebar-content').html(
-               "<table>" +
-               "<tr><td>Type of facility</td><td style='padding-left: 10%;'>" + d.layer.feature.properties.original_data["Is_the_Support_for_Primary_School_or_AEP_centre_hosted_by_the_school?"] + "</td><tr>" +
-               "<tr><td>Name of facility</td><td style='padding-left: 10%;'>" + d.layer.feature.properties.original_data.School + "</td><tr>" +
-               //  "<tr><td>Name of Referral Facility</td><td>" + e.sharedOriginFeatures[1].properties.original_data["Name_of_pathway"] + "</td><tr>" +
-               //  "<tr><td>Name of Transition Facility</td><td>" + e.sharedOriginFeatures[0].properties.original_data["Name_of_pathway"] + "</td><tr>" +
-               "<tr><td>Current Number of Students</td><td style='padding-left: 10%;'>" + d.layer.feature.properties.original_data["Current Number of Students"] + "</td><tr>" +
-               "<tr><td>Average Attendence</td><td style='padding-left: 10%;'>" + d.layer.feature.properties.original_data["Average Attendence"] + "</td><tr>" +
-               "<tr><td>Partner Organisation</td><td style='padding-left: 10%;'>" + d.layer.feature.properties.original_data["Partner Organisation"] + "</td><tr>" + "</table>")
-
-             // d3.select("#my_dataviz").remove();
-             $('#my_dataviz').empty()
-
-             var chartData = results.data.filter(function(k) {
-               if (k.School === d.layer.feature.properties.original_data.School) {
-                 return k; //return d.Actor_Type["UN"];
-               }
-             }).sort(function(x, y) {
-               return d3.ascending(x.Term, y.Term);
-             });
-
-             // set the dimensions and margins of the graph
-             var margin = {
-                 top: 10,
-                 right: 100,
-                 bottom: 30,
-                 left: 30
-               },
-               width = 460 - margin.left - margin.right,
-               height = 350 - margin.top - margin.bottom;
-
-             // append the svg object to the body of the page
-             var svg = d3.select("#my_dataviz")
-               .append("svg")
-               .attr("width", width + margin.left + margin.right)
-               .attr("height", height + margin.top + margin.bottom)
-               .append("g")
-               .attr("transform",
-                 "translate(" + margin.left + "," + margin.top + ")");
-
-             // A color scale: one color for each group
-             var myColor = d3.scaleOrdinal()
-               .domain(chartData)
-               .range(d3.schemeSet2);
-
-             // Add X axis --> it is a date format
-             var x = d3.scaleLinear()
-               .domain([0, 4])
-               .range([0, width]);
-             svg.append("g")
-               .attr("id", "xAxis")
-               .attr("transform", "translate(0," + height + ")")
-               .call(d3.axisBottom(x).ticks(3));
-
-             // Add Y axis
-             var y = d3.scaleLinear()
-               .domain([0, 1500])
-               .range([height, 0]);
-             svg.append("g")
-               .attr("id", "yAxis")
-               .call(d3.axisLeft(y));
-
-             var yAxis = d3.select("#yAxis").selectAll("g:nth-child(odd)").remove();
-
-             var xAxis = d3.select("#xAxis").selectAll("g");
-
-             xAxis._groups[0][0].remove();
-
-             xAxis._groups[0][4].remove();
-
-             //  yAxis.remove();
-
-             // Initialize line with group a
-             var line = svg
-               .append('g')
-               .append("path")
-               .datum(chartData)
-               .attr("d", d3.line()
-                 .x(function(d) {
-                   //  console.log(d);
-                   return x(+d.Term)
-                 })
-                 .y(function(d) {
-                   // console.log(d);
-                   return y(+d["Number of Teachers"])
-                 })
-               )
-               .attr("stroke", function(d) {
-                 return myColor("valueA")
-               })
-               .style("stroke-width", 4)
-               .style("fill", "none")
-
-             // A function that update the chart
-             function update(selectedGroup) {
-               var max = forMax.filter(function(k) {
-                 if (k.Name === selectedGroup) {
-                   return k.Max;
-                 }
-               });
-
-               // Create new data with the selection?
-               var dataFilter = chartData.map(function(d) {
-                 return {
-                   Term: d.Term,
-                   value: d[selectedGroup]
-                 }
-               })
-
-               //New Y axis
-               var yAxis = d3.select("#yAxis").remove();
-
-               var y = d3.scaleLinear()
-                 .domain([0, max[0].Max])
-                 .range([height, 0]);
-               svg.append("g")
-                 .attr("id", "yAxis")
-                 .call(d3.axisLeft(y));
-
-               var yAxis = d3.select("#yAxis").selectAll("g:nth-child(odd)").remove();
-
-               // Give these new data to update line
-               line
-                 .datum(dataFilter)
-                 .transition()
-                 .duration(1000)
-                 .attr("d", d3.line()
-                   .x(function(d) {
-                     return x(+d.Term)
-                   })
-                   .y(function(d) {
-                     return y(+d.value)
-                   })
-                 )
-                 .attr("stroke", function(d) {
-                   return myColor(selectedGroup)
-                 })
-             }
-
-             $('#options').change(function(d) {
-               // recover the option that has been chosen
-               var selectedOption = d3.select(this).property("value")
-               // run the updateChart function with this selected option
-               update(selectedOption)
-             })
-
-           })
-
-       }
-
-     });
-   </script>
-   <script src="src/kpi.js"></script>
- </body>
-
- </html>
+<!DOCTYPE html>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, user-scalable=yes">
+
+<html>
+
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no" />
+  <meta name="description" content="Canvas Flowmap Layer with LeafletJS." />
+
+  <title>KPI Map</title>
+
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.3/dist/leaflet.css" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway:400,300,600" />
+  <link rel="stylesheet" href="css/normalize.css" />
+  <link rel="stylesheet" href="css/skeleton.css" />
+  <link rel="stylesheet" href="css/skeleton-tabs.css" />
+
+  <!-- Custom style sheet -->
+  <link rel="stylesheet" type="text/css" href="style.css">
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/11.1.0/nouislider.min.js"></script>
+  <script src="scripts/skeleton-tabs.js"></script>
+  <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/11.1.0/nouislider.min.css" /> -->
+  <link rel="stylesheet" href="css/nouislider.css" />
+  <script src="https://d3js.org/d3.v4.min.js" charset="utf-8"></script>
+  <!-- Color Scale -->
+  <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
+
+  <!-- Tabletop -->
+  <script src="scripts/tabletop.js"></script>
+
+  <style>
+    body {
+      /* font-family: Arial, Helvetica, sans-serif; */
+      margin: 0;
+      background-color: #174e69;
+    }
+
+    #map {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      right: 0;
+      left: 0;
+    }
+
+    .control-panel {
+      display: none;
+      position: absolute;
+      bottom: 10%;
+      right: 0;
+      opacity: 0.85;
+      margin-right: 10px;
+      margin-bottom: 25px;
+      z-index: 1000;
+      /*max-width: 50%; */
+      width: 500px;
+      /* max-height: 515px; */
+      height: 80%;
+      /* overflow-y: auto; */
+      border-top: 3px solid #33C3F0;
+      border-bottom: 3px solid #33C3F0;
+      background-color: #f8f8f8;
+    }
+
+    .control-panel h4 {
+      text-align: center;
+      margin-bottom: 1rem;
+    }
+
+    .control-panel p {
+      margin-bottom: .5rem;
+    }
+
+    .control-panel input[type=number] {
+      width: 48%;
+    }
+
+    .control-panel label {
+      font-weight: inherit;
+      margin-bottom: 1rem;
+    }
+
+    .control-panel select {
+      margin-bottom: 1rem;
+    }
+
+    @media (max-width: 550px),
+    (max-height: 550px) {
+      .control-panel {
+        max-height: 40%;
+        margin-right: 0;
+        margin-bottom: 16px;
+      }
+
+      .control-panel h4 {
+        font-size: 2.4rem !important;
+      }
+    }
+
+    @media (max-width: 550px) {
+      .control-panel {
+        max-width: 100%;
+        width: 100%;
+      }
+    }
+
+    .sliders {
+      margin: auto;
+      width: 85%;
+    }
+
+    .containerIMG {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: nowrap;
+    }
+
+    img {
+      flex: 1;
+      max-width: 100%;
+      height: auto;
+      max-height: 310px;
+    }
+
+    #student-count,
+    #school-count {
+      padding-left: 10%;
+    }
+
+    .groupTitle {
+      font-size: larger;
+      text-decoration: underline;
+      color: black !important;
+      font-weight: bolder;
+    }
+  </style>
+
+</head>
+
+<body>
+
+
+  <div class="loader">Loading...</div>
+
+
+  <a href="https://www.geogecko.com/" target="_blank"><img
+      style="z-index: 10000; position: fixed; bottom: 2%; left: 0; border: 0; width: 4em;"
+      src="../../assets/images/Logo_pin.svg"></a>
+
+  <div class="containerIMG"
+    style="z-index: 10000; position: fixed; bottom: 2%; right: 0; border: 0; height: 8%; width: 500px;">
+    <a style="max-width:30%; margin: auto;" href=""><img
+        src="../../assets/images/ECW-full-logo-and-tagline-orange-and-whitetagline-RGB.png" alt="ECW"></a>
+    <a style="max-width: 18%;margin: auto;" href=""><img src="../../assets/images/echo.png" alt="ECO"></a>
+  </div>
+
+  <div id="map"></div>
+  <div id="controlPanel" class="control-panel">
+
+
+    <br>
+    <br>
+
+    <ul class="tab-nav">
+      <li>
+        <a class="button active" href="#Filters" style="width: 45%;">Filters</a>
+      </li>
+      <li>
+        <a class="button" id="statsButton" href="#Statistics" style="width: 45%;">School Statistics</a>
+      </li>
+    </ul>
+
+    <div class="tab-content" style="overflow-y: auto; height:75%; margin: auto;" class="filterclass">
+      <div class="tab-pane active" id="Filters">
+
+        <div style="position: relative">
+          <!-- numbers -->
+          <div class="w3-bar w3-black" style="width: 90% !important; margin: auto !important;">
+            <left>
+              <div style="width: 90%;padding-left: 0%;">
+                <table style="float:left;">
+                  <tbody>
+                    <tr>
+                      <td>Schools</td>
+                      <td id="school-count">0</td>
+                    </tr>
+                    <tr></tr>
+                    <tr>
+                      <td>Students</td>
+                      <td id="student-count">0</td>
+                    </tr>
+                  </tbody>
+                </table>
+
+                <button class="w3-bar-item w3-button" style="font-size: 10px; float: right !important;"
+                  id="resetSliders">Reset</button>
+              </div>
+            </left>
+          </div>
+
+          <br>
+          <br>
+
+          <div class="w3-bar w3-black" style="width: 90% !important; margin: auto !important;">
+
+            <span style="float:left;width: 90%;padding-left: 0%;">
+              <strong>Filters</strong>
+
+              <select name="options" style="max-width: 300px;">
+                <option disabled value="">- Select Year -</option>
+                <option value="2019">2019</option>
+              </select>
+            </span>
+
+            <br>
+          </div>
+
+        </div>
+        <br>
+
+        <div class="w3-bar w3-black" style="clear: left;width: 90% !important; height: 5%; margin: auto !important;">
+          <!--List of filters:  -->
+          <div id='sliderContainer' style="float:unset; overflow-y: auto; max-height: 100%;">
+            <div>
+              <div class="col-md-12">
+                <p class="custom-list-header"><strong>School Level</strong><i
+                    class="glyphicon glyphicon-chevron-down"></i></p>
+                <div id="school-level-list" class="custom-list"></div>
+              </div>
+              <div class="col-md-12">
+                <p class="custom-list-header"><strong>Education Cannot Wait</strong> <i
+                    class="glyphicon glyphicon-chevron-down"></i></p>
+                <div id="education-cannot-wait-list" class="custom-list"></div>
+              </div>
+              <div class="col-md-12">
+                <p class="custom-list-header"><strong>ECHO INCLUDE</strong> <i
+                    class="glyphicon glyphicon-chevron-down"></i></p>
+                <div id="echo-include-list" class="custom-list"></div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <div class="tab-pane" class="filterclass" id="Statistics"
+        style="overflow-x: hidden;width: 90% !important; margin: auto;">
+        <!-- numbers -->
+        <strong>Summary</strong>
+        <left>
+          <div id="sidebar-content"></div>
+        </left>
+
+
+        <!--List of filters:  -->
+        <hr>
+        <strong>Statistics</strong>
+        <p>
+          <strong>KPI Selection</strong>
+          <h7>(Click on a school on the map)</h7>
+        </p>
+        <div class="row">
+          <div id="kpiDropDownContainer" style="font-size: small;" class="six columns"></div>
+          <div id="yearDropDownContainer" class="six columns"></div>
+        </div>
+
+        <!-- Create a div where the graph will take place -->
+        <div id="my_dataviz"></div>
+      </div>
+    </div>
+
+  </div>
+
+
+  <!-- first load LeafletJS -->
+  <script src="https://unpkg.com/leaflet@1.3/dist/leaflet.js"></script>
+
+  <!-- load Esri Leaflet because we want to use an Esri basemap -->
+  <script src="https://unpkg.com/esri-leaflet@2.1/dist/esri-leaflet.js"></script>
+
+  <!-- load animation tweening lib requirement for CanvasFlowMapLayer -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/tween.js/17.2.0/Tween.min.js"></script>
+
+  <!-- then load CanvasFlowMapLayer -->
+  <script src="https://jwasilgeo.github.io/Leaflet.Canvas-Flowmap-Layer/src/CanvasFlowmapLayer.js"></script>
+
+  <!-- also load 3rd-party CSV parsing libary just for this demo  -->
+  <script src="https://unpkg.com/papaparse@4.3/papaparse.min.js"></script>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
+  <script src="scripts/queue.v1.min.js"></script>
+  <script type="text/javascript" src="google-doc-url.js"></script>
+  <script type="text/javascript" src="scripts/constants.js"></script>
+  <script type="text/javascript" src="scripts/palette.js"></script>
+  <script type="text/javascript" src="scripts/polylabel.js"></script>
+  <script type="text/javascript" src="scripts/procsv.js"></script>
+  <script type="text/javascript" src="scripts/kpi.js"></script>
+  <!--		<script src="clickable-pop-up-boxes.js"></script>-->
+
+
+
+</body>
+
+</html>
