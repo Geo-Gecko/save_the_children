@@ -198,6 +198,28 @@ $(window).on('load', function () {
       fillOpacity: 0.8
     };
     L.geoJson(geoJsonFeatureCollection, {
+        onEachFeature: function (feature, layer) {
+          var layerPopup;
+          layer.on('mouseover', function (e) {
+            var coordinates = e.target.feature.geometry.coordinates;
+            var swapped_coordinates = [coordinates[1], coordinates[0]];
+              if (map) {
+                layerPopup = L.popup()
+                  .setLatLng(swapped_coordinates)
+                  .setContent("<table>" +
+                    "<tr><td>Type of facility</td><td>" + e.target.feature.properties.original_data["Is_the_Support_for_Primary_School_or_AEP_centre_hosted_by_the_school?"] + "</td><tr>" +
+                    "<tr><td>Name of facility</td><td>" + e.target.feature.properties.original_data.School + "</td><tr>" +"</table>")
+                  .openOn(map);
+              }
+          });
+
+          layer.on('mouseout', function (e) {
+            if (layerPopup && map) {
+              map.closePopup(layerPopup);
+              layerPopup = null;
+            }
+          });
+        },
         pointToLayer: function (feature, latlng) {
           return L.circleMarker(latlng, geojsonMarkerOptions);
         }
@@ -257,6 +279,8 @@ $(window).on('load', function () {
         }).sort(function (x, y) {
           return d3.ascending(x.Term, y.Term);
         });
+
+        console.log(chartData);
 
         // set the dimensions and margins of the graph
         var margin = {
@@ -340,7 +364,6 @@ $(window).on('load', function () {
 
           // Create new data with the selection?
           var dataFilter = chartData.map(function (d) {
-            console.log(d)
             return {
               Term: d.Term,
               value: d[selectedGroup]
@@ -498,8 +521,8 @@ $(window).on('load', function () {
           var filterValues = [];
 
           for (var i = 0; i < sliderData[0].length; i++) {
-              activeFilters.push(sliderData[0][i][0]);
-              filterValues.push(sliderData[1][i]);
+            activeFilters.push(sliderData[0][i][0]);
+            filterValues.push(sliderData[1][i]);
           }
 
           var activeSliders = [activeFilters].concat([filterValues]);
@@ -524,8 +547,6 @@ $(window).on('load', function () {
           })
           d3.select("#student-count").text(numberWithCommas(studentCount));
 
-          console.log(activeFilters.length === 0);
-          console.log(activeFilters);
           if (activeFilters.length === 0) {
             resetMap();
           }
@@ -670,41 +691,7 @@ $(window).on('load', function () {
       completePoints = true;
     }
 
-    // centerAndZoomMap(group);
-
-
-    // Change Map attribution to include author's info + urls
-    changeAttribution();
-
-
   }
-
-  /**
-   * Changes map attribution (author, GitHub repo, email etc.) in bottom-right
-   */
-  function changeAttribution() {
-    var attributionHTML = $('.leaflet-control-attribution')[0].innerHTML;
-    var credit = '';
-    var name = getSetting('_authorName');
-    var url = getSetting('_authorURL');
-
-    if (name && url) {
-      if (url.indexOf('@') > 0) {
-        url = 'mailto:' + url;
-      }
-      credit += ' by <a href="' + url + '">' + name + '</a> | ';
-    } else if (name) {
-      credit += ' by ' + name + ' | ';
-    } else {
-      credit += ' | ';
-    }
-
-    //		credit += 'View <a href="' + getSetting('_githubRepo') + '">code</a>';
-    //		if (getSetting('_codeCredit')) credit += ' by ' + getSetting('_codeCredit');
-    //		credit += ' with ';
-    $('.leaflet-control-attribution')[0].innerHTML = credit + attributionHTML;
-  }
-
 
   /**
    * Loads the basemap and adds it to the map

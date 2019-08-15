@@ -34,6 +34,13 @@
       padding: 0;
     }
 
+    .count {
+      padding: 6px 10px;
+      background-color: #fff;
+      border: 1px solid #D1D1D1;
+      border-radius: 4px;
+    }
+
     #map {
       position: absolute;
       top: 0;
@@ -170,10 +177,10 @@
     }
 
     body {
-        /* font-family: Arial, Helvetica, sans-serif; */
-        margin: 0;
-        background-color: #174e69;
-      }
+      /* font-family: Arial, Helvetica, sans-serif; */
+      margin: 0;
+      background-color: #174e69;
+    }
 
     #app-cover {
       display: table;
@@ -293,15 +300,15 @@
   <div id="map"></div>
 
   <a href="https://www.geogecko.com/" target="_blank"><img
-    style="z-index: 10000; position: fixed; bottom: 2%; left: 0; border: 0; width: 4em;"
-    src="../../assets/images/Logo_pin.svg"></a>
+      style="z-index: 10000; position: fixed; bottom: 2%; left: 0; border: 0; width: 4em;"
+      src="../../assets/images/Logo_pin.svg"></a>
 
-<div class="containerIMG"
-  style="z-index: 10000; position: fixed; bottom: 2%; right: 0; border: 0; height: 8%; width: 500px;">
-  <a style="max-width:30%; margin: auto;" href=""><img
-      src="../../assets/images/ECW-full-logo-and-tagline-orange-and-whitetagline-RGB.png" alt="ECW"></a>
-  <a style="max-width: 18%;margin: auto;" href=""><img src="../../assets/images/echo.png" alt="ECO"></a>
-</div>
+  <div class="containerIMG"
+    style="z-index: 10000; position: fixed; bottom: 2%; right: 0; border: 0; height: 8%; width: 500px;">
+    <a style="max-width:30%; margin: auto;" href=""><img
+        src="../../assets/images/ECW-full-logo-and-tagline-orange-and-whitetagline-RGB.png" alt="ECW"></a>
+    <a style="max-width: 18%;margin: auto;" href=""><img src="../../assets/images/echo.png" alt="ECO"></a>
+  </div>
 
 
   <div id="controlPanel" class="control-panel">
@@ -332,10 +339,17 @@
           <div id="legend"></div>
           <hr>
           <p>
-            <strong>Highlight by responsible agency</strong>
+            <strong>Highlight by:</strong>
+
+            <select name="options" id="highlightOptions" style="max-width: 300px;">
+              <option value="Donors">Donors</option>
+              <option value="Funding Modality">Funding Modality</option>
+              <option value="Ownership">Ownership</option>
+            </select>
+            <span id='highlightedCount'></span>
           </p>
-          <div class="row">
-            <div id='dropDownContainer' class="six columns">
+          <div>
+            <div id='dropDownContainer'>
             </div>
           </div>
 
@@ -371,6 +385,7 @@
             </div>
 
           </div>
+          <hr>
           <div class="row">
             <div class="toggle-buttons-cover">
               <p style="text-align: left;">Early Grade Reading</p>
@@ -385,6 +400,7 @@
               </div>
             </div>
           </div>
+          <hr>
           <div class="row">
             <div class="toggle-buttons-cover">
               <p style="text-align: left;">TeamUp</p>
@@ -399,6 +415,7 @@
               </div>
             </div>
           </div>
+          <hr>
           <div class="row">
             <div class="toggle-buttons-cover">
               <p style="text-align: left;">Double Shifting</p>
@@ -413,6 +430,39 @@
               </div>
             </div>
           </div>
+          <hr>
+          <div class="row">
+            <div class="toggle-buttons-cover">
+              <p style="text-align: left;">Improving Learning Environments in Emergencies</p>
+            </div>
+            <div class="toggle-buttons-cover">
+              <div class="buttons-cover">
+                <div class="button buttons r" id="button-5">
+                  <input type="checkbox" class="checkbox">
+                  <div class="knobs"></div>
+                  <div class="layer"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <hr>
+          <div class="row">
+            <div class="toggle-buttons-cover">
+              <p style="text-align: left;">Cash Transfers</p>
+            </div>
+            <div class="toggle-buttons-cover">
+              <div class="buttons-cover">
+                <div class="button buttons r" id="button-6">
+                  <input type="checkbox" class="checkbox">
+                  <div class="knobs"></div>
+                  <div class="layer"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <br>
+          <br>
+          <p id='priorityCount'></p>
         </div>
 
       </div>

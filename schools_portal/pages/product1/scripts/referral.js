@@ -124,6 +124,16 @@ $(window).on('load', function () {
       return d.Organisation_Name;
     }).sortKeys(d3.ascending).entries(product1);
 
+    console.log(product1);
+
+    var ownerList = d3.nest().key(function (d) {
+      return d['Type of Facility'];
+    }).sortKeys(d3.ascending).entries(product1);
+
+    var modalityList = d3.nest().key(function (d) {
+      return d['Funding Modality'];
+    }).sortKeys(d3.ascending).entries(product1);
+
     geoJsonFeatureCollection = {
       type: 'FeatureCollection',
       features: product1.map(function (datum) {
@@ -284,7 +294,6 @@ $(window).on('load', function () {
       //  console.log(e)
       if (e.sharedOriginFeatures.length) {
         $('#sidebar-content').html(
-
           "<table>" +
           "<tr><td>Nature of facility</td><td>" + e.layer.feature.properties.origin_city["Is_the_Support_for_Primary_School_or_AEP_centre_hosted_by_the_school?"] + "</td><tr>" +
           "<tr><td>Type of Facility</td><td>" + e.layer.feature.properties.origin_city["Type of Facility"] + "</td><tr>" +
@@ -321,10 +330,10 @@ $(window).on('load', function () {
           totalTeachers = 0,
           totalRefugeeTeachers = 0;
         e.sharedDestinationFeatures.forEach(function (d, i) {
-          totalStudents = totalStudents + d.properties.origin_city["Total Students"];
-          totalRefugeeStudents = totalRefugeeStudents + d.properties.origin_city["Refugee Students"];
-          totalTeachers = totalTeachers + d.properties.origin_city["Total Teachers"];
-          totalRefugeeTeachers = totalRefugeeTeachers + d.properties.origin_city["Refugee Teachers"];
+          totalStudents = totalStudents + parseInt(d.properties.origin_city["Total Students"]);
+          totalRefugeeStudents = totalRefugeeStudents + parseInt(d.properties.origin_city["Refugee Students"]);
+          totalTeachers = totalTeachers + parseInt(d.properties.origin_city["Total Teachers"]);
+          totalRefugeeTeachers = totalRefugeeTeachers + parseInt(d.properties.origin_city["Refugee Teachers"]);
         })
 
         $('#sidebar-content').html(
@@ -353,14 +362,51 @@ $(window).on('load', function () {
       }
     });
 
-    
+    var layerPopup;
+    oneToManyFlowmapLayer.on('mouseover', function (e) {
+      var coordinates = e.layer.feature.geometry.coordinates;
+      var swapped_coordinates = [coordinates[1], coordinates[0]];
+      if (e.sharedOriginFeatures.length) {
+        //schools
+        if (map) {
+          layerPopup = L.popup()
+            .setLatLng(swapped_coordinates)
+            .setContent("<table>" +
+            "<tr><td>Nature of facility</td><td>" + e.layer.feature.properties.origin_city["Is_the_Support_for_Primary_School_or_AEP_centre_hosted_by_the_school?"] + "</td><tr>" +
+            "<tr><td>Type of Facility</td><td>" + e.layer.feature.properties.origin_city["Type of Facility"] + "</td><tr>" +
+            "<tr><td>Name of facility</td><td>" + e.layer.feature.properties.origin_city.School + "</td><tr>" +
+            "<tr><td>ILETS Score</td><td>" + e.layer.feature.properties.origin_city.IELTS + "</td><tr>" +
+            "<tr><td>Funding Modality</td><td>" + e.layer.feature.properties.origin_city["Funding Modality"] + "</td><tr>" + "</table>")
+            .openOn(map);
+        }
+      }
+      if (e.sharedDestinationFeatures.length) {
+        //destinations
+        if (map) {
+          layerPopup = L.popup()
+            .setLatLng(swapped_coordinates)
+            .setContent("<table>" +
+            "<tr><td>Name of facility</td><td>" + e.layer.feature.properties.origin_city.Name_of_pathway + "</td><tr>" +
+            "<tr><td>Data collection date</td><td>" + e.layer.feature.properties.origin_city["Date of Data Collection"] + "</table>")
+            .openOn(map);
+        }
+      }
+    });
+
+    oneToManyFlowmapLayer.on('mouseout', function (e) {
+      if (layerPopup && map) {
+        map.closePopup(layerPopup);
+        layerPopup = null;
+      }
+    });
 
 
+    $('#highlightOptions').change(function () {
+      reset();
 
-        //  var inputdata = 123 || 456 || 789;
-        //  var split = input.split('||');
-        var select = $('<select multiple name="options" id="options" style="max-width: 300px; height: 100px;"><option value="None">- None -</option></select>');
-        $.each(filterList, function (index, value) {
+      function changeOptions(data) {
+        var select = $('<select multiple name="options" id="options" style="width: 100%; height: 100px; overflow-y: auto; overflow-x: auto;"><option value="None">- None -</option></select>');
+        $.each(data, function (index, value) {
           var option = $('<option></option>');
           option.attr('value', value.key);
           option.text(value.key);
@@ -368,111 +414,102 @@ $(window).on('load', function () {
         });
         $('#dropDownContainer').empty().append(select);
 
-        $('#options').change(function () {
-          reset();
-          $('#infoText').html('Click on a point to show additional information below.');
-          var array = ["#f7f7f6", '#c3ff3e', '#7d7d7d'];
-          var arrayLabel = ["", "Selected agency facilities", "Other agency facilities"];
+      }
 
-          addLegend(array, arrayLabel, "Legend", "circle");
-          if ($(this).val() === "None") {
-            resetMap();
-          } else {
-            for (key in map['_layers']) {
-              if (typeof map['_layers'][key]['feature'] !== 'undefined' && map['_layers'][key]['feature']['geometry']['type'] !== 'MultiPolygon') {
-                var l = map['_layers'][key];
+      if ($(this).val() === "Donors") {
+        changeOptions(filterList)
+      } else if ($(this).val() === "Funding Modality") {
+        changeOptions(modalityList)
+      } else if ($(this).val() === "Ownership") {
+        changeOptions(ownerList)
+      }
 
-                l.setStyle({
-                  radius: 6,
-                  fillColor: "#7d7d7d",
-                  color: "#000",
-                  weight: 1,
-                  opacity: 0.4,
-                  fillOpacity: 0.4
-                })
-                $.each($(this).val(), function (index, value) {
-                  if (l['feature']['properties']['origin_city']['Organisation_Name'] === value) {
-                    l.setStyle({
-                      radius: 6,
-                      fillColor: "#c3ff3e",
-                      color: "#000",
-                      weight: 1,
-                      opacity: 1,
-                      fillOpacity: 0.8
-                    })
-                  }
-                });
 
-              }
-            }
-          }
 
-        });
+      $('#options').change(function () {
+        var highlightCount = 0;
+        reset();
+        $('#infoText').html('Click on a point to show additional information below.');
+        var array = ["#f7f7f6", '#c3ff3e', '#7d7d7d'];
+        var arrayLabel = ["", "Selected agency facilities", "Other agency facilities"];
 
-        function reset() {
+        addLegend(array, arrayLabel, "Legend", "circle");
+        if ($(this).val() === "None") {
           resetMap();
-          oneToManyFlowmapLayer.clearAllPathSelections();
-
-          $('#sidebar-content').html("");
-
-          //  if (L.Browser.mobile) {
-          //    map.setView([1.291471, 32.482235], 7);
-          //  } else {
-          //    map.setView([1.291471, 34.482235], 7);
-          //  }
-
-          map.fitBounds(bounds);
-        }
-
-        $('#reset').on('click', function () {
-          reset();
-
-          $('#infoText').html('Click on a point to show additional information below.');
-
-          SelectElement("options", "None");
-        })
-
-        $('#mapLegendButton').on('click', function () {
-          reset();
-        })
-        $('#priorityApproachesButton').on('click', function () {
-          // reset();
-          
-          oneToManyFlowmapLayer.clearAllPathSelections();
-          priorityApproaches();
-
-          map.fitBounds(bounds);
-        })
-
-        function arrayRemove(arr, value) {
-
-          return arr.filter(function (ele) {
-            return ele != value;
-          });
-
-        }
-
-        function priorityApproaches() {
-          var arr = ["Can't wait to Learn", "Early Grade Reading", "TeamUp", "Double Shifting"]
-
-          var toggledOn = $('input[type=checkbox]:checked');
-          $.each(toggledOn, function (index, value) {
-            if (value.parentNode.id === "button-1") {
-              arr = arrayRemove(arr, "Can't wait to Learn")
-            } else if (value.parentNode.id === "button-2") {
-              arr = arrayRemove(arr, "Early Grade Reading")
-            } else if (value.parentNode.id === "button-3") {
-              arr = arrayRemove(arr, "TeamUp")
-            } else if (value.parentNode.id === "button-4") {
-              arr = arrayRemove(arr, "Double Shifting")
-            }
-          });
-
+        } else {
           for (key in map['_layers']) {
             if (typeof map['_layers'][key]['feature'] !== 'undefined' && map['_layers'][key]['feature']['geometry']['type'] !== 'MultiPolygon') {
               var l = map['_layers'][key];
-              const found = l['feature']['properties']['origin_city']["Priority Approaches"].split(",").some(r => arr.includes(r))
-              if (found) {
+
+              l.setStyle({
+                radius: 6,
+                fillColor: "#7d7d7d",
+                color: "#000",
+                weight: 1,
+                opacity: 0.4,
+                fillOpacity: 0.4
+              })
+              $.each($(this).val(), function (index, value) {
+                if (l['feature']['properties']['origin_city']['Organisation_Name'] === value || l['feature']['properties']['origin_city']['Funding Modality'] === value || l['feature']['properties']['origin_city']['Type of Facility'] === value) {
+                  highlightCount = highlightCount + 1;
+                  l.setStyle({
+                    radius: 6,
+                    fillColor: "#c3ff3e",
+                    color: "#000",
+                    weight: 1,
+                    opacity: 1,
+                    fillOpacity: 0.8
+                  })
+                }
+              });
+            }
+          }
+        }
+        $('#highlightedCount').html('<span class="count">' + comma(highlightCount) + '</span><span> highlighted </span>')
+      });
+    })
+
+
+
+
+
+    //  var inputdata = 123 || 456 || 789;
+    //  var split = input.split('||');
+    var select = $('<select multiple name="options" id="options" style="width: 100%; height: 100px; overflow-y: auto; overflow-x: auto;"><option value="None">- None -</option></select>');
+    $.each(filterList, function (index, value) {
+      var option = $('<option></option>');
+      option.attr('value', value.key);
+      option.text(value.key);
+      select.append(option);
+    });
+    $('#dropDownContainer').empty().append(select);
+
+    $('#options').change(function () {
+      var highlightCount = 0;
+      reset();
+      $('#infoText').html('Click on a point to show additional information below.');
+      var array = ["#f7f7f6", '#c3ff3e', '#7d7d7d'];
+      var arrayLabel = ["", "Selected agency facilities", "Other agency facilities"];
+
+      addLegend(array, arrayLabel, "Legend", "circle");
+      if ($(this).val() === "None") {
+        resetMap();
+      } else {
+        for (key in map['_layers']) {
+          if (typeof map['_layers'][key]['feature'] !== 'undefined' && map['_layers'][key]['feature']['geometry']['type'] !== 'MultiPolygon') {
+            var l = map['_layers'][key];
+
+            l.setStyle({
+              radius: 6,
+              fillColor: "#7d7d7d",
+              color: "#000",
+              weight: 1,
+              opacity: 0.4,
+              fillOpacity: 0.4
+            })
+            $.each($(this).val(), function (index, value) {
+              if (l['feature']['properties']['origin_city']['Organisation_Name'] === value || l['feature']['properties']['origin_city']['Funding Modality'] === value || l['feature']['properties']['origin_city']['Type of Facility'] === value) {
+                highlightCount = highlightCount + 1;
                 l.setStyle({
                   radius: 6,
                   fillColor: "#c3ff3e",
@@ -481,23 +518,108 @@ $(window).on('load', function () {
                   opacity: 1,
                   fillOpacity: 0.8
                 })
-              } else {
-                l.setStyle({
-                  radius: 6,
-                  fillColor: "#7d7d7d",
-                  color: "#000",
-                  weight: 1,
-                  opacity: 0.4,
-                  fillOpacity: 0.4
-                })
               }
-            }
+            });
+
           }
         }
+      }
 
-        var toggles = d3.selectAll('.buttons.r').on('change', function (d) {
-          priorityApproaches();
-        });
+      $('#highlightedCount').html('<span class="count">' + comma(highlightCount) + '</span><span> highlighted </span>')
+
+    });
+
+    function reset() {
+      resetMap();
+      oneToManyFlowmapLayer.clearAllPathSelections();
+
+      $('#sidebar-content').html("");
+
+      map.fitBounds(bounds);
+    }
+
+    $('#reset').on('click', function () {
+      reset();
+
+      $('#infoText').html('Click on a point to show additional information below.');
+
+      SelectElement("options", "None");
+    })
+
+    $('#mapLegendButton').on('click', function () {
+      reset();
+    })
+    $('#priorityApproachesButton').on('click', function () {
+      // reset();
+
+      oneToManyFlowmapLayer.clearAllPathSelections();
+      priorityApproaches();
+
+      map.fitBounds(bounds);
+    })
+
+    function arrayRemove(arr, value) {
+
+      return arr.filter(function (ele) {
+        return ele != value;
+      });
+
+    }
+
+    function priorityApproaches() {
+      var arr = ["Can't wait to Learn", "Early Grade Reading", "TeamUp", "Double Shifting", "Improving Learning Environments in Emergencies", "Cash Transfers"]
+
+      var toggledOn = $('input[type=checkbox]:checked');
+      $.each(toggledOn, function (index, value) {
+        if (value.parentNode.id === "button-1") {
+          arr = arrayRemove(arr, "Can't wait to Learn")
+        } else if (value.parentNode.id === "button-2") {
+          arr = arrayRemove(arr, "Early Grade Reading")
+        } else if (value.parentNode.id === "button-3") {
+          arr = arrayRemove(arr, "TeamUp")
+        } else if (value.parentNode.id === "button-4") {
+          arr = arrayRemove(arr, "Double Shifting")
+        } else if (value.parentNode.id === "button-5") {
+          arr = arrayRemove(arr, "Improving Learning Environments in Emergencies")
+        } else if (value.parentNode.id === "button-6") {
+          arr = arrayRemove(arr, "Cash Transfers")
+        }
+      });
+
+      var priorityCount = 0;
+
+      for (key in map['_layers']) {
+        if (typeof map['_layers'][key]['feature'] !== 'undefined' && map['_layers'][key]['feature']['geometry']['type'] !== 'MultiPolygon') {
+          var l = map['_layers'][key];
+          const found = l['feature']['properties']['origin_city']["Priority Approaches"].split(",").some(r => arr.includes(r))
+          if (found) {
+            priorityCount = priorityCount + 1;
+            l.setStyle({
+              radius: 6,
+              fillColor: "#c3ff3e",
+              color: "#000",
+              weight: 1,
+              opacity: 1,
+              fillOpacity: 0.8
+            })
+          } else {
+            l.setStyle({
+              radius: 6,
+              fillColor: "#7d7d7d",
+              color: "#000",
+              weight: 1,
+              opacity: 0.4,
+              fillOpacity: 0.4
+            })
+          }
+        }
+      }
+      $('#priorityCount').html('<span class="count">' + comma(priorityCount) + '</span><span> highlighted </span>')
+    }
+
+    var toggles = d3.selectAll('.buttons.r').on('change', function (d) {
+      priorityApproaches();
+    });
 
     $('#map').css('visibility', 'visible');
     $('.loader').hide();
@@ -515,7 +637,6 @@ $(window).on('load', function () {
     createDocumentSettings(options);
 
     document.title = getSetting('_mapTitle');
-    addBaseMap();
 
     // Add point markers to the map
     var points = mapData.sheets(constants.pointsSheetName);
@@ -562,48 +683,12 @@ $(window).on('load', function () {
     $('.leaflet-control-attribution')[0].innerHTML = credit + attributionHTML;
   }
 
-
-  /**
-   * Loads the basemap and adds it to the map
-   */
-  function addBaseMap() {
-    var basemap = trySetting('_tileProvider', 'CartoDB.Positron');
-    // L.tileLayer.provider(basemap, {
-    //   maxZoom: 18
-    // }).addTo(map);
-    // L.control.attribution({
-    //   position: trySetting('_mapAttribution', 'bottomright')
-    // }).addTo(map);
-  }
-
   /**
    * Returns the value of a setting s
    * getSetting(s) is equivalent to documentSettings[constants.s]
    */
   function getSetting(s) {
     return documentSettings[constants[s]];
-  }
-
-  /**
-   * Returns the value of setting named s from constants.js
-   * or def if setting is either not set or does not exist
-   * Both arguments are strings
-   * e.g. trySetting('_authorName', 'No Author')
-   */
-  function trySetting(s, def) {
-    s = getSetting(s);
-    if (!s || s.trim() === '') {
-      return def;
-    }
-    return s;
-  }
-
-  function tryPolygonSetting(p, s, def) {
-    s = getPolygonSetting(p, s);
-    if (!s || s.trim() === '') {
-      return def;
-    }
-    return s;
   }
 
   /**
