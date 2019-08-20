@@ -280,8 +280,6 @@ $(window).on('load', function () {
           return d3.ascending(x.Term, y.Term);
         });
 
-        console.log(chartData);
-
         // set the dimensions and margins of the graph
         var margin = {
             top: 10,
