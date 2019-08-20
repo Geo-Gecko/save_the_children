@@ -82,7 +82,7 @@
       animationDuration: 2000,
 
       pointToLayer: function(geoJsonPoint, latlng) {
-        return L.shapeMarker(latlng);
+        return L.circleMarker(latlng);
       },
 
       style: function(geoJsonFeature) {
@@ -104,7 +104,6 @@
         } else {
           return {
             renderer: canvasRenderer,
-            shape: "square",
             radius: 2.5,
             weight: 0.25,
             color: 'rgb(17, 142, 170)',
