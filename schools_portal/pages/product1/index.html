@@ -21,12 +21,15 @@
   <!-- Custom style sheet -->
   <link rel="stylesheet" type="text/css" href="style.css">
 
+  <!-- Add icon library -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 
   <script src="scripts/skeleton-tabs.js"></script>
 
   <!-- Tabletop -->
   <script src="scripts/tabletop.js"></script>
+
 
   <style>
     body {
@@ -93,7 +96,7 @@
     @media (max-width: 550px),
     (max-height: 550px) {
       .control-panel {
-        max-height: 200px;
+        max-height: 100%;
         margin-right: 0;
         margin-bottom: 16px;
       }
@@ -141,7 +144,7 @@
       text-align: center;
       line-height: 1;
       padding: 9px 4px;
-      background-color: #03A9F4;
+      background-color: #377eb8;
       border-radius: 50%;
       transition: 0.3s ease all, left 0.3s cubic-bezier(0.18, 0.89, 0.35, 1.15);
     }
@@ -158,7 +161,11 @@
     .buttons .checkbox:checked+.knobs:before {
       content: 'OFF';
       left: 42px;
-      background-color: #F44336;
+      background-color: #dc3031;
+    }
+
+    #button-switch .checkbox:checked+.knobs:before {
+      content: 'ON' !important;
     }
 
     .buttons .checkbox:checked~.layer {
@@ -288,6 +295,22 @@
       -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, .3);
       background-color: #555;
     }
+
+    .container {
+      display: flex;
+      flex: auto;
+      flex-direction: column;
+      height: 100%;
+    }
+
+    .head {}
+
+    .content {
+      border: 1px solid #bbb;
+      overflow-y: auto;
+    }
+
+    .foot {}
   </style>
 
 </head>
@@ -315,11 +338,14 @@
     <br>
 
     <ul class="tab-nav">
-      <li>
-        <a class="button active" id="mapLegendButton" href="#mapLegend" style="width: 45%;">Map Legend</a>
+      <li><a class="button fa fa-home" href="../../index.html"
+          style="height: 2%; width: 10%; border: none!important;"></a>
       </li>
       <li>
-        <a class="button" id="priorityApproachesButton" href="#priorityApproaches" style="width: 45%;">Priority
+        <a class="button active" id="mapLegendButton" href="#mapLegend" style="width: 40%;">Map Legend</a>
+      </li>
+      <li>
+        <a class="button" id="priorityApproachesButton" href="#priorityApproaches" style="width: 40%;">Priority
           Approaches</a>
       </li>
     </ul>
@@ -335,6 +361,28 @@
             <button type="button" id="reset" class="btn btn-secondary">Reset map</button>
           </div>
           <hr>
+
+          <!-- Temporarily Hide Switch-->
+          <!-- <div id="app-cover1">
+            <div class="row">
+              <div class="toggle-buttons-cover" style="width: 33%;text-align: center;">
+                <p style="text-align: left;">Accelerated Education Programme Centres</p>
+              </div>
+              <div class="toggle-buttons-cover" style="width: 33%;text-align: center;">
+                <div class="buttons-cover">
+                  <div class="button switch buttons" id="button-switch">
+                    <input type="checkbox" class="checkbox">
+                    <div class="knobs"></div>
+                    <div class="layer"></div>
+                  </div>
+                </div>
+              </div>
+              <div class="toggle-buttons-cover" style="width: 33%;text-align: center;">
+                <p style="text-align: left;">Primary Schools</p>
+              </div>
+
+            </div>
+          </div> -->
 
           <div id="legend"></div>
           <hr>
@@ -368,137 +416,204 @@
       </div>
 
       <div class="tab-pane" class="filterclass" id="priorityApproaches"
-        style="overflow-x: hidden;width: 90% !important;">
-        <div id="app-cover">
-          <div class="row">
-            <div class="toggle-buttons-cover">
-              <p style="text-align: left;">Can't wait to Learn </p>
-            </div>
-            <div class="toggle-buttons-cover">
-              <div class="buttons-cover">
-                <div class="button buttons r" id="button-1">
-                  <input type="checkbox" class="checkbox">
-                  <div class="knobs"></div>
-                  <div class="layer"></div>
+        style="overflow-x: hidden;height: 100%;width: 90% !important;">
+        <div class="container">
+          <div class="head">
+            <br>
+            <p id='priorityCount'></p>
+            <br>
+          </div>
+          <div class="content">
+            <div class="row">
+              <div class="toggle-buttons-cover">
+                <p style="text-align: left;">Can't wait to Learn </p>
+              </div>
+              <div class="toggle-buttons-cover">
+                <div class="buttons-cover">
+                  <div class="button buttons r" id="button-1">
+                    <input type="checkbox" class="checkbox">
+                    <div class="knobs"></div>
+                    <div class="layer"></div>
+                  </div>
                 </div>
               </div>
-            </div>
 
-          </div>
-          <hr>
-          <div class="row">
-            <div class="toggle-buttons-cover">
-              <p style="text-align: left;">Early Grade Reading</p>
             </div>
-            <div class="toggle-buttons-cover">
-              <div class="buttons-cover">
-                <div class="button buttons r" id="button-2">
-                  <input type="checkbox" class="checkbox">
-                  <div class="knobs"></div>
-                  <div class="layer"></div>
+            <hr>
+            <div class="row">
+              <div class="toggle-buttons-cover">
+                <p style="text-align: left;">Early Grade Reading</p>
+              </div>
+              <div class="toggle-buttons-cover">
+                <div class="buttons-cover">
+                  <div class="button buttons r" id="button-2">
+                    <input type="checkbox" class="checkbox">
+                    <div class="knobs"></div>
+                    <div class="layer"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <hr>
+            <div class="row">
+              <div class="toggle-buttons-cover">
+                <p style="text-align: left;">TeamUp</p>
+              </div>
+              <div class="toggle-buttons-cover">
+                <div class="buttons-cover">
+                  <div class="button buttons r" id="button-3">
+                    <input type="checkbox" class="checkbox">
+                    <div class="knobs"></div>
+                    <div class="layer"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <hr>
+            <div class="row">
+              <div class="toggle-buttons-cover">
+                <p style="text-align: left;">Double Shifting</p>
+              </div>
+              <div class="toggle-buttons-cover">
+                <div class="buttons-cover">
+                  <div class="button buttons r" id="button-4">
+                    <input type="checkbox" class="checkbox">
+                    <div class="knobs"></div>
+                    <div class="layer"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <hr>
+            <div class="row">
+              <div class="toggle-buttons-cover">
+                <p style="text-align: left;">Improving Learning Environments in Emergencies</p>
+              </div>
+              <div class="toggle-buttons-cover">
+                <div class="buttons-cover">
+                  <div class="button buttons r" id="button-5">
+                    <input type="checkbox" class="checkbox">
+                    <div class="knobs"></div>
+                    <div class="layer"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="toggle-buttons-cover">
+                <p style="text-align: left;">Can't wait to Learn </p>
+              </div>
+              <div class="toggle-buttons-cover">
+                <div class="buttons-cover">
+                  <div class="button buttons r" id="button-1">
+                    <input type="checkbox" class="checkbox">
+                    <div class="knobs"></div>
+                    <div class="layer"></div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+            <div class="row">
+              <div class="toggle-buttons-cover">
+                <p style="text-align: left;">Can't wait to Learn </p>
+              </div>
+              <div class="toggle-buttons-cover">
+                <div class="buttons-cover">
+                  <div class="button buttons r" id="button-1">
+                    <input type="checkbox" class="checkbox">
+                    <div class="knobs"></div>
+                    <div class="layer"></div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+            <div class="row">
+              <div class="toggle-buttons-cover">
+                <p style="text-align: left;">Can't wait to Learn </p>
+              </div>
+              <div class="toggle-buttons-cover">
+                <div class="buttons-cover">
+                  <div class="button buttons r" id="button-1">
+                    <input type="checkbox" class="checkbox">
+                    <div class="knobs"></div>
+                    <div class="layer"></div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+            <div class="row">
+              <div class="toggle-buttons-cover">
+                <p style="text-align: left;">Can't wait to Learn </p>
+              </div>
+              <div class="toggle-buttons-cover">
+                <div class="buttons-cover">
+                  <div class="button buttons r" id="button-1">
+                    <input type="checkbox" class="checkbox">
+                    <div class="knobs"></div>
+                    <div class="layer"></div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+            <hr>
+            <div class="row">
+              <div class="toggle-buttons-cover">
+                <p style="text-align: left;">Cash Transfers</p>
+              </div>
+              <div class="toggle-buttons-cover">
+                <div class="buttons-cover">
+                  <div class="button buttons r" id="button-6">
+                    <input type="checkbox" class="checkbox">
+                    <div class="knobs"></div>
+                    <div class="layer"></div>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-          <hr>
-          <div class="row">
-            <div class="toggle-buttons-cover">
-              <p style="text-align: left;">TeamUp</p>
-            </div>
-            <div class="toggle-buttons-cover">
-              <div class="buttons-cover">
-                <div class="button buttons r" id="button-3">
-                  <input type="checkbox" class="checkbox">
-                  <div class="knobs"></div>
-                  <div class="layer"></div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <hr>
-          <div class="row">
-            <div class="toggle-buttons-cover">
-              <p style="text-align: left;">Double Shifting</p>
-            </div>
-            <div class="toggle-buttons-cover">
-              <div class="buttons-cover">
-                <div class="button buttons r" id="button-4">
-                  <input type="checkbox" class="checkbox">
-                  <div class="knobs"></div>
-                  <div class="layer"></div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <hr>
-          <div class="row">
-            <div class="toggle-buttons-cover">
-              <p style="text-align: left;">Improving Learning Environments in Emergencies</p>
-            </div>
-            <div class="toggle-buttons-cover">
-              <div class="buttons-cover">
-                <div class="button buttons r" id="button-5">
-                  <input type="checkbox" class="checkbox">
-                  <div class="knobs"></div>
-                  <div class="layer"></div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <hr>
-          <div class="row">
-            <div class="toggle-buttons-cover">
-              <p style="text-align: left;">Cash Transfers</p>
-            </div>
-            <div class="toggle-buttons-cover">
-              <div class="buttons-cover">
-                <div class="button buttons r" id="button-6">
-                  <input type="checkbox" class="checkbox">
-                  <div class="knobs"></div>
-                  <div class="layer"></div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <br>
-          <br>
-          <p id='priorityCount'></p>
+          <div class="foot"></div>
         </div>
-
       </div>
+
     </div>
 
-  </div>
+
+    <!-- first load LeafletJS -->
+    <script src="https://unpkg.com/leaflet@1.3/dist/leaflet.js"></script>
+
+    <!-- load Esri Leaflet because we want to use an Esri basemap -->
+    <script src="https://unpkg.com/esri-leaflet@2.1/dist/esri-leaflet.js"></script>
+
+    <!-- load animation tweening lib requirement for CanvasFlowMapLayer -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tween.js/17.2.0/Tween.min.js"></script>
+
+    <!-- then load CanvasFlowMapLayer -->
+    <script src="scripts/CanvasFlowmapLayer.js"></script>
 
 
-  <!-- first load LeafletJS -->
-  <script src="https://unpkg.com/leaflet@1.3/dist/leaflet.js"></script>
+    <!--Custom Markers -->
+    <script type="text/javascript" src="scripts/leaflet-svg-shape-markers.min.js"></script>
 
-  <!-- load Esri Leaflet because we want to use an Esri basemap -->
-  <script src="https://unpkg.com/esri-leaflet@2.1/dist/esri-leaflet.js"></script>
+    <!-- also load 3rd-party CSV parsing libary just for this demo  -->
+    <script src="https://unpkg.com/papaparse@4.3/papaparse.min.js"></script>
 
-  <!-- load animation tweening lib requirement for CanvasFlowMapLayer -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/tween.js/17.2.0/Tween.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 
-  <!-- then load CanvasFlowMapLayer -->
-  <script src="https://jwasilgeo.github.io/Leaflet.Canvas-Flowmap-Layer/src/CanvasFlowmapLayer.js"></script>
+    <script src="../../assets/src/d3.v5.min.js"></script>
 
-  <!-- also load 3rd-party CSV parsing libary just for this demo  -->
-  <script src="https://unpkg.com/papaparse@4.3/papaparse.min.js"></script>
-
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-
-  <script src="../../assets/src/d3.v5.min.js"></script>
-
-  <script src="scripts/queue.v1.min.js"></script>
-  <script type="text/javascript" src="google-doc-url.js"></script>
-  <script type="text/javascript" src="scripts/constants.js"></script>
-  <script type="text/javascript" src="scripts/palette.js"></script>
-  <script type="text/javascript" src="scripts/polylabel.js"></script>
-  <script type="text/javascript" src="scripts/procsv.js"></script>
-  <script type="text/javascript" src="scripts/piechartAndLegend.js"></script>
-  <script type="text/javascript" src="scripts/referral.js"></script>
-  <!--		<script src="clickable-pop-up-boxes.js"></script>-->
+    <script src="scripts/queue.v1.min.js"></script>
+    <script type="text/javascript" src="google-doc-url.js"></script>
+    <script type="text/javascript" src="scripts/constants.js"></script>
+    <script type="text/javascript" src="scripts/palette.js"></script>
+    <script type="text/javascript" src="scripts/polylabel.js"></script>
+    <script type="text/javascript" src="scripts/procsv.js"></script>
+    <script type="text/javascript" src="scripts/piechartAndLegend.js"></script>
+    <script type="text/javascript" src="scripts/referral.js"></script>
+    <!--		<script src="clickable-pop-up-boxes.js"></script>-->
 
 
 

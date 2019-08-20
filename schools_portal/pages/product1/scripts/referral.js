@@ -124,8 +124,6 @@ $(window).on('load', function () {
       return d.Organisation_Name;
     }).sortKeys(d3.ascending).entries(product1);
 
-    console.log(product1);
-
     var ownerList = d3.nest().key(function (d) {
       return d['Type of Facility'];
     }).sortKeys(d3.ascending).entries(product1);
@@ -162,24 +160,24 @@ $(window).on('load', function () {
     };
 
     var oneToManyFlowmapLayer = L.canvasFlowmapLayer(geoJsonFeatureCollection, {
-        originAndDestinationFieldIds: {
-          originUniqueIdField: 's_city_id',
-          originGeometry: {
-            x: 's_lon',
-            y: 's_lat'
-          },
-          destinationUniqueIdField: 'e_city_id',
-          destinationGeometry: {
-            x: 'e_lon',
-            y: 'e_lat'
-          }
+      originAndDestinationFieldIds: {
+        originUniqueIdField: 's_city_id',
+        originGeometry: {
+          x: 's_lon',
+          y: 's_lat'
         },
-        pathDisplayMode: 'selection',
-        animationStarted: true,
-        animationEasingFamily: 'Cubic',
-        animationEasingType: 'In',
-        animationDuration: 2000
-      }).addTo(map)
+        destinationUniqueIdField: 'e_city_id',
+        destinationGeometry: {
+          x: 'e_lon',
+          y: 'e_lat'
+        }
+      },
+      pathDisplayMode: 'selection',
+      animationStarted: true,
+      animationEasingFamily: 'Cubic',
+      animationEasingType: 'In',
+      animationDuration: 2000
+    }).addTo(map)
       .on('click', function (point) {
         //  $('#sidebar-content').text("The data is: " + point.propagatedFrom.feature.properties.School)
       });
@@ -236,6 +234,40 @@ $(window).on('load', function () {
     }
 
     resetMap();
+
+    var square = L.shapeMarker([51.505, -0.09], {
+      shape: "square",
+      radius: 20
+    }).addTo(map);
+
+    function iconsMap() {
+
+      for (key in map['_layers']) {
+        if (typeof map['_layers'][key]['feature'] !== 'undefined' && map['_layers'][key]['feature']['geometry']['type'] !== 'MultiPolygon') {
+          var l = map['_layers'][key];
+          if (l['feature']['properties']['isOrigin'] === false && l['feature']['properties']['origin_city']['Level of Pathway'] === 'Secondary' && l['feature']['properties']['origin_city']['Pathway'] === 'Transition') {
+           
+            l.options.shape = "square";
+            l.options.radius = 20;
+            // l.setStyle({
+            //   radius: 20,
+            //   fillColor: "#000",
+            //   shape: 'square',
+            //   color: "#000",
+            //   weight: 1,
+            //   opacity: 1,
+            //   fillOpacity: 0.8
+            // })
+            console.log(l);
+          }
+        }
+      }
+
+    }
+
+    iconsMap();
+
+    console.log(square)
 
     // Updates the displayed map markers to reflect the crossfilter dimension passed in
     var updateMap = function (locs) {
@@ -372,11 +404,11 @@ $(window).on('load', function () {
           layerPopup = L.popup()
             .setLatLng(swapped_coordinates)
             .setContent("<table>" +
-            "<tr><td>Nature of facility</td><td>" + e.layer.feature.properties.origin_city["Is_the_Support_for_Primary_School_or_AEP_centre_hosted_by_the_school?"] + "</td><tr>" +
-            "<tr><td>Type of Facility</td><td>" + e.layer.feature.properties.origin_city["Type of Facility"] + "</td><tr>" +
-            "<tr><td>Name of facility</td><td>" + e.layer.feature.properties.origin_city.School + "</td><tr>" +
-            "<tr><td>ILETS Score</td><td>" + e.layer.feature.properties.origin_city.IELTS + "</td><tr>" +
-            "<tr><td>Funding Modality</td><td>" + e.layer.feature.properties.origin_city["Funding Modality"] + "</td><tr>" + "</table>")
+              "<tr><td>Nature of facility</td><td>" + e.layer.feature.properties.origin_city["Is_the_Support_for_Primary_School_or_AEP_centre_hosted_by_the_school?"] + "</td><tr>" +
+              "<tr><td>Type of Facility</td><td>" + e.layer.feature.properties.origin_city["Type of Facility"] + "</td><tr>" +
+              "<tr><td>Name of facility</td><td>" + e.layer.feature.properties.origin_city.School + "</td><tr>" +
+              "<tr><td>ILETS Score</td><td>" + e.layer.feature.properties.origin_city.IELTS + "</td><tr>" +
+              "<tr><td>Funding Modality</td><td>" + e.layer.feature.properties.origin_city["Funding Modality"] + "</td><tr>" + "</table>")
             .openOn(map);
         }
       }
@@ -386,8 +418,8 @@ $(window).on('load', function () {
           layerPopup = L.popup()
             .setLatLng(swapped_coordinates)
             .setContent("<table>" +
-            "<tr><td>Name of facility</td><td>" + e.layer.feature.properties.origin_city.Name_of_pathway + "</td><tr>" +
-            "<tr><td>Data collection date</td><td>" + e.layer.feature.properties.origin_city["Date of Data Collection"] + "</table>")
+              "<tr><td>Name of facility</td><td>" + e.layer.feature.properties.origin_city.Name_of_pathway + "</td><tr>" +
+              "<tr><td>Data collection date</td><td>" + e.layer.feature.properties.origin_city["Date of Data Collection"] + "</table>")
             .openOn(map);
         }
       }
@@ -620,6 +652,10 @@ $(window).on('load', function () {
     var toggles = d3.selectAll('.buttons.r').on('change', function (d) {
       priorityApproaches();
     });
+
+    // var switches = d3.select('#button-switch').on('change', function (d) {
+    //   console.log($(this));
+    // });
 
     $('#map').css('visibility', 'visible');
     $('.loader').hide();
