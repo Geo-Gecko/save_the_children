@@ -141,6 +141,22 @@
       color: black !important;
       font-weight: bolder;
     }
+
+    .container {
+      display: flex;
+      flex: auto;
+      flex-direction: column;
+      height: 100%;
+    }
+
+    .head {}
+
+    .content {
+      border: 1px solid #bbb;
+      overflow-y: auto;
+    }
+
+    .foot {}
   </style>
 
 </head>
@@ -181,83 +197,87 @@
       </li>
     </ul>
 
-    <div class="tab-content" style="overflow-y: auto; height:75%; margin: auto;" class="filterclass">
-      <div class="tab-pane active" id="Filters">
+    <div class="tab-content"  class="filterclass">
+      <div class="tab-pane active" id="Filters" style="overflow-y: hidden; height:75%; margin: auto;">
+        <div class="container">
+          <div class="head">
+            <div class="w3-bar w3-black" style="width: 90% !important; margin: auto !important;">
+              <left>
+                <div style="width: 90%;padding-left: 0%;">
+                  <table style="float:left;">
+                    <tbody>
+                      <tr>
+                        <td>Schools</td>
+                        <td id="school-count">0</td>
+                      </tr>
+                      <tr></tr>
+                      <tr>
+                        <td>Students</td>
+                        <td id="student-count">0</td>
+                      </tr>
+                    </tbody>
+                  </table>
+
+                  <button class="w3-bar-item w3-button" style="font-size: 10px; float: right !important;"
+                    id="resetSliders">Reset</button>
+                </div>
+              </left>
+            </div>
+            <br>
+            <div class="w3-bar w3-black" style="width: 90% !important; margin: auto !important;">
+
+                <span style="float:left;width: 90%;padding-left: 0%;">
+                  <strong>Filters</strong>
+    
+                  <select name="options" style="max-width: 300px;">
+                    <option disabled value="">- Select Year -</option>
+                    <option value="2019">2019</option>
+                  </select>
+                </span>
+    
+                <br>
+              </div>
+          </div>
+          <div class="content">
+              <div class="w3-bar w3-black" style="clear: left;width: 90% !important; height: 5%; margin: auto !important;">
+                  <!--List of filters:  -->
+                  <div id='sliderContainer' style="float:unset; overflow-y: auto !important; max-height: 100%;">
+                    <div>
+                      <div class="col-md-12">
+                        <p class="custom-list-header"><strong>School Level</strong><i
+                            class="glyphicon glyphicon-chevron-down"></i></p>
+                        <div id="school-level-list" class="custom-list"></div>
+                      </div>
+                      <div class="col-md-12">
+                        <p class="custom-list-header"><strong>Education Cannot Wait</strong> <i
+                            class="glyphicon glyphicon-chevron-down"></i></p>
+                        <div id="education-cannot-wait-list" class="custom-list"></div>
+                      </div>
+                      <div class="col-md-12">
+                        <p class="custom-list-header"><strong>ECHO INCLUDE</strong> <i
+                            class="glyphicon glyphicon-chevron-down"></i></p>
+                        <div id="echo-include-list" class="custom-list"></div>
+                      </div>
+                    </div>
+                  </div>
+        
+                </div>
+          <div class="foot"></div>
+        </div>
 
         <div style="position: relative">
           <!-- numbers -->
-          <div class="w3-bar w3-black" style="width: 90% !important; margin: auto !important;">
-            <left>
-              <div style="width: 90%;padding-left: 0%;">
-                <table style="float:left;">
-                  <tbody>
-                    <tr>
-                      <td>Schools</td>
-                      <td id="school-count">0</td>
-                    </tr>
-                    <tr></tr>
-                    <tr>
-                      <td>Students</td>
-                      <td id="student-count">0</td>
-                    </tr>
-                  </tbody>
-                </table>
-
-                <button class="w3-bar-item w3-button" style="font-size: 10px; float: right !important;"
-                  id="resetSliders">Reset</button>
-              </div>
-            </left>
-          </div>
-
-          <br>
-          <br>
-
-          <div class="w3-bar w3-black" style="width: 90% !important; margin: auto !important;">
-
-            <span style="float:left;width: 90%;padding-left: 0%;">
-              <strong>Filters</strong>
-
-              <select name="options" style="max-width: 300px;">
-                <option disabled value="">- Select Year -</option>
-                <option value="2019">2019</option>
-              </select>
-            </span>
-
-            <br>
-          </div>
 
         </div>
         <br>
 
-        <div class="w3-bar w3-black" style="clear: left;width: 90% !important; height: 5%; margin: auto !important;">
-          <!--List of filters:  -->
-          <div id='sliderContainer' style="float:unset; overflow-y: auto; max-height: 100%;">
-            <div>
-              <div class="col-md-12">
-                <p class="custom-list-header"><strong>School Level</strong><i
-                    class="glyphicon glyphicon-chevron-down"></i></p>
-                <div id="school-level-list" class="custom-list"></div>
-              </div>
-              <div class="col-md-12">
-                <p class="custom-list-header"><strong>Education Cannot Wait</strong> <i
-                    class="glyphicon glyphicon-chevron-down"></i></p>
-                <div id="education-cannot-wait-list" class="custom-list"></div>
-              </div>
-              <div class="col-md-12">
-                <p class="custom-list-header"><strong>ECHO INCLUDE</strong> <i
-                    class="glyphicon glyphicon-chevron-down"></i></p>
-                <div id="echo-include-list" class="custom-list"></div>
-              </div>
-            </div>
-          </div>
-
-        </div>
+        
 
       </div>
 
 
       <div class="tab-pane" class="filterclass" id="Statistics"
-        style="overflow-x: hidden;width: 90% !important; margin: auto;">
+        style="overflow-x: hidden;height: 100%;width: 90% !important;">
         <!-- numbers -->
         <strong>Summary</strong>
         <left>
