@@ -225,6 +225,8 @@ $(window).on('load', function () {
         }
       }).addTo(map)
       .on('click', function (d) {
+        
+        console.log(d);
 
         for (key in map['_layers']) {
           if (typeof map['_layers'][key]['feature'] !== 'undefined' && map['_layers'][key]['feature']['geometry']['type'] !== 'MultiPolygon') {
@@ -254,6 +256,7 @@ $(window).on('load', function () {
         SelectElement("options", "Number of Teachers");
 
         eventFire(document.getElementById('statsButton'), 'click');
+
 
         $('#sidebar-content').html(
           "<table>" +
