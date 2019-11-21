@@ -146,13 +146,13 @@
       display: flex;
       flex: auto;
       flex-direction: column;
-      height: 100%;
+      /* height: 100%; */
     }
 
     .head {}
 
     .content {
-      border: 1px solid #bbb;
+      height: 800vh !important;
       overflow-y: auto;
     }
 
@@ -197,8 +197,8 @@
       </li>
     </ul>
 
-    <div class="tab-content"  class="filterclass">
-      <div class="tab-pane active" id="Filters" style="overflow-y: hidden; height:75%; margin: auto;">
+    <div class="tab-content" style="height: inherit;display: contents;"  class="filterclass">
+      <div class="tab-pane active" id="Filters" style="overflow-y: hidden; height:80%; margin: auto;">
         <div class="container">
           <div class="head">
             <div class="w3-bar w3-black" style="width: 90% !important; margin: auto !important;">
@@ -274,10 +274,9 @@
         
 
       </div>
-
-
-      <div class="tab-pane" class="filterclass" id="Statistics"
-        style="overflow-x: hidden;height: 100%;width: 90% !important;">
+    </div>
+    <div class="tab-pane" class="filterclass" id="Statistics"
+        style="margin: auto;overflow-x: hidden;height: 80%;width: 90% !important;">
         <!-- numbers -->
         <strong>Summary</strong>
         <left>
@@ -300,7 +299,6 @@
         <!-- Create a div where the graph will take place -->
         <div id="my_dataviz"></div>
       </div>
-    </div>
 
   </div>
 
