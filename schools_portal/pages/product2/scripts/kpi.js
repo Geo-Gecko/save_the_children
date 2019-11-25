@@ -225,8 +225,6 @@ $(window).on('load', function () {
         }
       }).addTo(map)
       .on('click', function (d) {
-        
-        console.log(d);
 
         for (key in map['_layers']) {
           if (typeof map['_layers'][key]['feature'] !== 'undefined' && map['_layers'][key]['feature']['geometry']['type'] !== 'MultiPolygon') {
@@ -266,7 +264,7 @@ $(window).on('load', function () {
           //  "<tr><td>Name of Transition Facility</td><td>" + e.sharedOriginFeatures[0].properties.original_data["Name_of_pathway"] + "</td><tr>" +
           "<tr><td>Current No. of Male Learners</td><td style='padding-left: 10%;'>" + d.layer.feature.properties.original_data["Number of Male Learners"] + "</td><tr>" +
           "<tr><td>Current No. of Female Learners</td><td style='padding-left: 10%;'>" + d.layer.feature.properties.original_data["Number of Female Learners"] + "</td><tr>" +
-          "<tr><td>Current No. of Male Teachers</td><td style='padding-left: 10%;'>" + d.layer.feature.properties.original_data["Number of Male Learners"] + "</td><tr>" +
+          "<tr><td>Current No. of Male Teachers</td><td style='padding-left: 10%;'>" + d.layer.feature.properties.original_data["Number of Male Teachers"] + "</td><tr>" +
           "<tr><td>Current No. of Female Teachers</td><td style='padding-left: 10%;'>" + d.layer.feature.properties.original_data["Number of Female Teachers"] + "</td><tr>" +
           "<tr><td>Average Male Attendence</td><td style='padding-left: 10%;'>" + parseFloat(d.layer.feature.properties.original_data["Average Male Attendence"]).toFixed(2) + "%</td><tr>" +
           "<tr><td>Average Female Attendence</td><td style='padding-left: 10%;'>" + parseFloat(d.layer.feature.properties.original_data["Average Female Attendence"]).toFixed(2) + "%</td><tr>" +
@@ -276,12 +274,12 @@ $(window).on('load', function () {
         $('#my_dataviz').empty()
 
         var chartData = product2.filter(function (k) {
-          if (k.School === d.layer.feature.properties.original_data.School) {
+          if (k.ID === d.layer.feature.properties.original_data.ID) {
             return k; //return d.Actor_Type["UN"];
           }
         }).sort(function (x, y) {
           return d3.ascending(x.Term, y.Term);
-        });
+        }); 
 
         // set the dimensions and margins of the graph
         var margin = {
@@ -345,7 +343,7 @@ $(window).on('load', function () {
               return x(+d.Term)
             })
             .y(function (d) {
-              // console.log(d);
+              // console.log(d);  
               return y(+d["Number of Teachers"])
             })
           )

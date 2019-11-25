@@ -191,7 +191,7 @@ $(window).on('load', function () {
       for (key in map['_layers']) {
         if (typeof map['_layers'][key]['feature'] !== 'undefined' && map['_layers'][key]['feature']['geometry']['type'] !== 'MultiPolygon') {
           var l = map['_layers'][key];
-          if (l['feature']['properties']['isOrigin'] && l['feature']['properties']['origin_city']['Is_the_Support_for_Primary_School_or_AEP_centre_hosted_by_the_school?'] === 'Primary School') {
+          if (l['feature']['properties']['isOrigin'] && l['feature']['properties']['origin_city']['Is_the_Support_for_Primary_School_or_AEP_centre_hosted_by_the_school?'] === 'Primary Only') {
             l.setStyle({
               radius: 6,
               fillColor: "#e41a1c",
@@ -200,7 +200,7 @@ $(window).on('load', function () {
               opacity: 1,
               fillOpacity: 0.8
             })
-          } else if (l['feature']['properties']['isOrigin'] && l['feature']['properties']['origin_city']['Is_the_Support_for_Primary_School_or_AEP_centre_hosted_by_the_school?'] === 'AEP centre') {
+          } else if (l['feature']['properties']['isOrigin'] && l['feature']['properties']['origin_city']['Is_the_Support_for_Primary_School_or_AEP_centre_hosted_by_the_school?'] === 'Both Primary and AEP' || l['feature']['properties']['isOrigin'] && l['feature']['properties']['origin_city']['Is_the_Support_for_Primary_School_or_AEP_centre_hosted_by_the_school?'] === 'AEP Only') {
             l.setStyle({
               radius: 6,
               fillColor: "#377eb8",
@@ -258,7 +258,6 @@ $(window).on('load', function () {
             //   opacity: 1,
             //   fillOpacity: 0.8
             // })
-            console.log(l);
           }
         }
       }
@@ -266,8 +265,6 @@ $(window).on('load', function () {
     }
 
     iconsMap();
-
-    console.log(square)
 
     // Updates the displayed map markers to reflect the crossfilter dimension passed in
     var updateMap = function (locs) {
