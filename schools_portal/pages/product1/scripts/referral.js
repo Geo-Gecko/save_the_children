@@ -1,4 +1,4 @@
-$(window).on('load', function () {
+$(window).on("load", function() {
   var documentSettings = {};
   var markerColors = [];
 
@@ -22,7 +22,6 @@ $(window).on('load', function () {
     });
   }
 
-
   /**
    * Sets the map view so that all markers are visible, or
    * to specified (lat, lon) and zoom if all three are specified
@@ -36,18 +35,18 @@ $(window).on('load', function () {
       zoomSet = false;
     var center;
 
-    if (getSetting('_initLat') !== '') {
-      lat = getSetting('_initLat');
+    if (getSetting("_initLat") !== "") {
+      lat = getSetting("_initLat");
       latSet = true;
     }
 
-    if (getSetting('_initLon') !== '') {
-      lon = getSetting('_initLon');
+    if (getSetting("_initLon") !== "") {
+      lon = getSetting("_initLon");
       lonSet = true;
     }
 
-    if (getSetting('_initZoom') !== '') {
-      zoom = parseInt(getSetting('_initZoom'));
+    if (getSetting("_initZoom") !== "") {
+      zoom = parseInt(getSetting("_initZoom"));
       zoomSet = true;
     }
 
@@ -64,21 +63,17 @@ $(window).on('load', function () {
     map.setView(center, zoom);
   }
 
-
   /**
    * Given a collection of points, determines the layers based on 'Group'
    * column in the spreadsheet.
    */
   function determineLayers(product1) {
-
-
     function SelectElement(id, valueToSelect) {
       var element = document.getElementById(id);
       element.value = valueToSelect;
     }
 
-
-    var map = L.map('map', {
+    var map = L.map("map", {
       zoomSnap: 0.25,
       attributionControl: false
     });
@@ -89,9 +84,11 @@ $(window).on('load', function () {
       map.setView([1.291471, 34.482235], 7);
     }
 
-    L.control.attribution({
-      position: 'bottomleft'
-    }).addTo(map)
+    L.control
+      .attribution({
+        position: "bottomleft"
+      })
+      .addTo(map);
 
     var southWest = new L.LatLng(-1.606559295542773, 28.026294838895254),
       northEast = new L.LatLng(4.301960929158914, 39.744435655056094),
@@ -100,7 +97,7 @@ $(window).on('load', function () {
     map.fitBounds(bounds);
 
     // loading GeoJSON file - UgandaNeighbouringCountries
-    $.getJSON("../../assets/geojsons/UgandaNeighbours.geojson", function (data) {
+    $.getJSON("../../assets/geojsons/UgandaNeighbours.geojson", function(data) {
       // L.geoJson function is used to parse geojson file and load on to map
       L.geoJson(data, {
         style: {
@@ -113,85 +110,113 @@ $(window).on('load', function () {
       }).addTo(map);
     });
 
-    var OpenStreetMap_Mapnik = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      maxZoom: 19,
-      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-    }).addTo(map);
+    var OpenStreetMap_Mapnik = L.tileLayer(
+      "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+      {
+        maxZoom: 19,
+        attribution:
+          '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+      }
+    ).addTo(map);
 
     //  L.esri.basemapLayer('DarkGray').addTo(map);
     // console.log(results)
-    var filterList = d3.nest().key(function (d) {
-      return d.Organisation_Name;
-    }).sortKeys(d3.ascending).entries(product1);
+    var filterList = d3
+      .nest()
+      .key(function(d) {
+        return d.Organisation_Name;
+      })
+      .sortKeys(d3.ascending)
+      .entries(product1);
 
-    var ownerList = d3.nest().key(function (d) {
-      return d['Type of Facility'];
-    }).sortKeys(d3.ascending).entries(product1);
+    var ownerList = d3
+      .nest()
+      .key(function(d) {
+        return d["Type of Facility"];
+      })
+      .sortKeys(d3.ascending)
+      .entries(product1);
 
-    var modalityList = d3.nest().key(function (d) {
-      return d['Funding Modality'];
-    }).sortKeys(d3.ascending).entries(product1);
+    var modalityList = d3
+      .nest()
+      .key(function(d) {
+        return d["Funding Modality"];
+      })
+      .sortKeys(d3.ascending)
+      .entries(product1);
 
     geoJsonFeatureCollection = {
-      type: 'FeatureCollection',
-      features: product1.map(function (datum) {
+      type: "FeatureCollection",
+      features: product1.map(function(datum) {
         return {
-          type: 'Feature',
+          type: "Feature",
           geometry: {
-            type: 'Point',
+            type: "Point",
             coordinates: [parseFloat(datum.s_lon), parseFloat(datum.s_lat)]
           },
           properties: {
-
-            "origin_city": datum,
-            "Organisation_Name": datum.Organisation_Name,
-            "s_city_id": parseFloat(datum.s_city_id),
-            "School": datum.School,
-            "e_city_id": parseFloat(datum.e_city_id),
-            "Referral_Pathway": datum.Referral_Pathway,
-            "Transition_Pathway": datum.Transition_Pathway,
-            "s_lat": parseFloat(datum.s_lat),
-            "s_lon": parseFloat(datum.s_lon),
-            "e_lat": parseFloat(datum.e_lat),
-            "e_lon": parseFloat(datum.e_lon)
+            origin_city: datum,
+            Organisation_Name: datum.Organisation_Name,
+            s_city_id: parseFloat(datum.s_city_id),
+            School: datum.School,
+            e_city_id: parseFloat(datum.e_city_id),
+            Referral_Pathway: datum.Referral_Pathway,
+            Transition_Pathway: datum.Transition_Pathway,
+            s_lat: parseFloat(datum.s_lat),
+            s_lon: parseFloat(datum.s_lon),
+            e_lat: parseFloat(datum.e_lat),
+            e_lon: parseFloat(datum.e_lon)
           }
-        }
+        };
       })
     };
 
     var oneToManyFlowmapLayer = L.canvasFlowmapLayer(geoJsonFeatureCollection, {
       originAndDestinationFieldIds: {
-        originUniqueIdField: 's_city_id',
+        originUniqueIdField: "s_city_id",
         originGeometry: {
-          x: 's_lon',
-          y: 's_lat'
+          x: "s_lon",
+          y: "s_lat"
         },
-        destinationUniqueIdField: 'e_city_id',
+        destinationUniqueIdField: "e_city_id",
         destinationGeometry: {
-          x: 'e_lon',
-          y: 'e_lat'
+          x: "e_lon",
+          y: "e_lat"
         }
       },
-      pathDisplayMode: 'selection',
+      pathDisplayMode: "selection",
       animationStarted: true,
-      animationEasingFamily: 'Cubic',
-      animationEasingType: 'In',
+      animationEasingFamily: "Cubic",
+      animationEasingType: "In",
       animationDuration: 2000
-    }).addTo(map)
-      .on('click', function (point) {
+    })
+      .addTo(map)
+      .on("click", function(point) {
         //  $('#sidebar-content').text("The data is: " + point.propagatedFrom.feature.properties.School)
       });
 
     function resetMap() {
-
-      var array = ['#e41a1c', '#377eb8', "#4daf4a", "#984ea3"];
-      var arrayLabel = ["Primary School Only", "Accelerated Education Programme Centre", "Referral Pathways", "Transition Pathways"];
+      var array = ["#e41a1c", "#377eb8", "#4daf4a", "#984ea3"];
+      var arrayLabel = [
+        "Primary School Only",
+        "Accelerated Education Programme Centre",
+        "Referral Pathways",
+        "Transition Pathways"
+      ];
 
       addLegend(array, arrayLabel, "Legend", "circle");
-      for (key in map['_layers']) {
-        if (typeof map['_layers'][key]['feature'] !== 'undefined' && map['_layers'][key]['feature']['geometry']['type'] !== 'MultiPolygon') {
-          var l = map['_layers'][key];
-          if (l['feature']['properties']['isOrigin'] && l['feature']['properties']['origin_city']['Is_the_Support_for_Primary_School_or_AEP_centre_hosted_by_the_school?'] === 'Primary Only') {
+      for (key in map["_layers"]) {
+        if (
+          typeof map["_layers"][key]["feature"] !== "undefined" &&
+          map["_layers"][key]["feature"]["geometry"]["type"] !== "MultiPolygon"
+        ) {
+          var l = map["_layers"][key];
+          if (
+            l["feature"]["properties"]["isOrigin"] &&
+            l["feature"]["properties"]["origin_city"][
+              "Is_the_Support_for_Primary_School_or_AEP_centre_hosted_by_the_school?"
+            ] === "Primary Only"
+          ) {
             l.setStyle({
               radius: 6,
               fillColor: "#e41a1c",
@@ -199,8 +224,17 @@ $(window).on('load', function () {
               weight: 1,
               opacity: 1,
               fillOpacity: 0.8
-            })
-          } else if (l['feature']['properties']['isOrigin'] && l['feature']['properties']['origin_city']['Is_the_Support_for_Primary_School_or_AEP_centre_hosted_by_the_school?'] === 'Both Primary and AEP' || l['feature']['properties']['isOrigin'] && l['feature']['properties']['origin_city']['Is_the_Support_for_Primary_School_or_AEP_centre_hosted_by_the_school?'] === 'AEP Only') {
+            });
+          } else if (
+            (l["feature"]["properties"]["isOrigin"] &&
+              l["feature"]["properties"]["origin_city"][
+                "Is_the_Support_for_Primary_School_or_AEP_centre_hosted_by_the_school?"
+              ] === "Both Primary and AEP") ||
+            (l["feature"]["properties"]["isOrigin"] &&
+              l["feature"]["properties"]["origin_city"][
+                "Is_the_Support_for_Primary_School_or_AEP_centre_hosted_by_the_school?"
+              ] === "AEP Only")
+          ) {
             l.setStyle({
               radius: 6,
               fillColor: "#377eb8",
@@ -208,8 +242,11 @@ $(window).on('load', function () {
               weight: 1,
               opacity: 1,
               fillOpacity: 0.8
-            })
-          } else if (!l['feature']['properties']['isOrigin'] && l['feature']['properties']['origin_city']['Pathway'] === 'Referral') {
+            });
+          } else if (
+            !l["feature"]["properties"]["isOrigin"] &&
+            l["feature"]["properties"]["origin_city"]["Pathway"] === "Referral"
+          ) {
             l.setStyle({
               radius: 6,
               fillColor: "#4daf4a",
@@ -217,8 +254,12 @@ $(window).on('load', function () {
               weight: 1,
               opacity: 1,
               fillOpacity: 0.8
-            })
-          } else if (!l['feature']['properties']['isOrigin'] && l['feature']['properties']['origin_city']['Pathway'] === 'Transition') {
+            });
+          } else if (
+            !l["feature"]["properties"]["isOrigin"] &&
+            l["feature"]["properties"]["origin_city"]["Pathway"] ===
+              "Transition"
+          ) {
             l.setStyle({
               radius: 6,
               fillColor: "#984ea3",
@@ -226,11 +267,10 @@ $(window).on('load', function () {
               weight: 1,
               opacity: 1,
               fillOpacity: 0.8
-            })
+            });
           }
         }
       }
-
     }
 
     resetMap();
@@ -241,12 +281,19 @@ $(window).on('load', function () {
     }).addTo(map);
 
     function iconsMap() {
-
-      for (key in map['_layers']) {
-        if (typeof map['_layers'][key]['feature'] !== 'undefined' && map['_layers'][key]['feature']['geometry']['type'] !== 'MultiPolygon') {
-          var l = map['_layers'][key];
-          if (l['feature']['properties']['isOrigin'] === false && l['feature']['properties']['origin_city']['Level of Pathway'] === 'Secondary' && l['feature']['properties']['origin_city']['Pathway'] === 'Transition') {
-           
+      for (key in map["_layers"]) {
+        if (
+          typeof map["_layers"][key]["feature"] !== "undefined" &&
+          map["_layers"][key]["feature"]["geometry"]["type"] !== "MultiPolygon"
+        ) {
+          var l = map["_layers"][key];
+          if (
+            l["feature"]["properties"]["isOrigin"] === false &&
+            l["feature"]["properties"]["origin_city"]["Level of Pathway"] ===
+              "Secondary" &&
+            l["feature"]["properties"]["origin_city"]["Pathway"] ===
+              "Transition"
+          ) {
             l.options.shape = "square";
             l.options.radius = 20;
             // l.setStyle({
@@ -261,26 +308,24 @@ $(window).on('load', function () {
           }
         }
       }
-
     }
 
     iconsMap();
 
     // Updates the displayed map markers to reflect the crossfilter dimension passed in
-    var updateMap = function (locs) {
+    var updateMap = function(locs) {
       // clear the existing markers from the map
       //markersLayer.clearLayers();
       //clusterLayer.clearLayers();
 
-      console.log(locs)
+      console.log(locs);
 
       var minlat = 200,
         minlon = 200,
         maxlat = -200,
         maxlon = -200;
 
-      locs.forEach(function (d, i) {
-
+      locs.forEach(function(d, i) {
         if (d.latitude != null && d.latitude != undefined) {
           // add a Leaflet marker for the lat lng and insert the application's stated purpose in popup\
           //var mark = L.marker([d.latitude, d.longitude]);
@@ -310,40 +355,73 @@ $(window).on('load', function () {
       // setTimeout(function () {
       //   map.setZoom(map.getZoom() - 0.25);
       // }, 500);
-
     };
 
     // since this demo is using the optional "pathDisplayMode" as "selection",
     // it is up to the developer to wire up a click or mouseover listener
     // and then call the "selectFeaturesForPathDisplay()" method to inform the layer
     // which Bezier paths need to be drawn
-    oneToManyFlowmapLayer.on('click', function (e) {
+    oneToManyFlowmapLayer.on("click", function(e) {
       resetMap();
 
       SelectElement("options", "None");
-      $('#infoText').html('Information about selected point below.');
+      $("#infoText").html("Information about selected point below.");
       //  console.log(e)
       if (e.sharedOriginFeatures.length) {
-        $('#sidebar-content').html(
+        $("#sidebar-content").html(
           "<table>" +
-          "<tr><td>Nature of facility</td><td>" + e.layer.feature.properties.origin_city["Is_the_Support_for_Primary_School_or_AEP_centre_hosted_by_the_school?"] + "</td><tr>" +
-          "<tr><td>Type of Facility</td><td>" + e.layer.feature.properties.origin_city["Type of Facility"] + "</td><tr>" +
-          "<tr><td>Name of facility</td><td>" + e.layer.feature.properties.origin_city.School + "</td><tr>" +
-          "<tr><td>ILETS Score</td><td>" + e.layer.feature.properties.origin_city.IELTS + "</td><tr>" +
-          "<tr><td>Funding Modality</td><td>" + e.layer.feature.properties.origin_city["Funding Modality"] + "</td><tr>" +
-          "<tr><td>Name of Referral Facility</td><td>" + e.sharedOriginFeatures[1].properties.origin_city["Name_of_pathway"] + "</td><tr>" +
-          "<tr><td>Name of Transition Facility</td><td>" + e.sharedOriginFeatures[0].properties.origin_city["Name_of_pathway"] + "</td><tr>" +
-          "<tr><td>Total Students</td><td>" + e.layer.feature.properties.origin_city["Total Students"] + "</td><tr>" +
-          "<tr><td>Refugee Students</td><td>" + e.layer.feature.properties.origin_city["Refugee Students"] + "</td><tr>" +
-          "<tr><td>Total Teachers</td><td>" + e.layer.feature.properties.origin_city["Total Teachers"] + "</td><tr>" +
-          "<tr><td>Refugee Teachers</td><td>" + e.layer.feature.properties.origin_city["Refugee Teachers"] + "</td><tr>" +
-          "<tr><td>Organisation</td><td>" + e.layer.feature.properties.origin_city["Organisation_Name"] + "</td><tr>" +
-          "<tr><td>Number of Latrines</td><td>" + e.layer.feature.properties.origin_city["Number of Latrines"] + "</td><tr>" +
-          "<tr><td>Data collection date</td><td>" + e.layer.feature.properties.origin_city["Date of Data Collection"] + "</table>")
+            "<tr><td>Nature of facility</td><td>" +
+            e.layer.feature.properties.origin_city[
+              "Is_the_Support_for_Primary_School_or_AEP_centre_hosted_by_the_school?"
+            ] +
+            "</td><tr>" +
+            "<tr><td>Type of Facility</td><td>" +
+            e.layer.feature.properties.origin_city["Type of Facility"] +
+            "</td><tr>" +
+            "<tr><td>Name of facility</td><td>" +
+            e.layer.feature.properties.origin_city.School +
+            "</td><tr>" +
+            "<tr><td>ILETS Score</td><td>" +
+            e.layer.feature.properties.origin_city.IELTS +
+            "</td><tr>" +
+            "<tr><td>Funding Modality</td><td>" +
+            e.layer.feature.properties.origin_city["Funding Modality"] +
+            "</td><tr>" +
+            // "<tr><td>Name of Referral Facility</td><td>" +
+            // e.sharedOriginFeatures[1].properties.origin_city["Name_of_pathway"] ? e.sharedOriginFeatures[1].properties.origin_city["Name_of_pathway"] : "N/A"  +
+            // "</td><tr>" +
+            // "<tr><td>Name of Transition Facility</td><td>" +
+            // e.sharedOriginFeatures[0].properties.origin_city["Name_of_pathway"] +
+            // "</td><tr>" +
+            "<tr><td>Total Students</td><td>" +
+            e.layer.feature.properties.origin_city["Total Students"] +
+            "</td><tr>" +
+            "<tr><td>Refugee Students</td><td>" +
+            e.layer.feature.properties.origin_city["Refugee Students"] +
+            "</td><tr>" +
+            "<tr><td>Total Teachers</td><td>" +
+            e.layer.feature.properties.origin_city["Total Teachers"] +
+            "</td><tr>" +
+            "<tr><td>Refugee Teachers</td><td>" +
+            e.layer.feature.properties.origin_city["Refugee Teachers"] +
+            "</td><tr>" +
+            "<tr><td>Organisation</td><td>" +
+            e.layer.feature.properties.origin_city["Organisation_Name"] +
+            "</td><tr>" +
+            "<tr><td>Number of Latrines</td><td>" +
+            e.layer.feature.properties.origin_city["Number of Latrines"] +
+            "</td><tr>" +
+            "<tr><td>Data collection date</td><td>" +
+            e.layer.feature.properties.origin_city["Date of Data Collection"] +
+            "</table>"
+        );
 
-        oneToManyFlowmapLayer.selectFeaturesForPathDisplay(e.sharedOriginFeatures, 'SELECTION_NEW');
+        oneToManyFlowmapLayer.selectFeaturesForPathDisplay(
+          e.sharedOriginFeatures,
+          "SELECTION_NEW"
+        );
         var locations = [];
-        e.sharedOriginFeatures.forEach(function (d, i) {
+        e.sharedOriginFeatures.forEach(function(d, i) {
           locations.push({
             latitude: d.properties.e_lat,
             longitude: d.properties.e_lon
@@ -352,34 +430,57 @@ $(window).on('load', function () {
             latitude: d.properties.s_lat,
             longitude: d.properties.s_lon
           });
-        })
+        });
         updateMap(locations);
-      }
-      if (e.sharedDestinationFeatures.length) {
+      } else if (e.sharedDestinationFeatures.length) {
         var totalStudents = 0,
           totalRefugeeStudents = 0,
           totalTeachers = 0,
           totalRefugeeTeachers = 0;
-        e.sharedDestinationFeatures.forEach(function (d, i) {
-          totalStudents = totalStudents + parseInt(d.properties.origin_city["Total Students"]);
-          totalRefugeeStudents = totalRefugeeStudents + parseInt(d.properties.origin_city["Refugee Students"]);
-          totalTeachers = totalTeachers + parseInt(d.properties.origin_city["Total Teachers"]);
-          totalRefugeeTeachers = totalRefugeeTeachers + parseInt(d.properties.origin_city["Refugee Teachers"]);
-        })
+        e.sharedDestinationFeatures.forEach(function(d, i) {
+          totalStudents =
+            totalStudents +
+            parseInt(d.properties.origin_city["Total Students"]);
+          totalRefugeeStudents =
+            totalRefugeeStudents +
+            parseInt(d.properties.origin_city["Refugee Students"]);
+          totalTeachers =
+            totalTeachers +
+            parseInt(d.properties.origin_city["Total Teachers"]);
+          totalRefugeeTeachers =
+            totalRefugeeTeachers +
+            parseInt(d.properties.origin_city["Refugee Teachers"]);
+        });
 
-        $('#sidebar-content').html(
+        $("#sidebar-content").html(
           "<table>" +
-          //  "Type of facility: " + e.layer.feature.properties.origin_city["Is_the_Support_for_Primary_School_or_AEP_centre_hosted_by_the_school?"] + "<br>" +
-          "<tr><td>Name of facility</td><td>" + e.layer.feature.properties.origin_city.Name_of_pathway + "</td><tr>" +
-          "<tr><td>Total Students</td><td>" + totalStudents + "</td><tr>" +
-          "<tr><td>Refugee Students</td><td>" + totalRefugeeStudents + "</td><tr>" +
-          "<tr><td>Total Teachers</td><td>" + totalTeachers + "</td><tr>" +
-          "<tr><td>Refugee Teachers</td><td>" + totalRefugeeTeachers + "</td><tr>" +
-          "<tr><td>Data collection date</td><td>" + e.layer.feature.properties.origin_city["Date of Data Collection"] + "</table>")
+            //  "Type of facility: " + e.layer.feature.properties.origin_city["Is_the_Support_for_Primary_School_or_AEP_centre_hosted_by_the_school?"] + "<br>" +
+            "<tr><td>Name of facility</td><td>" +
+            e.layer.feature.properties.origin_city.Name_of_pathway +
+            "</td><tr>" +
+            "<tr><td>Total Students</td><td>" +
+            totalStudents +
+            "</td><tr>" +
+            "<tr><td>Refugee Students</td><td>" +
+            totalRefugeeStudents +
+            "</td><tr>" +
+            "<tr><td>Total Teachers</td><td>" +
+            totalTeachers +
+            "</td><tr>" +
+            "<tr><td>Refugee Teachers</td><td>" +
+            totalRefugeeTeachers +
+            "</td><tr>" +
+            "<tr><td>Data collection date</td><td>" +
+            e.layer.feature.properties.origin_city["Date of Data Collection"] +
+            "</table>"
+        );
 
-        oneToManyFlowmapLayer.selectFeaturesForPathDisplay(e.sharedDestinationFeatures, 'SELECTION_NEW');
+        oneToManyFlowmapLayer.selectFeaturesForPathDisplay(
+          e.sharedDestinationFeatures,
+          "SELECTION_NEW"
+        );
         var locations = [];
-        e.sharedDestinationFeatures.forEach(function (d, i) {
+        e.sharedDestinationFeatures.forEach(function(d, i) {
           locations.push({
             latitude: d.properties.e_lat,
             longitude: d.properties.e_lon
@@ -388,13 +489,13 @@ $(window).on('load', function () {
             latitude: d.properties.s_lat,
             longitude: d.properties.s_lon
           });
-        })
+        });
         updateMap(locations);
       }
     });
 
     var layerPopup;
-    oneToManyFlowmapLayer.on('mouseover', function (e) {
+    oneToManyFlowmapLayer.on("mouseover", function(e) {
       var coordinates = e.layer.feature.geometry.coordinates;
       var swapped_coordinates = [coordinates[1], coordinates[0]];
       if (e.sharedOriginFeatures.length) {
@@ -402,12 +503,27 @@ $(window).on('load', function () {
         if (map) {
           layerPopup = L.popup()
             .setLatLng(swapped_coordinates)
-            .setContent("<table>" +
-              "<tr><td>Nature of facility</td><td>" + e.layer.feature.properties.origin_city["Is_the_Support_for_Primary_School_or_AEP_centre_hosted_by_the_school?"] + "</td><tr>" +
-              "<tr><td>Type of Facility</td><td>" + e.layer.feature.properties.origin_city["Type of Facility"] + "</td><tr>" +
-              "<tr><td>Name of facility</td><td>" + e.layer.feature.properties.origin_city.School + "</td><tr>" +
-              "<tr><td>ILETS Score</td><td>" + e.layer.feature.properties.origin_city.IELTS + "</td><tr>" +
-              "<tr><td>Funding Modality</td><td>" + e.layer.feature.properties.origin_city["Funding Modality"] + "</td><tr>" + "</table>")
+            .setContent(
+              "<table>" +
+                "<tr><td>Nature of facility</td><td>" +
+                e.layer.feature.properties.origin_city[
+                  "Is_the_Support_for_Primary_School_or_AEP_centre_hosted_by_the_school?"
+                ] +
+                "</td><tr>" +
+                "<tr><td>Type of Facility</td><td>" +
+                e.layer.feature.properties.origin_city["Type of Facility"] +
+                "</td><tr>" +
+                "<tr><td>Name of facility</td><td>" +
+                e.layer.feature.properties.origin_city.School +
+                "</td><tr>" +
+                "<tr><td>ILETS Score</td><td>" +
+                e.layer.feature.properties.origin_city.IELTS +
+                "</td><tr>" +
+                "<tr><td>Funding Modality</td><td>" +
+                e.layer.feature.properties.origin_city["Funding Modality"] +
+                "</td><tr>" +
+                "</table>"
+            )
             .openOn(map);
         }
       }
@@ -416,61 +532,79 @@ $(window).on('load', function () {
         if (map) {
           layerPopup = L.popup()
             .setLatLng(swapped_coordinates)
-            .setContent("<table>" +
-              "<tr><td>Name of facility</td><td>" + e.layer.feature.properties.origin_city.Name_of_pathway + "</td><tr>" +
-              "<tr><td>Data collection date</td><td>" + e.layer.feature.properties.origin_city["Date of Data Collection"] + "</table>")
+            .setContent(
+              "<table>" +
+                "<tr><td>Name of facility</td><td>" +
+                e.layer.feature.properties.origin_city.Name_of_pathway +
+                "</td><tr>" +
+                "<tr><td>Data collection date</td><td>" +
+                e.layer.feature.properties.origin_city[
+                  "Date of Data Collection"
+                ] +
+                "</table>"
+            )
             .openOn(map);
         }
       }
     });
 
-    oneToManyFlowmapLayer.on('mouseout', function (e) {
+    oneToManyFlowmapLayer.on("mouseout", function(e) {
       if (layerPopup && map) {
         map.closePopup(layerPopup);
         layerPopup = null;
       }
     });
 
-
-    $('#highlightOptions').change(function () {
+    $("#highlightOptions").change(function() {
       reset();
 
       function changeOptions(data) {
-        var select = $('<select multiple name="options" id="options" style="width: 100%; height: 100px; overflow-y: auto; overflow-x: auto;"><option value="None">- None -</option></select>');
-        $.each(data, function (index, value) {
-          var option = $('<option></option>');
-          option.attr('value', value.key);
+        var select = $(
+          '<select multiple name="options" id="options" style="width: 100%; height: 100px; overflow-y: auto; overflow-x: auto;"><option value="None">- None -</option></select>'
+        );
+        $.each(data, function(index, value) {
+          var option = $("<option></option>");
+          option.attr("value", value.key);
           option.text(value.key);
           select.append(option);
         });
-        $('#dropDownContainer').empty().append(select);
-
+        $("#dropDownContainer")
+          .empty()
+          .append(select);
       }
 
       if ($(this).val() === "Donors") {
-        changeOptions(filterList)
+        changeOptions(filterList);
       } else if ($(this).val() === "Funding Modality") {
-        changeOptions(modalityList)
+        changeOptions(modalityList);
       } else if ($(this).val() === "Ownership") {
-        changeOptions(ownerList)
+        changeOptions(ownerList);
       }
 
-
-
-      $('#options').change(function () {
+      $("#options").change(function() {
         var highlightCount = 0;
         reset();
-        $('#infoText').html('Click on a point to show additional information below.');
-        var array = ["#f7f7f6", '#c3ff3e', '#7d7d7d'];
-        var arrayLabel = ["", "Selected agency facilities", "Other agency facilities"];
+        $("#infoText").html(
+          "Click on a point to show additional information below."
+        );
+        var array = ["#f7f7f6", "#c3ff3e", "#7d7d7d"];
+        var arrayLabel = [
+          "",
+          "Selected agency facilities",
+          "Other agency facilities"
+        ];
 
         addLegend(array, arrayLabel, "Legend", "circle");
         if ($(this).val() === "None") {
           resetMap();
         } else {
-          for (key in map['_layers']) {
-            if (typeof map['_layers'][key]['feature'] !== 'undefined' && map['_layers'][key]['feature']['geometry']['type'] !== 'MultiPolygon') {
-              var l = map['_layers'][key];
+          for (key in map["_layers"]) {
+            if (
+              typeof map["_layers"][key]["feature"] !== "undefined" &&
+              map["_layers"][key]["feature"]["geometry"]["type"] !==
+                "MultiPolygon"
+            ) {
+              var l = map["_layers"][key];
 
               l.setStyle({
                 radius: 6,
@@ -479,9 +613,19 @@ $(window).on('load', function () {
                 weight: 1,
                 opacity: 0.4,
                 fillOpacity: 0.4
-              })
-              $.each($(this).val(), function (index, value) {
-                if (l['feature']['properties']['origin_city']['Organisation_Name'] === value || l['feature']['properties']['origin_city']['Funding Modality'] === value || l['feature']['properties']['origin_city']['Type of Facility'] === value) {
+              });
+              $.each($(this).val(), function(index, value) {
+                if (
+                  l["feature"]["properties"]["origin_city"][
+                    "Organisation_Name"
+                  ] === value ||
+                  l["feature"]["properties"]["origin_city"][
+                    "Funding Modality"
+                  ] === value ||
+                  l["feature"]["properties"]["origin_city"][
+                    "Type of Facility"
+                  ] === value
+                ) {
                   highlightCount = highlightCount + 1;
                   l.setStyle({
                     radius: 6,
@@ -490,45 +634,59 @@ $(window).on('load', function () {
                     weight: 1,
                     opacity: 1,
                     fillOpacity: 0.8
-                  })
+                  });
                 }
               });
             }
           }
         }
-        $('#highlightedCount').html('<span class="count">' + comma(highlightCount) + '</span><span> highlighted </span>')
+        $("#highlightedCount").html(
+          '<span class="count">' +
+            comma(highlightCount) +
+            "</span><span> highlighted </span>"
+        );
       });
-    })
-
-
-
-
+    });
 
     //  var inputdata = 123 || 456 || 789;
     //  var split = input.split('||');
-    var select = $('<select multiple name="options" id="options" style="width: 100%; height: 100px; overflow-y: auto; overflow-x: auto;"><option value="None">- None -</option></select>');
-    $.each(filterList, function (index, value) {
-      var option = $('<option></option>');
-      option.attr('value', value.key);
+    var select = $(
+      '<select multiple name="options" id="options" style="width: 100%; height: 100px; overflow-y: auto; overflow-x: auto;"><option value="None">- None -</option></select>'
+    );
+    $.each(filterList, function(index, value) {
+      var option = $("<option></option>");
+      option.attr("value", value.key);
       option.text(value.key);
       select.append(option);
     });
-    $('#dropDownContainer').empty().append(select);
+    $("#dropDownContainer")
+      .empty()
+      .append(select);
 
-    $('#options').change(function () {
+    $("#options").change(function() {
       var highlightCount = 0;
       reset();
-      $('#infoText').html('Click on a point to show additional information below.');
-      var array = ["#f7f7f6", '#c3ff3e', '#7d7d7d'];
-      var arrayLabel = ["", "Selected agency facilities", "Other agency facilities"];
+      $("#infoText").html(
+        "Click on a point to show additional information below."
+      );
+      var array = ["#f7f7f6", "#c3ff3e", "#7d7d7d"];
+      var arrayLabel = [
+        "",
+        "Selected agency facilities",
+        "Other agency facilities"
+      ];
 
       addLegend(array, arrayLabel, "Legend", "circle");
       if ($(this).val() === "None") {
         resetMap();
       } else {
-        for (key in map['_layers']) {
-          if (typeof map['_layers'][key]['feature'] !== 'undefined' && map['_layers'][key]['feature']['geometry']['type'] !== 'MultiPolygon') {
-            var l = map['_layers'][key];
+        for (key in map["_layers"]) {
+          if (
+            typeof map["_layers"][key]["feature"] !== "undefined" &&
+            map["_layers"][key]["feature"]["geometry"]["type"] !==
+              "MultiPolygon"
+          ) {
+            var l = map["_layers"][key];
 
             l.setStyle({
               radius: 6,
@@ -537,9 +695,19 @@ $(window).on('load', function () {
               weight: 1,
               opacity: 0.4,
               fillOpacity: 0.4
-            })
-            $.each($(this).val(), function (index, value) {
-              if (l['feature']['properties']['origin_city']['Organisation_Name'] === value || l['feature']['properties']['origin_city']['Funding Modality'] === value || l['feature']['properties']['origin_city']['Type of Facility'] === value) {
+            });
+            $.each($(this).val(), function(index, value) {
+              if (
+                l["feature"]["properties"]["origin_city"][
+                  "Organisation_Name"
+                ] === value ||
+                l["feature"]["properties"]["origin_city"][
+                  "Funding Modality"
+                ] === value ||
+                l["feature"]["properties"]["origin_city"][
+                  "Type of Facility"
+                ] === value
+              ) {
                 highlightCount = highlightCount + 1;
                 l.setStyle({
                   radius: 6,
@@ -548,81 +716,97 @@ $(window).on('load', function () {
                   weight: 1,
                   opacity: 1,
                   fillOpacity: 0.8
-                })
+                });
               }
             });
-
           }
         }
       }
 
-      $('#highlightedCount').html('<span class="count">' + comma(highlightCount) + '</span><span> highlighted </span>')
-
+      $("#highlightedCount").html(
+        '<span class="count">' +
+          comma(highlightCount) +
+          "</span><span> highlighted </span>"
+      );
     });
 
     function reset() {
       resetMap();
       oneToManyFlowmapLayer.clearAllPathSelections();
 
-      $('#sidebar-content').html("");
+      $("#sidebar-content").html("");
 
       map.fitBounds(bounds);
     }
 
-    $('#reset').on('click', function () {
+    $("#reset").on("click", function() {
       reset();
 
-      $('#infoText').html('Click on a point to show additional information below.');
+      $("#infoText").html(
+        "Click on a point to show additional information below."
+      );
 
       SelectElement("options", "None");
-    })
+    });
 
-    $('#mapLegendButton').on('click', function () {
+    $("#mapLegendButton").on("click", function() {
       reset();
-    })
-    $('#priorityApproachesButton').on('click', function () {
+    });
+    $("#priorityApproachesButton").on("click", function() {
       // reset();
 
       oneToManyFlowmapLayer.clearAllPathSelections();
       priorityApproaches();
 
       map.fitBounds(bounds);
-    })
+    });
 
     function arrayRemove(arr, value) {
-
-      return arr.filter(function (ele) {
+      return arr.filter(function(ele) {
         return ele != value;
       });
-
     }
 
     function priorityApproaches() {
-      var arr = ["Can't Wait to Learn", "Team-UP", "ILET", "CWTL", "DSS", "Other"]
+      var arr = [
+        "Can't Wait to Learn",
+        "Team-UP",
+        "ILET",
+        "CWTL",
+        "DSS",
+        "Other"
+      ];
 
-      var toggledOn = $('input[type=checkbox]:checked');
-      $.each(toggledOn, function (index, value) {
+      var toggledOn = $("input[type=checkbox]:checked");
+      $.each(toggledOn, function(index, value) {
         if (value.parentNode.id === "button-1") {
-          arr = arrayRemove(arr, "Can't Wait to Learn")
+          arr = arrayRemove(arr, "Can't Wait to Learn");
         } else if (value.parentNode.id === "button-2") {
-          arr = arrayRemove(arr, "CWTL")
+          arr = arrayRemove(arr, "CWTL");
         } else if (value.parentNode.id === "button-3") {
-          arr = arrayRemove(arr, "Team-UP")
+          arr = arrayRemove(arr, "Team-UP");
         } else if (value.parentNode.id === "button-4") {
-          arr = arrayRemove(arr, "DSS")
+          arr = arrayRemove(arr, "DSS");
         } else if (value.parentNode.id === "button-5") {
-          arr = arrayRemove(arr, "ILET")
+          arr = arrayRemove(arr, "ILET");
         } else if (value.parentNode.id === "button-6") {
-          arr = arrayRemove(arr, "Other")
+          arr = arrayRemove(arr, "Other");
         }
       });
 
       var priorityCount = 0;
 
-      for (key in map['_layers']) {
-        if (typeof map['_layers'][key]['feature'] !== 'undefined' && map['_layers'][key]['feature']['geometry']['type'] !== 'MultiPolygon') {
-          var l = map['_layers'][key];
-          const found = l['feature']['properties']['origin_city']["Priority Approaches"].split(",").some(r => arr.includes(r))
+      for (key in map["_layers"]) {
+        if (
+          typeof map["_layers"][key]["feature"] !== "undefined" &&
+          map["_layers"][key]["feature"]["geometry"]["type"] !== "MultiPolygon"
+        ) {
+          var l = map["_layers"][key];
+          const found = l["feature"]["properties"]["origin_city"][
+            "Priority Approaches"
+          ]
+            .split(",")
+            .some(r => arr.includes(r));
           if (found) {
             priorityCount = priorityCount + 1;
             l.setStyle({
@@ -632,7 +816,7 @@ $(window).on('load', function () {
               weight: 1,
               opacity: 1,
               fillOpacity: 0.8
-            })
+            });
           } else {
             l.setStyle({
               radius: 6,
@@ -641,14 +825,18 @@ $(window).on('load', function () {
               weight: 1,
               opacity: 0.4,
               fillOpacity: 0.4
-            })
+            });
           }
         }
       }
-      $('#priorityCount').html('<span class="count">' + comma(priorityCount) + '</span><span> highlighted </span>')
+      $("#priorityCount").html(
+        '<span class="count">' +
+          comma(priorityCount) +
+          "</span><span> highlighted </span>"
+      );
     }
 
-    var toggles = d3.selectAll('.buttons.r').on('change', function (d) {
+    var toggles = d3.selectAll(".buttons.r").on("change", function(d) {
       priorityApproaches();
     });
 
@@ -656,13 +844,10 @@ $(window).on('load', function () {
     //   console.log($(this));
     // });
 
-    $('#map').css('visibility', 'visible');
-    $('.loader').hide();
+    $("#map").css("visibility", "visible");
+    $(".loader").hide();
     $("#controlPanel").show();
-
   }
-
-
 
   /**
    * Here all data processing from the spreadsheet happens
@@ -671,12 +856,12 @@ $(window).on('load', function () {
     var options = mapData.sheets(constants.optionsSheetName).elements;
     createDocumentSettings(options);
 
-    document.title = getSetting('_mapTitle');
+    document.title = getSetting("_mapTitle");
 
     // Add point markers to the map
     var points = mapData.sheets(constants.pointsSheetName);
     var layers;
-    var group = '';
+    var group = "";
     if (points && points.elements.length > 0) {
       layers = determineLayers(points.elements);
     } else {
@@ -685,37 +870,34 @@ $(window).on('load', function () {
 
     // centerAndZoomMap(group);
 
-
     // Change Map attribution to include author's info + urls
     changeAttribution();
-
-
   }
 
   /**
    * Changes map attribution (author, GitHub repo, email etc.) in bottom-right
    */
   function changeAttribution() {
-    var attributionHTML = $('.leaflet-control-attribution')[0].innerHTML;
-    var credit = '';
-    var name = getSetting('_authorName');
-    var url = getSetting('_authorURL');
+    var attributionHTML = $(".leaflet-control-attribution")[0].innerHTML;
+    var credit = "";
+    var name = getSetting("_authorName");
+    var url = getSetting("_authorURL");
 
     if (name && url) {
-      if (url.indexOf('@') > 0) {
-        url = 'mailto:' + url;
+      if (url.indexOf("@") > 0) {
+        url = "mailto:" + url;
       }
-      credit += ' by <a href="' + url + '">' + name + '</a> | ';
+      credit += ' by <a href="' + url + '">' + name + "</a> | ";
     } else if (name) {
-      credit += ' by ' + name + ' | ';
+      credit += " by " + name + " | ";
     } else {
-      credit += ' | ';
+      credit += " | ";
     }
 
     //		credit += 'View <a href="' + getSetting('_githubRepo') + '">code</a>';
     //		if (getSetting('_codeCredit')) credit += ' by ' + getSetting('_codeCredit');
     //		credit += ' with ';
-    $('.leaflet-control-attribution')[0].innerHTML = credit + attributionHTML;
+    $(".leaflet-control-attribution")[0].innerHTML = credit + attributionHTML;
   }
 
   /**
@@ -732,24 +914,24 @@ $(window).on('load', function () {
   var mapData;
 
   $.ajax({
-    url: 'csv/Options.csv',
-    type: 'HEAD',
-    error: function () {
+    url: "csv/Options.csv",
+    type: "HEAD",
+    error: function() {
       // Options.csv does not exist, so use Tabletop to fetch data from
       // the Google sheet
       mapData = Tabletop.init({
         key: googleDocURL,
-        callback: function (data, mapData) {
+        callback: function(data, mapData) {
           onMapDataLoad();
         }
       });
     },
-    success: function () {
+    success: function() {
       // Get all data from .csv files
       mapData = Procsv;
       mapData.load({
         self: mapData,
-        tabs: ['Options', 'Points', 'Polygons', 'Polylines'],
+        tabs: ["Options", "Points", "Polygons", "Polylines"],
         callback: onMapDataLoad
       });
     }
@@ -770,9 +952,8 @@ $(window).on('load', function () {
   // Example: 12345678 -> "12,345,678"
   function comma(val) {
     while (/(\d+)(\d{3})/.test(val.toString())) {
-      val = val.toString().replace(/(\d+)(\d{3})/, '$1' + ',' + '$2');
+      val = val.toString().replace(/(\d+)(\d{3})/, "$1" + "," + "$2");
     }
     return val;
   }
-
 });
