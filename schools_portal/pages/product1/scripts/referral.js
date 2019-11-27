@@ -272,6 +272,8 @@ $(window).on('load', function () {
       //markersLayer.clearLayers();
       //clusterLayer.clearLayers();
 
+      console.log(locs)
+
       var minlat = 200,
         minlon = 200,
         maxlat = -200,
@@ -294,7 +296,7 @@ $(window).on('load', function () {
       });
 
       c1 = L.latLng(minlat, minlon);
-      c2 = L.latLng(maxlat, maxlon + 2);
+      c2 = L.latLng(maxlat, maxlon + 0.2);
       c3 = L.latLng(maxlat, maxlon);
 
       // fit bounds
@@ -305,9 +307,9 @@ $(window).on('load', function () {
       }
 
       // correct zoom to fit markers
-      setTimeout(function () {
-        map.setZoom(map.getZoom() - 0.25);
-      }, 500);
+      // setTimeout(function () {
+      //   map.setZoom(map.getZoom() - 0.25);
+      // }, 500);
 
     };
 
@@ -596,22 +598,22 @@ $(window).on('load', function () {
     }
 
     function priorityApproaches() {
-      var arr = ["Can't wait to Learn", "Early Grade Reading", "TeamUp", "Double Shifting", "Improving Learning Environments in Emergencies", "Cash Transfers"]
+      var arr = ["Can't Wait to Learn", "Team-UP", "ILET", "CWTL", "DSS", "Other"]
 
       var toggledOn = $('input[type=checkbox]:checked');
       $.each(toggledOn, function (index, value) {
         if (value.parentNode.id === "button-1") {
-          arr = arrayRemove(arr, "Can't wait to Learn")
+          arr = arrayRemove(arr, "Can't Wait to Learn")
         } else if (value.parentNode.id === "button-2") {
-          arr = arrayRemove(arr, "Early Grade Reading")
+          arr = arrayRemove(arr, "CWTL")
         } else if (value.parentNode.id === "button-3") {
-          arr = arrayRemove(arr, "TeamUp")
+          arr = arrayRemove(arr, "Team-UP")
         } else if (value.parentNode.id === "button-4") {
-          arr = arrayRemove(arr, "Double Shifting")
+          arr = arrayRemove(arr, "DSS")
         } else if (value.parentNode.id === "button-5") {
-          arr = arrayRemove(arr, "Improving Learning Environments in Emergencies")
+          arr = arrayRemove(arr, "ILET")
         } else if (value.parentNode.id === "button-6") {
-          arr = arrayRemove(arr, "Cash Transfers")
+          arr = arrayRemove(arr, "Other")
         }
       });
 
