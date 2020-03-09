@@ -318,8 +318,6 @@ $(window).on("load", function() {
       //markersLayer.clearLayers();
       //clusterLayer.clearLayers();
 
-      console.log(locs);
-
       var minlat = 200,
         minlon = 200,
         maxlat = -200,
@@ -364,9 +362,17 @@ $(window).on("load", function() {
     oneToManyFlowmapLayer.on("click", function(e) {
       resetMap();
 
+      if (e.sharedOriginFeatures.length == 1) {
+        e.sharedOriginFeatures[0].properties.e_lat = e.sharedOriginFeatures[0].properties.s_lat
+        e.sharedOriginFeatures[0].properties.e_lon = e.sharedOriginFeatures[0].properties.s_lon
+      }
+
+      if (e.sharedDestinationFeatures.length == 1) {
+        e.sharedDestinationFeatures[0].properties.s_lat = e.sharedDestinationFeatures[0].properties.e_lat
+        e.sharedDestinationFeatures[0].properties.s_lon = e.sharedDestinationFeatures[0].properties.e_lon
+      }
+
       SelectElement("options", "None");
-      $("#infoText").html("Information about selected point below.");
-      //  console.log(e)
       if (e.sharedOriginFeatures.length) {
         $("#sidebar-content").html(
           "<table>" +
